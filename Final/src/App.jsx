@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import Route from './Routes/Route'
+import Routing from './Routes/Routing'
 function App() {
 
   return (
     <>
-      <Route/>
+      <Routing/>
     </>
   )
 }
