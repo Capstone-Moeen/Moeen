@@ -53,3 +53,13 @@ Project User Story:
 Mohammed, a person with disabilities, planned to visit a public place in Riyadh. Upon arrival, he discovered the absence of designated parking spaces for people with disabilities. Undeterred, he parked in regular spaces only to find no wheelchair ramps, this experience, was not the first, he felt disheartened.
 
 Our website emerged as a solution, offering a comprehensive guide to disability-friendly locations. The platform features an interactive map, search functionality, detailed place information, user reviews, and a profile section. Users can also contribute by adding new places. Additional features, such as customizable layouts, voice mode, and color scheme customization, make the platform inclusive for a diverse range of users.
+
+
+Team:
+Tasneem Alluhimi GitHub
+Maan Alraddadi GitHub
+Amwaj Aljohni GitHub
+
+Figma:
+https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76B/final?type=design&node-id=0%3A1&mode=design&t=Zvs4aYdX2GAj8khr-1
+
