@@ -12,7 +12,7 @@ function MapComponent() {
   });
   const [userPosition, setUserPosition] = React.useState({});
   const [mapRef, setMapRef] = React.useState();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);  
   // Getting the user current location
   useEffect(() => {
     if (navigator.geolocation) {
@@ -85,7 +85,7 @@ function MapComponent() {
               position={{ lat: 24.7, lng: 46.64 }}
               icon={"https://i.postimg.cc/VLQmsF0X/shopPin.png"}
             />
-            <BackDrop isOpen={isOpen}></BackDrop>
+            <BackDrop handelBackDropClick={() => setIsOpen(false)} isOpen={isOpen}></BackDrop>
             <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
           </GoogleMap>
         )}

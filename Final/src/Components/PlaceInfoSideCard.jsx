@@ -10,9 +10,9 @@ function PlaceInfoSideCard({ isOpen }) {
     <Card
       className={`${
         isOpen ? "translate-x-0" : "translate-x-[110%]"
-      }    py-2 bg-[#FAFAFB] shadow-2xl absolute right-5 w-[32rem] flex flex-col justify-center items-center h-[83%] top-5 max-sm:right-2 `}
+      }    py-2 bg-[#FAFAFB] shadow-2xl absolute right-5 w-[32rem] flex flex-col justify-center items-center h-[85%] top-5 max-sm:right-2 `}
     >
-      <CardHeader className="pb-0 pt-1 px-2 flex-col ">
+      <CardHeader className="pb-0 pt-1 px-2 flex-col">
         <Image
           width="100%"
           alt="NextUI hero Image with delay"
@@ -24,33 +24,40 @@ function PlaceInfoSideCard({ isOpen }) {
         <div className="w-full flex items-center">
           <div className="w-full flex flex-col mt-5">
             <h1 className="text-3xl font-bold text-right">أسم المكان</h1>
-            <h1 className="text-2xl  text-right text-gray-400 mt-2 ">4.5 Km</h1>
+            <span className="text-2xl text-right text-gray-400 mt-2">
+              4.2 كم
+            </span>
           </div>
           <Button
-            className="bg-[#005B41] text-white text-small font-bold w-64"
+            className="bg-[#005B41] text-white font-bold w-72 text-xl"
             endContent={<DirectionsIcon size={52} />}
             size="lg"
           >
-            توجيهات الوصول
+            الإتجاهات
           </Button>
         </div>
 
         <Tabs
-          className="w-full block mt-5 "
+          className="w-full block mt-3 "
           size="lg"
           aria-label="Tabs sizes"
           selectedKey={selected}
           onSelectionChange={setSelected}
           fullWidth="true"
+          color="success"
         >
           <Tab
             key="details"
             title="تفاصيل"
-            className={`text-lg font-bold  ${selected === "details" ? "" : ""}`}
+            className={`text-xl font-bold ${
+              selected === "details" ? "text-green-900" : ""
+            }`}
           >
-           <ServicesGrid></ServicesGrid>
+            <ServicesGrid></ServicesGrid>
           </Tab>
-          <Tab key="ratings" title="التقييمات" className="text-lg font-bold" />
+          <Tab key="ratings" title="التقييمات" className="text-xl font-bold">
+            Tab2
+          </Tab>
         </Tabs>
       </CardBody>
     </Card>

@@ -11,5 +11,21 @@ export default {
     extend: {},
   },
   darkMode: "class",
-  plugins: [nextui(), require("daisyui")],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            primary:{
+              DEFAULT: "#005B41",
+            },
+            success: {
+              DEFAULT: "#CEEAD6",
+            },
+          },
+        },
+      },
+    }),
+    require("daisyui"),
+  ],
 };
