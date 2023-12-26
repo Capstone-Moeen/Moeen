@@ -56,9 +56,13 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 
 
 Team:
+
 Tasneem Alluhimi GitHub
+
 Maan Alraddadi GitHub
+
 Amwaj Aljohni GitHub
+
 
 Figma:
 https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76B/final?type=design&node-id=0%3A1&mode=design&t=Zvs4aYdX2GAj8khr-1
