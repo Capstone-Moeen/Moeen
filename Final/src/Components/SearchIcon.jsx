@@ -30,5 +30,6 @@ export const SearchIcon = ({
       strokeLinejoin="round"
       strokeWidth={strokeWidth}
     />
+    
   </svg>
 );

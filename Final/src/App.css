@@ -7,4 +7,10 @@
 body{
     direction: rtl;
     font-family: 'Tajawal', sans-serif;
+    overflow: hidden;
 }
+
+.map-container {
+    height: 100%;
+    width: 100%;
+  }
