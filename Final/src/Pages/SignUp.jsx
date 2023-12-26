@@ -94,7 +94,7 @@ function SignUp() {
                 <div className="lg:max-w-[100%] m-0 sm:m-10  flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                         <div>
-                            <img src="" className="w-mx-auto" alt="Logo" />
+                            <Link to='/'><img src="" className="w-mx-auto" alt="Logo" /></Link>
                         </div>
 
                         <div className="mt-5 font-bold text-center text-2xl"> انشاء حساب جديد </div>

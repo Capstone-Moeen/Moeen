@@ -2,11 +2,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function SignIn() {
+
     const navigate = useNavigate();
     const [inputs, setInputs] = React.useState({
         email: { value: '', errorMessage: '' },
         password: { value: '', errorMessage: '' },
-    });
+    })
 
     const [loading, setLoading] = React.useState(false);
 
@@ -67,7 +68,7 @@ function SignIn() {
                 <div className="lg:max-w-[1000%] m-0 sm:m-10 flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                         <div>
-                            <img src="" className="w-mx-auto" alt="Logo" />
+                            <Link to='/'><img src="" className="w-mx-auto" alt="Logo" /></Link>
                         </div>
 
                         <div className="mt-5 text-center text-2xl font-bold">تسجيل الدخول</div>
@@ -75,9 +76,9 @@ function SignIn() {
                         <div className="mt-8 flex flex-col items-center">
                             <div className="w-full flex-1 mt-8">
                                 <input
-                                    className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border ${
-                                        inputs.email.errorMessage ? 'border-red-500' : 'border-gray-200'
-                                    } placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 text-right`}
+                                    className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border 
+                                    ${inputs.email.errorMessage ? 'border-red-500' : 'border-gray-200'} 
+                                        placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 text-right`}
                                     type="email"
                                     placeholder=" ادخل البريد الإلكتروني  "
                                     onChange={addInputs}
@@ -89,9 +90,9 @@ function SignIn() {
                                 )}
 
                                 <input
-                                    className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border ${
-                                        inputs.password.errorMessage ? 'border-red-500' : 'border-gray-200'
-                                    } placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 text-right`}
+                                    className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border 
+                                    ${inputs.password.errorMessage ? 'border-red-500' : 'border-gray-200'} 
+                                    placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 text-right`}
                                     type="password"
                                     placeholder=" ادخل كلمة المرور "
                                     onChange={addInputs}
@@ -108,6 +109,13 @@ function SignIn() {
                                 >
                                     <span className="ml-">{loading ? 'الرجاء الانتظار' : ' تسجيل الدخول '}</span>
                                 </button>
+
+                                <div className="text-right mt-5">
+                                    نسيت كلمة المرور؟ {' '}
+                                    <Link to="">
+                                        <span className="text-[#005B41]"> استعادة كلمة المرور </span>
+                                    </Link>
+                                </div>
 
                                 <div className="text-right mt-5">
                                     ليس لديك حساب؟{' '}
