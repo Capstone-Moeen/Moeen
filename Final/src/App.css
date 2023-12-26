@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.cdnfonts.com/css/tajawal');
 
-*{
+body{
+    direction: rtl;
     font-family: 'Tajawal', sans-serif;
+    overflow: hidden;
+    background-color: white;
 }
+
+.map-container {
+    height: 100%;
+    width: 100%;
+  }
