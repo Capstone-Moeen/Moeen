@@ -3,7 +3,7 @@ import { Input, Button } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { CloseIcon } from "../Assets/Icons/CloseIcon";
 import { Link, useNavigate } from "react-router-dom";
-import { AddIcon } from "../Assets/Icons/AddIcon";
+import { AddNewPlaceIcon } from "../Assets/Icons/AddNewPlaceIcon";
 import { HomeIcon } from "../Assets/Icons/HomeIcon";
 import { ProfileIcon } from "../Assets/Icons/ProfileIcon";
 import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
@@ -102,8 +102,8 @@ function Nav() {
                           </Link>
                         </li>
                         <li className="flex w-full items-center">
-                        <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
-                        <AddIcon />
+                        <Link to="/NewRequest" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                        <AddNewPlaceIcon />
                         اضافة مكان جديد
                           </Link>
 

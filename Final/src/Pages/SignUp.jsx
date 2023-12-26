@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { Input, Button, Checkbox } from "@nextui-org/react";
+
 
 function SignUp() {
     const navigate = useNavigate();
@@ -159,26 +161,24 @@ function SignUp() {
                                     </div>
                                 )}
 
-                                <p className="mt-6 text-right">
-                                    أوافق على
-                                    <a href="#" className="text-[#005B41]">
-                                        {' '}
-                                        الشروط والأحكام
-                                    </a>{' '}
-                                    و{' '}
-                                    <a href="#" className="text-[#005B41]">
-                                        سياسة الخصوصية
-                                    </a>
-                                </p>
+                                <div className='flex flex-col w-full text-start pt-3 px-2 '>
+                                <Checkbox defaultSelected color="default"  className="font-medium text-xl text-black"> 
+                                    أوافق على  
+                                <span className='text-[#005B41]'> الشروط والأحكام </span> 
+                                وسياسة 
+                                <span className='text-[#005B41]'> الخصوصية </span>
+                                </Checkbox>
+                                </div>
 
-                                <button
-                                    className="mt-5 tracking-wide font-semibold bg-[#005B41] text-white w-full py-4 rounded-lg hover:bg-[#E4EFE7] hover:text-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                <Button
+                                    className="mt-5 tracking-wide font-semibold bg-[#005B41] text-white w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                    size='lg'
                                     onClick={sign_up}
                                 >
                                     <span className="ml-">
                                         {loading ? 'الرجاء الانتظار' : 'انشاء حساب'}
                                     </span>
-                                </button>
+                                </Button>
 
                                 <div className="mt-5 text-right">
                                      هل لديك حساب؟{' '}

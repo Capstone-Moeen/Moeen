@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Input, Button } from "@nextui-org/react";
+
 
 function SignIn() {
 
@@ -103,12 +105,13 @@ function SignIn() {
                                     <div className="text-red-500 text-sm text-right">{inputs.password.errorMessage}</div>
                                 )}
 
-                                <button
-                                    className="mt-5 tracking-wide font-semibold bg-[#005B41] text-white w-full py-4 rounded-lg hover:bg-[#E4EFE7] hover:text-black transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                    <Button
+                                    className="mt-5 tracking-wide font-semibold bg-[#005B41] text-white w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                    size='lg'
                                     onClick={sign_in}
                                 >
                                     <span className="ml-">{loading ? 'الرجاء الانتظار' : ' تسجيل الدخول '}</span>
-                                </button>
+                                </Button>
 
                                 <div className="text-right mt-5">
                                     نسيت كلمة المرور؟ {' '}
