@@ -4,12 +4,12 @@ import { SearchIcon } from "./SearchIcon";
 function Nav() {
   return (
     <>
-      <nav className="bg-[#005B41] h-[13vh] flex justify-between py-4 px-8 items-center">
+      <nav className="bg-[#005B41] h-[10vh] flex justify-between py-4 px-8 items-center">
         <h1 className="text-white font-bold text-4xl">Logo</h1>
         <div className="w-[35rem] max-sm:w-[16rem]">
           <Input
             classNames={{
-              base: " sm:max-w-[10rem] h-14 max-sm:hidden",
+              base: " sm:max-w-[10rem] h-12 max-sm:hidden",
               mainWrapper: "h-full",
               input: "text-large",
               inputWrapper:
