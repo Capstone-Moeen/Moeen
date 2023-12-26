@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Nav from '../Components/Nav'
+import MapComponent from '../Components/MapComponent'
 function Home() {
   return (
-    <div>Home</div>
+    <>
+    <Nav></Nav>
+    <MapComponent></MapComponent>
+    </>
   )
 }
 
