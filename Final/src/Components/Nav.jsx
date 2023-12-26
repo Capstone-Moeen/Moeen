@@ -84,7 +84,7 @@ function Nav() {
                   <img className="w-12 h-12 rounded-full" src={user} alt="user icon" />
                 </button>
                 {showUserMenu && (
-                  <div className="absolute left-1 top-20 text-right mt-2 w-80 bg-white border border-gray-200 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600 z-[1000]">
+                  <div className="absolute left-1 top-20 text-right mt-2 w-80 max-sm:w-64 bg-white border border-gray-200 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600 z-[1000]">
                     <div className="py-2">
                       <div className="px-4 py-3"> 
                         <span 
