@@ -1,10 +1,10 @@
-Final project
+<h1>Final project</h1>
 
-Project Description:
+<h2>Project Description:</h2>
 
 Our website is an innovative online platform designed to assist individuals with special needs navigate public spaces. The platform aims to provide detailed information about accessible places to people with disabilities, addressing issues like parking facilities, ramps for wheelchair access, and overall accessibility features, etc.
 
-Key Features:
+<h2>Key Features:</h2>
 
 1- Interactive Map:
 
@@ -33,7 +33,7 @@ Clicking on the user's profile picture reveals a menu contains personal informat
 Users can submit requests to add new places not currently on the map.
 
 
-Additional Features:
+<h2>Additional Features:</h2>
 
 1- Customizable Layout:
 
@@ -48,22 +48,24 @@ An option for a voice-enabled mode to aid users with visual impairments.
 The ability to change the site colors to accommodate individuals with color blindness.
 
 
-Project User Story:
+<h2>Project User Story:</h2>
 
 Mohammed, a person with disabilities, planned to visit a public place in Riyadh. Upon arrival, he discovered the absence of designated parking spaces for people with disabilities. Undeterred, he parked in regular spaces only to find no wheelchair ramps, this experience, was not the first, he felt disheartened.
 
 Our website emerged as a solution, offering a comprehensive guide to disability-friendly locations. The platform features an interactive map, search functionality, detailed place information, user reviews, and a profile section. Users can also contribute by adding new places. Additional features, such as customizable layouts, voice mode, and color scheme customization, make the platform inclusive for a diverse range of users.
 
 
-Team:
+<h2>Team:</h2>
+<ul>
+  <li>Tasneem Alluhimi <a href='https://github.com/TasAlluhimi'>GitHub</a></li>
+  <li>Maan Alraddadi <a href='https://github.com/Amwaj-M'>GitHub</a></li>
+  <li>Amwaj Aljohni <a href='https://github.com/MaanRaddadi'>GitHub</a></li>
+</ul>
 
-Tasneem Alluhimi GitHub
 
-Maan Alraddadi GitHub
-
-Amwaj Aljohni GitHub
+<h2>Our design:</h2>
+Figma: <a href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76B/final?type=design&node-id=0%3A1&mode=design&t=Zvs4aYdX2GAj8khr-1'>Click me</a>
 
 
-Figma:
-https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76B/final?type=design&node-id=0%3A1&mode=design&t=Zvs4aYdX2GAj8khr-1
+
 
