@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '../Components/Nav'
-import { Input, Button } from "@nextui-org/react";
+import { Tooltip, Button } from "@nextui-org/react";
 import {Checkbox} from "@nextui-org/react";
 import { useState } from 'react';
 import imageMap from '../Assets/MapPins/ImageMap.png'
@@ -101,12 +101,14 @@ export default function NewRequest() {
             <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image3'/>
             <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image6'/>
             </div>
+            <Tooltip showArrow={true} content="اضف صورة">
             <Button
             className="bg-[#005B41] w-fit absolute top-[45%] right-[45%] max-sm:top-[40%] max-sm:right-[40%] "
             endContent={<AddIcon size={20}/>}
             size="sm"
           >    
           </Button>
+          </Tooltip>
           </div>
           
           </div>
