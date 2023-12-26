@@ -90,14 +90,14 @@ function SignUp() {
 
     return (
         <>
-            <div className="min-h-screen bg-[#FAFAFB] text-gray-900 flex justify-center">
-                <div className="lg:max-w-[60%] m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+            <div className="min-h-screen text-gray-900 flex justify-center">
+                <div className="lg:max-w-[100%] m-0 sm:m-10  flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                         <div>
                             <img src="" className="w-mx-auto" alt="Logo" />
                         </div>
 
-                        <div className="mt-5 text-center text-2xl">تسجيل جديد</div>
+                        <div className="mt-5 font-bold text-center text-2xl"> انشاء حساب جديد </div>
 
                         <div className="mt-8 flex flex-col items-center">
                             <div className="w-full flex-1 mt-8">
@@ -159,7 +159,7 @@ function SignUp() {
                                     </div>
                                 )}
 
-                                <p className="mt-6 text-xs font-bold text-center">
+                                <p className="mt-6 text-right">
                                     أوافق على
                                     <a href="#" className="text-[#005B41]">
                                         {' '}
@@ -180,8 +180,8 @@ function SignUp() {
                                     </span>
                                 </button>
 
-                                <div className="text-center mt-5">
-                                    لديك حساب؟{' '}
+                                <div className="mt-5 text-right">
+                                     هل لديك حساب؟{' '}
                                     <Link to="/SignIn">
                                         <span className="text-[#005B41]">تسجيل دخول </span>
                                     </Link>

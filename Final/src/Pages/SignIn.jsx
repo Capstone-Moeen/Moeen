@@ -63,14 +63,14 @@ function SignIn() {
 
     return (
         <>
-            <div className="min-h-screen bg-[#FAFAFB] text-gray-900 flex justify-center">
-                <div className="lg:max-w-[60%] m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+            <div className="min-h-screen text-gray-900 flex justify-center">
+                <div className="lg:max-w-[1000%] m-0 sm:m-10 flex justify-center flex-1">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                         <div>
                             <img src="" className="w-mx-auto" alt="Logo" />
                         </div>
 
-                        <div className="mt-5 text-center text-2xl">تسجيل الدخول</div>
+                        <div className="mt-5 text-center text-2xl font-bold">تسجيل الدخول</div>
 
                         <div className="mt-8 flex flex-col items-center">
                             <div className="w-full flex-1 mt-8">
@@ -109,7 +109,7 @@ function SignIn() {
                                     <span className="ml-">{loading ? 'الرجاء الانتظار' : ' تسجيل الدخول '}</span>
                                 </button>
 
-                                <div className="text-center mt-5">
+                                <div className="text-right mt-5">
                                     ليس لديك حساب؟{' '}
                                     <Link to="/SignUp">
                                         <span className="text-[#005B41]">تسجيل جديد </span>
