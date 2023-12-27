@@ -101,7 +101,7 @@ export default function NewRequest() {
             <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image3'/>
             <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image6'/>
             </div>
-            <Tooltip showArrow={true} content="اضف صورة">
+            <Tooltip showArrow={true} content="اضف صورة" className="bg-[#CEEAD6] text-black">
             <Button
             className="bg-[#005B41] w-fit absolute top-[45%] right-[45%] max-sm:top-[40%] max-sm:right-[40%] "
             endContent={<AddIcon size={20}/>}
