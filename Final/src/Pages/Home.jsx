@@ -4,8 +4,10 @@ import MapComponent from '../Components/MapComponent'
 function Home() {
   return (
     <>
+    <div className='h-screen overflow-hidden'>
     <Nav></Nav>
     <MapComponent></MapComponent>
+    </div>
     </>
   )
 }
