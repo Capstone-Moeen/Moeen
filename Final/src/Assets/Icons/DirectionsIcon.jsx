@@ -15,6 +15,7 @@ export const DirectionsIcon = ({
     role="presentation"
     viewBox="0 0 24 24"
     width={width || size}
+    
     {...props}
   >
     <path
@@ -24,6 +25,7 @@ export const DirectionsIcon = ({
       fill="white"
       stroke="white"
       stroke-width="0.00064"
+      
     />
   </svg>
 );

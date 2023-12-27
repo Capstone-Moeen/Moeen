@@ -3,15 +3,17 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { CircularProgress } from "@nextui-org/react";
 import FilterBtns from "./FilterBtns";
 import PlaceInfoSideCard from "./PlaceInfoSideCard";
+import BackDrop from "./BackDrop";
+import FeaturedPlaces from "./FeaturedPlaces";
 
 function MapComponent() {
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLEMAPS_API_TOKEN,
+    googleMapsApiKey: 'AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0',
   });
   const [userPosition, setUserPosition] = React.useState({});
   const [mapRef, setMapRef] = React.useState();
-   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);  
   // Getting the user current location
   useEffect(() => {
     if (navigator.geolocation) {
@@ -32,14 +34,17 @@ function MapComponent() {
   const handelMarkerClicked = (pos) => {
     mapRef.panTo(pos);
     mapRef.setZoom(16);
-    setIsOpen(true)
+    setIsOpen(true);
   };
 
   return (
     <>
-      <div className=" h-[100vh] ">
+      <div className="h-screen ">
         {!isLoaded ? (
-        <div className="w-full h-full flex justify-center items-center"> <CircularProgress size="lg" color="success" label="Loading..." /></div>  
+          <div className="w-full h-full flex justify-center items-center">
+            
+            <CircularProgress size="lg" color="success" label="Loading..." />
+          </div>
         ) : (
           <GoogleMap
             zoom={13}
@@ -81,7 +86,9 @@ function MapComponent() {
               position={{ lat: 24.7, lng: 46.64 }}
               icon={"https://i.postimg.cc/VLQmsF0X/shopPin.png"}
             />
-        <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
+            <BackDrop handelBackDropClick={() => setIsOpen(false)} isOpen={isOpen}></BackDrop>
+            <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
+            <FeaturedPlaces></FeaturedPlaces>
           </GoogleMap>
         )}
       </div>
