@@ -7,7 +7,7 @@ import PlaceInfoSideCard from "./PlaceInfoSideCard";
 function MapComponent() {
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey:'AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0',
+    googleMapsApiKey: 'AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0',
   });
   const [userPosition, setUserPosition] = React.useState({});
   const [mapRef, setMapRef] = React.useState();

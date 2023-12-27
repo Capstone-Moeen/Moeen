@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.cdnfonts.com/css/tajawal');
+
 body{
     direction: rtl;
     font-family: 'Tajawal', sans-serif;
@@ -15,4 +17,3 @@ body{
     height: 100%;
     width: 100%;
   }
-
