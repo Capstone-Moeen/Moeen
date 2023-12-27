@@ -39,7 +39,7 @@ function MapComponent() {
 
   return (
     <>
-      <div className="h-screen ">
+      <div className="h-screen">
         {!isLoaded ? (
           <div className="w-full h-full flex justify-center items-center">
             
@@ -59,6 +59,7 @@ function MapComponent() {
               mapTypeControl: false,
               fullscreenControl: false,
               mapId: "a128fd791f572fa9",
+            
             }}
             onLoad={onMapLoad}
             onClick={() => setIsOpen(false)}
