@@ -4,6 +4,7 @@ import { CircularProgress } from "@nextui-org/react";
 import FilterBtns from "./FilterBtns";
 import PlaceInfoSideCard from "./PlaceInfoSideCard";
 import BackDrop from "./BackDrop";
+import FeaturedPlaces from "./FeaturedPlaces";
 
 function MapComponent() {
   // Initializing the google maps with the api key
@@ -41,7 +42,7 @@ function MapComponent() {
       <div className="h-screen ">
         {!isLoaded ? (
           <div className="w-full h-full flex justify-center items-center">
-            {" "}
+            
             <CircularProgress size="lg" color="success" label="Loading..." />
           </div>
         ) : (
@@ -87,6 +88,7 @@ function MapComponent() {
             />
             <BackDrop handelBackDropClick={() => setIsOpen(false)} isOpen={isOpen}></BackDrop>
             <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
+            <FeaturedPlaces></FeaturedPlaces>
           </GoogleMap>
         )}
       </div>

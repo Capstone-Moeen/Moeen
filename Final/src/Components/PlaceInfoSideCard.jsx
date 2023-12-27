@@ -12,22 +12,17 @@ import { DirectionsIcon } from "../Assets/Icons/DirectionsIcon";
 import { Tabs, Tab } from "@nextui-org/react";
 import ServicesGrid from "./ServicesGrid";
 import "simplebar-react/dist/simplebar.min.css";
-import SimpleBar from "simplebar-react";
 import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 function PlaceInfoSideCard({ isOpen }) {
   const [selected, setSelected] = React.useState("details");
+  //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
-
-
+// Rating Modal Handel
 const handelOpenModal = ()=>{
   setIsModalOpen(!isModalOpen)
 }
-
-
-
-
 
   return (
     <>
