@@ -13,9 +13,9 @@ export default function NewRequest() {
     const [isSelected, setIsSelected] = useState(false);
 
   return (
-    <div className='overflow-visible text-right bg-[#FAFAFB]'>
+  <>
     <Nav/>
-
+    <div className='w-full h-full overflow-auto text-right bg-[#FAFAFB]'>
     <div className='w-full flex justify-center h-full items-center p-10'>
         <div className='flex flex-col justify-start  items-center text-center w-full'>
             <h1 className='font-extrabold text-[2rem] text-black'>طلب إضافة مكان جديد</h1>
@@ -138,5 +138,6 @@ export default function NewRequest() {
         </div>
     </div>    
     </div>
+    </>
   )
 }
