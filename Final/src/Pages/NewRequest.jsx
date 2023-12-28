@@ -1,12 +1,12 @@
 import React from 'react'
 import Nav from '../Components/Nav'
-import { Tooltip, Button, input } from "@nextui-org/react";
-import {Select, SelectItem} from "@nextui-org/react";
-import {Checkbox} from "@nextui-org/react";
+import { Tooltip, Button, Input } from '@nextui-org/react';
+import {Checkbox , Select, SelectItem} from '@nextui-org/react';
 import { useState } from 'react';
 import imageMap from '../Assets/MapPins/ImageMap.png'
 import { SendIcon } from '../Assets/Icons/SendIcon';
 import { AddIcon } from '../Assets/Icons/AddIcon';
+import { Avatar } from '@nextui-org/react';
 
 
 
@@ -15,15 +15,16 @@ export default function NewRequest() {
 
   return (
   <>
+  
     <Nav/>
     <div className='w-full h-full overflow-auto text-right bg-[#FAFAFB]'>
 
     <div className='w-full flex justify-center h-full items-center p-10 max-sm:p-3'>
-      <div className='w-[55%] shadow-lg py-10 rounded-lg bg-white max-sm:w-full max-sm:px-2'>
+      <div className='w-[60%] shadow-lg py-10 rounded-lg bg-white max-sm:w-full max-sm:px-2'>
         <div className='flex flex-col justify-start  items-center text-center w-full'>
             <h1 className='font-extrabold text-[2rem] text-black'>طلب إضافة مكان جديد</h1>
             <p className='text-md pt-3 w-[85%] text-black max-sm:w-full'>
-            *الرجاء تعبئة الأستبيان بمعلومات صحيحة ودقيقة، سيتم مراجعة جميع المعلومات قبل أضافة المكان. 
+           الرجاء تعبئة الأستبيان بمعلومات صحيحة ودقيقة، سيتم مراجعة جميع المعلومات قبل أضافة المكان. 
             </p>
 
          <div className='flex flex-col w-[85%] justify-center items-center pt-5 gap-5 max-sm:w-full '>
@@ -32,10 +33,12 @@ export default function NewRequest() {
              <div className="label">
                <span className="label-text-alt font-medium text-xl text-black">اسم المكان</span>
              </div>
-             <input
-              className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border 
-            placeholder-gray-400 text-sm focus:outline-none focus:border-[#005B41] focus:bg-white text-right`}
+             <Input
+              className={`w-full  rounded-lg font-medium  border-none
+            placeholder-gray-400 text-sm  text-right`}
               type="text"
+              color="primary"
+              variant="bordered"
               placeholder=" ادخل اسم المكان"
             />
            </label>
@@ -47,28 +50,27 @@ export default function NewRequest() {
               <div className="label">
                 <span className="label-text font-medium text-xl text-black ">تصنيف المكان</span>
              </div>
-               <Select
-                 placeholder="اختر التصنيف"
-                 variant="bordered "
-                 
-                 className={`w-full rounded-lg font-medium border text-black text-right focus:border-[#005B41]  focus:bg-[#005B41]`}
-                >
-                  <SelectItem key="restaurant">مطعم</SelectItem>
+             <Select 
+              placeholder="اختر التصنيف"
+              color="primary" variant="bordered" className="border-none font-medium text-black">
+                  <SelectItem  key="restaurant">مطعم</SelectItem>
                   <SelectItem key="Park">منتزه</SelectItem>
                   <SelectItem key="cafe">مقهى</SelectItem>
                   <SelectItem key="shopping">تسوق</SelectItem>
                   <SelectItem key="Other">أخرى</SelectItem>
-              </Select>
+             </Select>
           </label>
 
            <label className="form-control w-full ">
              <div className="label">
                <span className="label-text-alt font-medium text-xl text-black">المنطقة </span>
              </div>
-             <input
-              className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border 
-            placeholder-gray-400 text-sm focus:outline-none focus:border-[#005B41] focus:bg-white text-right`}
+             <Input
+              className={`w-full  rounded-lg font-medium  border-none
+            placeholder-gray-400 text-sm  text-right`}
               type="text"
+              color="primary"
+              variant="bordered"
               placeholder=" ادخل اسم المنطقة"
              />
            </label>
@@ -77,10 +79,12 @@ export default function NewRequest() {
              <div className="label">
                <span className="label-text-alt font-medium text-xl text-black">المدينة </span>
              </div>
-             <input
-              className={`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border 
-            placeholder-gray-400 text-sm focus:outline-none focus:border-[#005B41] focus:bg-white text-right`}
+             <Input
+              className={`w-full  rounded-lg font-medium  border-none
+            placeholder-gray-400 text-sm  text-right `}
               type="text"
+              color="primary"
+              variant="bordered"
               placeholder=" ادخل اسم المدينة"
              />
            </label>
@@ -92,7 +96,7 @@ export default function NewRequest() {
           <div className='w-full flex gap-44 px-3 max-sm:gap-5'>
             <div className=' flex flex-col gap-3'>
               <Checkbox isSelected={isSelected} onValueChange={setIsSelected}   className=" font-medium text-xl text-black"> مواقف المقعدين </Checkbox>
-              <Checkbox defaultSelected={false}  className=" font-medium text-xl text-black"> المنحدرات  </Checkbox>
+              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black"> المنحدرات  </Checkbox>
               <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black">  طاولات الطعام </Checkbox>
             </div>
 
