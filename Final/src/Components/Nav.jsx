@@ -66,7 +66,7 @@ function Nav() {
                 "h-full font-normal text-default-500 bg-white w-[35rem] mr-10 max-sm:w-[4rem]",
             }}
             placeholder="بحث"
-            size="lg"
+            
             endContent={<SearchIcon size={22} />}
             type="search"
             fullWidth={true}

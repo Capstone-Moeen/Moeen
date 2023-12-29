@@ -11,10 +11,10 @@ function FeaturedPlaceCard({ placeImage, placeName }) {
         onMouseEnter={() => setFooterView(true)}
         onMouseLeave={() => setFooterView(false)}
         isFooterBlurred
-        className="w-full h-[250px] col-span-12 sm:col-span-7 FeaturedPlaceCard"
+        className="w-full h-[150px] col-span-12 sm:col-span-7 FeaturedPlaceCard"
       >
         <CardHeader className="absolute z-10 top-1 flex-col items-start">
-          <h4 className="text-white font-bold text-3xl">{placeName}</h4>
+          <h4 className="text-white/95 font-bold text-md p-1 rounded bg-[rgba(0,0,0,0.5)] ">{placeName}</h4>
         </CardHeader>
         <Image
           removeWrapper
@@ -29,11 +29,11 @@ function FeaturedPlaceCard({ placeImage, placeName }) {
         >
           <div className="flex flex-grow gap-2 items-center">
             <div className="flex flex-col items-start">
-              <h1 className="text-2xl font-bold text-white">4.5</h1>
-              <Rating value={4} precision={0.5} readOnly></Rating>
+              <h1 className="text-lg font-bold text-white">4.5</h1>
+              <Rating value={4} precision={0.5} readOnly size="small"></Rating>
             </div>
           </div>
-          <Button color="primary" size="lg">
+          <Button color="primary" size="sm" >
             عرض
           </Button>
         </CardFooter>
