@@ -195,9 +195,8 @@ function Nav() {
               </div>
         :
         <Button 
-        size="lg" 
         onClick={()=>{navigate('/SignIn')}}
-        className="text-black font-bold bg-white text-xl max-sm:text-sm ">
+        className="text-black font-bold bg-white text-xl max-sm:text-sm p-2 ">
           تسجيل دخول
         </Button>
         }
