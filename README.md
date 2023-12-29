@@ -3,6 +3,7 @@
 Our website is an innovative online platform designed to assist individuals with special needs navigate public spaces. The platform aims to provide detailed information about accessible places to people with disabilities, addressing issues like parking facilities, ramps for wheelchair access, overall accessibility features, etc.
 
 <h2>Key Features:</h2>
+
 - Interactive Map:
 
 Users can view a map on the homepage illustrating all accessible places categorized by types (restaurants, parks, hotels, etc.). The map displays the user's current location.
@@ -28,7 +29,7 @@ Clicking on the user's profile picture reveals a menu containing personal inform
 Users can submit requests to add new places not currently on the map.
 
 <h2>Additional Features:</h2>
-- Customizable Layout:
+<li> Customizable Layout:</li>
 
 Users can adjust the website layout to easy mode, catering to those who find map interfaces challenging.
 
