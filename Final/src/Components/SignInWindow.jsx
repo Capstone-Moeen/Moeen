@@ -13,6 +13,8 @@ import {
 import { MailIcon } from "../Assets/Icons/MailIcon";
 import { LockIcon } from "../Assets/Icons/LockIcon";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
 
@@ -69,9 +71,14 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
       setLoading(true);
 
       if (validateInputs()) {
+        signInWithEmailAndPassword(auth, inputs.email.value, inputs.password.value)
+        .then(res=>{
+          console.log(res.user);
           navigate('/');
           localStorage.setItem('user', JSON.stringify(inputs));
           localStorage.setItem('isLogged', true);
+          openModal()
+        })
       } else {
           setLoading(false);
       }

@@ -14,14 +14,16 @@ import { MailIcon } from "../Assets/Icons/MailIcon";
 import { LockIcon } from "../Assets/Icons/LockIcon";
 import { UserSignUpIcon } from "../Assets/Icons/UserSignUpIcon";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../Firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 
 function SignUpWindow({ isSignUpModel, openSignUpModel, openModal }) {
 
+  const navigate = useNavigate();
   const { onOpen, onClose } = useDisclosure();
-
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const navigate = useNavigate();
   const [inputs, setInputs] = React.useState({
     name: { value: '', errorMessage: '' },
     email: { value: '', errorMessage: '' },
@@ -97,12 +99,19 @@ const sign_up = () => {
     setLoading(true);
 
     if (validateInputs()) {
-
-        navigate('/');
-        localStorage.setItem('user', JSON.stringify(inputs));
-        localStorage.setItem('isLogged', true);
-        openSignUpModel(false);
-    } else {
+        createUserWithEmailAndPassword(auth, inputs.email.value, inputs.password.value)
+        .then((res)=>{
+            updateProfile(res.user,{
+             displayName:inputs.name.value
+            })
+            .then((res)=>{
+                navigate('/');
+                localStorage.setItem('user', JSON.stringify(inputs));
+                localStorage.setItem('isLogged', true);
+                openSignUpModel(false);
+            })
+           }) 
+        } else {
         setLoading(false);
     }
 };
