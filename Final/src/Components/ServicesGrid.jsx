@@ -12,7 +12,7 @@ import { Tooltip } from "@nextui-org/react";
 function ServicesGrid() {
   return (
     <>
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center mt-5">
         <div className="grid grid-cols-3 justify-items-center grid-rows-2 gap-y-2 gap-x-9">
           <Tooltip
             placement="top"

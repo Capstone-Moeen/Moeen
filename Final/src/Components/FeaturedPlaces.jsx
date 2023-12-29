@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {  Card, CardBody, CardHeader } from "@nextui-org/react";
 import FeaturedPlaceCard from "./FeaturedPlaceCard";
-function FeaturedPlaces() {
+function FeaturedPlaces({isOpen}) {
 const  [cardView, setCardView] = useState(false)
 
   return (
     <>
      
-      <Card onMouseEnter={()=>setCardView(true)} onMouseLeave={()=>setCardView(false)} className={`py-4 absolute left-2 bg-[#FAFAFB] shadow-2xl w-[32rem] flex-col transition-all duration-500 translate-x-[-90%] ${cardView ? "translate-x-0" : ""}`}>
+      <Card onMouseEnter={()=>setCardView(true)} onMouseLeave={()=>setCardView(false)} className={`py-4 absolute left-2 bg-[#FAFAFB] shadow-2xl w-[32rem] flex-col transition-all duration-500 translate-x-[-90%] max-sm:hidden ${isOpen ? "hidden" : ""} ${cardView ? "translate-x-0" : ""}`}>
        
         <CardHeader className="flex justify-center">
           <h1 className="text-3xl font-bold text-center ">الاعلى تقييما</h1>

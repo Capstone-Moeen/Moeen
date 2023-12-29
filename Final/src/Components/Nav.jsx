@@ -75,7 +75,7 @@ function Nav() {
         <div className="relative" ref={userMenuRef}>
                 <button
                   type="button"
-                  className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                  className="flex text-sm bg-transparent rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                   id="user-menu-button"
                   aria-expanded={showUserMenu}
                   onClick={userMenuClick}
@@ -96,26 +96,26 @@ function Nav() {
                       </div>
                       <ul className="py-2" aria-labelledby="user-menu-button">
                         <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                             <HomeIcon />
                             الرئيسية
                           </Link>
                         </li>
                         <li className="flex w-full items-center">
-                        <Link to="/NewRequest" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                        <Link to="/NewRequest" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                         <AddNewPlaceIcon />
                         اضافة مكان جديد
                           </Link>
 
                         </li>
                         <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                             <ProfileIcon size={22}/>
                           الملف الشخصي
                           </Link>
                         </li>
                         <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <FavoriteIcon />
                           المفضلة
                           </Link>
@@ -125,19 +125,19 @@ function Nav() {
                         rounded md:my-7 max-sm:my-7"/>
 
                           <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <LanguageIcon />
                           اللغة العربية
                           </Link>
                         </li>
                         <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <BlindColorIcon />
                           عمى الالوان
                           </Link>
                         </li>
                         <li>
-                          <Link to="/" className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <Link to="/" className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <EasyModeIcon />
                           الوضع السهل
                           </Link>
@@ -149,7 +149,7 @@ function Nav() {
                         <li>
                           <button 
                           onClick={sign_out}
-                          className="block text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          className=" text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <SignOutIcon />
                           تسجيل الخروج
                           </button>
@@ -161,9 +161,8 @@ function Nav() {
               </div>
         :
         <Button 
-        size="lg" 
         onClick={()=>{navigate('/SignIn')}}
-        className="text-black font-bold bg-white text-xl max-sm:text-sm ">
+        className="text-black font-bold bg-white text-xl max-sm:text-sm p-2 ">
           تسجيل دخول
         </Button>
         }
