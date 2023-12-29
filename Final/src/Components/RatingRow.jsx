@@ -6,17 +6,17 @@ function RatingRow({name, body}) {
   return (
     <>
       <div className="flex flex-col w-full mt-4">
-        <div className="flex gap-4">
+        <div className="flex gap-4 max-sm:gap-2">
           <Avatar
-            size="lg"
+             className="w-14 h-14 max-sm:w-10 max-sm:h-10"
             src="https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
           ></Avatar>
           <div className="flex flex-col items-start">
-            <h1 className="text-xl">{name}</h1>
-            <Rating value={value} readOnly></Rating>
+            <h1 className="text-xl max-sm:text-sm">{name}</h1>
+            <Rating value={value} readOnly ></Rating>
           </div>
         </div>
-        <p className="text-right font-normal mt-2 mr-2">
+        <p className="text-right font-medium mt-2 mr-2">
           {body}
         </p>
       </div>

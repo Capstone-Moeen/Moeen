@@ -5,7 +5,10 @@ import FilterBtns from "./FilterBtns";
 import PlaceInfoSideCard from "./PlaceInfoSideCard";
 import BackDrop from "./BackDrop";
 import FeaturedPlaces from "./FeaturedPlaces";
-
+import CoffePin from '../Assets/MapPins/CoffePin.svg'
+import HotelPin from '../Assets/MapPins/HotelPin.svg'
+import ParkPin from '../Assets/MapPins/ParkPin.svg'
+import ShoppingPin from '../Assets/MapPins/shopPin.svg'
 function MapComponent() {
 
   // Initializing the google maps with the api key
@@ -30,6 +33,7 @@ function MapComponent() {
 
   //Storing the map reference in state to access it later
   const onMapLoad = (map) => {
+    
     setMapRef(map);
   };
   
@@ -40,6 +44,10 @@ function MapComponent() {
     setIsOpen(true);
   };
 
+  //This function will close the side card info on mobile
+  const handelMobileColse = () => {
+    setIsOpen(false);
+  }
   return (
     <>
       <div className="h-screen">
@@ -76,23 +84,24 @@ function MapComponent() {
                 });
               }}
               position={{ lat: 24.71638356962413, lng: 46.68675486224617 }}
-              icon={"https://i.postimg.cc/Cx28dtGc/CoffePin.png"}
+              icon={CoffePin}
             />
             <Marker
               position={{ lat: 24.7, lng: 46.68675486224617 }}
-              icon={"https://i.postimg.cc/SsSm4Qn3/HotelPin.png"}
+              icon={HotelPin}
             />
             <Marker
               position={{ lat: 24.71638356962413, lng: 46.64 }}
-              icon={"https://i.postimg.cc/xd9wJx9b/ParkPin.png"}
+              icon={ParkPin}
             />
             <Marker
               position={{ lat: 24.7, lng: 46.64 }}
-              icon={"https://i.postimg.cc/VLQmsF0X/shopPin.png"}
+              icon={ShoppingPin}
             />
+            
             <BackDrop handelBackDropClick={() => setIsOpen(false)} isOpen={isOpen}></BackDrop>
             <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
-            <FeaturedPlaces></FeaturedPlaces>
+            <FeaturedPlaces isOpen={isOpen}></FeaturedPlaces>
           </GoogleMap>
         )}
       </div>

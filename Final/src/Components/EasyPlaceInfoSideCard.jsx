@@ -31,7 +31,7 @@ function EasyPlaceInfoSideCard() {
   return (
     <>
       <Card
-        className={`py-2 fixed bg-[#FAFAFB] shadow-2xl left-32 w-[32rem] flex flex-col justify-center items-center top-16 max-sm:right-2 overflow-y-visible `}
+        className={`py-2 bg-[#FAFAFB] shadow-2xl left-5 w-full flex flex-col justify-center items-center top-16 max-sm:right-2 overflow-y-auto`}
       >
         <CardHeader
           className={`pb-0  px-2 flex-col  ${

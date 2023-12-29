@@ -161,18 +161,13 @@ function Nav() {
                           </Link>
 
                         </li>
-                        <li>
-                          <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
-                            <ProfileIcon size={22}/>
-                          الملف الشخصي
-                          </Link>
-                        </li>
-                        <li>
+                        
+                        {/* <li>
                           <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <FavoriteIcon />
                           المفضلة
                           </Link>
-                        </li>
+                        </li> */}
 
                         <hr className="w-48 h-1 mx-auto bg-gray-200 border-0 
                         rounded md:my-7 max-sm:my-7"/>
@@ -210,6 +205,7 @@ function Nav() {
                       </ul>
                     </div>
                   </div>
+                  
                 )}
               </div>
         :
