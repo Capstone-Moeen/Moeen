@@ -3,40 +3,40 @@
 Our website is an innovative online platform designed to assist individuals with special needs navigate public spaces. The platform aims to provide detailed information about accessible places to people with disabilities, addressing issues like parking facilities, ramps for wheelchair access, overall accessibility features, etc.
 
 <h2>Key Features:</h2>
-1- Interactive Map:
+- Interactive Map:
 
 Users can view a map on the homepage illustrating all accessible places categorized by types (restaurants, parks, hotels, etc.). The map displays the user's current location.
 
-2- Search Functionality:
+- Search Functionality:
 
 Users can search for a specific place using the search bar.
 
-3- Place Details:
+- Place Details:
 
 Clicking on a place on the map reveals a menu with details (place name, distance from the current location, guided directions, images, accessibility services offered, visitor ratings, and a specific accessibility rating).
 
-4- User Reviews:
+- User Reviews:
 
 Users can write reviews about accessibility services for each place. A favorite list allows users to save preferred places.
 
-5- User Profile:
+- User Profile:
 
 Clicking on the user's profile picture reveals a menu containing personal information and the favorite list.
 
-6- Add New Place:
+- Add New Place:
 
 Users can submit requests to add new places not currently on the map.
 
 <h2>Additional Features:</h2>
-1- Customizable Layout:
+- Customizable Layout:
 
 Users can adjust the website layout to easy mode, catering to those who find map interfaces challenging.
 
-2- Voice Mode:
+- Voice Mode:
 
 An option for a voice-enabled mode to aid users with visual impairments.
 
-3- Color Scheme Customization:
+- Color Scheme Customization:
 
 The ability to change the site colors to accommodate individuals with color blindness.
 
@@ -56,34 +56,34 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 
 <h2>ميزات رئيسية:</h2>
 
-1- الخريطة التفاعلية:
+- الخريطة التفاعلية:
 
 يتيح للمستخدمين عرض خريطة على الصفحة الرئيسية توضح جميع الأماكن المتاحة مصنفة حسب الأنواع (المطاعم، المتنزهات، الفنادق، إلخ).
 تعرض الخريطة الموقع الحالي للمستخدم.
 
 
-2- البحث:
+- البحث:
 
 يمكن للمستخدمين البحث عن مكان محدد باستخدام شريط البحث.
 
 
-3- تفاصيل المكان:
+- تفاصيل المكان:
 
 يظهر النقر على مكان ما على الخريطة قائمة تحتوي على تفاصيل المكان (اسم المكان، المسافة من الموقع الحالي، الاتجاهات الإرشادية، الصور، خدمات الوصول، تقييمات الزوار، وتقييم خاص بالوصول).
 
 
-4- مراجعات المستخدم:
+- مراجعات المستخدم:
 
 يمكن للمستخدمين كتابة تعليقات حول خدمات الوصول لكل مكان.
 يسمح للمستخدمين بحفظ الأماكن المفضلة.
 
 
-5- ملف الملف الشخصي للمستخدم:
+- ملف الملف الشخصي للمستخدم:
 
 يظهر النقر على صورة الملف الشخصي للمستخدم قائمة تحتوي على المعلومات الشخصية وقائمة المفضلة.
 
 
-6- إضافة مكان جديد:
+- إضافة مكان جديد:
 
 يمكن للمستخدمين إرسال طلبات لإضافة أماكن جديدة.
 
