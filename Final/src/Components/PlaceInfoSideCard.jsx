@@ -32,37 +32,38 @@ function PlaceInfoSideCard({ isOpen }) {
       <Card
         className={`${
           isOpen ? "translate-x-0" : "translate-x-[110%]"
-        }     bg-[#FAFAFB] shadow-2xl absolute right-5 w-[32rem] flex flex-col justify-center items-center h-[85%] top-5 max-sm:right-2 overflow-hidden max-sm:w-[95%]`}
+        }     bg-[#FAFAFB] shadow-2xl absolute  right-5 w-[22rem] flex flex-col justify-center items-center h-[85%] top-5 max-sm:right-2 overflow-hidden max-sm:w-[95%]`}
       >
         <Card
           className={`${
             isOpen ? "translate-x-0" : "translate-x-[110%]"
           }     bg-[#FAFAFB] shadow-2xl rounded  w-full flex flex-col justify-center items-center h-full relative  overflow-y-auto`}
         >
-        <div className="w-full">
-         <Image
-        
+          <div className="w-full">
+            <Image
               width="100%"
-               
-              className={`object-fit ${selected === "details" ? "" : "pt-[24rem]"}  rounded-none`}
+              className={`object-fit ${
+                selected === "details" ? "" : "pt-[24rem]"
+              }  rounded-none`}
               src="https://lh3.googleusercontent.com/p/AF1QipMYTWtnsrHICvloeWZUvdGLXVKQ5KUQMvpy7CL6=s0"
             />
-            <button  className="fixed top-2 left-2 hidden text-white z-50 rounded-[50%] w-8 h-8 bg-[rgba(0,0,0,0.6)] max-sm:block "><CloseIconWhite size={18} className="mr-2 "/></button>
-             </div>
-          <CardBody  className="overflow-visible py-2  ">
-        
+            <button className="fixed top-2 left-2 hidden text-white z-50 rounded-[50%] w-8 h-8 bg-[rgba(0,0,0,0.6)] max-sm:block ">
+              <CloseIconWhite size={18} className="mr-2 " />
+            </button>
+          </div>
+          <CardBody className="overflow-visible py-2  ">
             <div className="w-full flex items-center">
               <div className="w-full flex flex-col mt-5">
-                <h1 className="text-3xl font-bold text-right max-sm:text-xl">
+                <h1 className="text-2xl font-bold text-right max-sm:text-xl">
                   أسم المكان
                 </h1>
-                <span className="text-2xl text-right text-gray-400 mt-2 max-sm:text-lg">
+                <span className="text-xl text-right text-gray-400 mt-2 max-sm:text-lg">
                   4.2 كم
                 </span>
               </div>
               <Button
-                className="bg-[#005B41]  text-white font-semibold w-72 text-xl max-sm:text-sm max-sm:w-52 max-sm:py-0"
-                endContent={<DirectionsIcon size={52} />}
+                className="bg-[#005B41]  text-white font-semibold w-52 text-md max-sm:text-sm max-sm:w-52 max-sm:py-0"
+                endContent={<DirectionsIcon size={22} />}
               >
                 الإتجاهات
               </Button>
@@ -70,7 +71,6 @@ function PlaceInfoSideCard({ isOpen }) {
 
             <Tabs
               className="w-full block mt-3 "
-              size="lg"
               aria-label="Tabs sizes"
               selectedKey={selected}
               onSelectionChange={setSelected}
@@ -80,7 +80,7 @@ function PlaceInfoSideCard({ isOpen }) {
               <Tab
                 key="details"
                 title="تفاصيل"
-                className={`text-xl font-bold ${
+                className={`text-lg font-bold ${
                   selected === "details" ? "text-green-900" : ""
                 } max-sm:text-sm`}
               >
@@ -90,17 +90,17 @@ function PlaceInfoSideCard({ isOpen }) {
               <Tab
                 key="ratings"
                 title="التقييمات"
-                className="text-xl font-bold max-sm:text-sm"
+                className="text-lg font-bold max-sm:text-sm"
               >
                 <div className="w-full flex justify-around items-center mt-5">
                   <div className="flex flex-col justify-center items-center gap-3">
                     <h1 className="font-normal text-center">تقييم معين</h1>
                     <CircularProgress
                       classNames={{
-                        svg: "w-36 h-36 drop-shadow-md max-sm:w-24 max-sm:h-24",
+                        svg: "w-28 h-28 drop-shadow-md max-sm:w-24 max-sm:h-24",
                         indicator: "stroke-primary",
                         track: "stroke-gray-300",
-                        value: "text-3xl font-semibold black max-sm:text-xl",
+                        value: "text-2xl font-semibold black max-sm:text-xl",
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
@@ -112,10 +112,10 @@ function PlaceInfoSideCard({ isOpen }) {
                     <h1 className="font-normal text-center">تقييمات الزوار</h1>
                     <CircularProgress
                       classNames={{
-                        svg: "w-36 h-36 drop-shadow-md max-sm:w-24 max-sm:h-24",
+                        svg: "w-28 h-28 drop-shadow-md max-sm:w-24 max-sm:h-24",
                         indicator: "stroke-primary",
                         track: "stroke-gray-300",
-                        value: "text-3xl font-semibold black max-sm:text-xl",
+                        value: "text-2xl font-semibold black max-sm:text-xl",
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
@@ -126,11 +126,11 @@ function PlaceInfoSideCard({ isOpen }) {
                 </div>
                 <Divider className="mt-5" />
                 <div className="flex justify-between items-center mt-5">
-                  <h1 className="font-bold text-2xl max-sm:text-lg text-right">
-                    التقييمات و الاراء{" "}
+                  <h1 className="font-bold text-xl max-sm:text-lg text-right">
+                    التقييمات و الاراء
                   </h1>
                   <Button
-                    className="text-xl font-semibold max-sm:text-lg"
+                    className="text-md font-semibold max-sm:text-lg"
                     color="primary"
                     onClick={() => handelOpenModal()}
                   >
