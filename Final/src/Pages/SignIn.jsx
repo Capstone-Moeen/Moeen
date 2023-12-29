@@ -66,8 +66,8 @@ function SignIn() {
 
     return (
         <>
-            <div className="min-h-screen text-gray-900 flex justify-center">
-                <div className="lg:max-w-[1000%] m-0 sm:m-10 flex justify-center flex-1">
+            <div className="min-h-screen text-gray-900 flex justify-center bg-[#FAFAFB]">
+                <div className="lg:max-w-[70%] m-0 sm:m-10 flex justify-center flex-1 bg-white shadow sm:rounded-lgs">
                     <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                         <div>
                             <Link to='/'><img src="" className="w-mx-auto" alt="Logo" /></Link>
@@ -120,7 +120,7 @@ function SignIn() {
                                     </Link>
                                 </div>
 
-                                <div className="text-right mt-5">
+                                <div className="text-right mt-3">
                                     ليس لديك حساب؟{' '}
                                     <Link to="/SignUp">
                                         <span className="text-[#005B41]">تسجيل جديد </span>
