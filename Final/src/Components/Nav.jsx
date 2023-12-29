@@ -13,15 +13,16 @@ import { EasyModeIcon } from "../Assets/Icons/EasyModeIcon";
 import { SignOutIcon } from "../Assets/Icons/SignOutIcon";
 import user from '../Assets/Icons/user.svg'
 import { AddIcon } from "../Assets/Icons/AddIcon";
+import SignInWindow from "./SignInWindow";
+import SignUpWindow from "./SignUpWindow";
 
 function Nav() {
 
   const navigate = useNavigate()
-  const [isLogged, setIsLogged] = React.useState(true)
+  const [isLogged, setIsLogged] = React.useState(false)
 
   // to close the menu every time the user clicks anywhere 
   const userMenuRef = React.useRef();
-  // const scrollRef = React.useRef();
 
   const [showUserMenu, setShowUserMenu] = React.useState(false);
 
@@ -34,6 +35,20 @@ function Nav() {
         setIsLogged(false)
         setShowUserMenu(false);
     };
+
+    // for sign in model 
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  // for sign up model 
+  const [isSignUpModel, setIsSignUpModel] = React.useState(false);
+
+  const openSignUpModel = () => {
+    setIsSignUpModel(!isSignUpModel);
+  };
 
     React.useEffect(() => {
       // scrollRef.current.scrollIntoView()
@@ -198,14 +213,21 @@ function Nav() {
                 )}
               </div>
         :
-        <Button 
-        size="lg" 
-        onClick={()=>{navigate('/SignIn')}}
-        className="text-black font-bold bg-white text-xl max-sm:text-sm ">
+        <Button
+          size="lg"
+          onClick={openModal}
+          className="text-black font-bold bg-white text-xl 
+          max-sm:text-sm"
+        >
           تسجيل دخول
         </Button>
         }
         
+
+          {/* to render the models :3 */}
+          <SignInWindow isOpen={isModalOpen} openModal={openModal} openSignUpModel={openSignUpModel} />
+          <SignUpWindow isSignUpModel={isSignUpModel} openSignUpModel={openSignUpModel} openModal={openModal} />
+
       </nav>
     </>
   );

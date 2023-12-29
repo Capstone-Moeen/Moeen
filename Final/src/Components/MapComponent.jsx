@@ -7,13 +7,15 @@ import BackDrop from "./BackDrop";
 import FeaturedPlaces from "./FeaturedPlaces";
 
 function MapComponent() {
+
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0',
   });
   const [userPosition, setUserPosition] = React.useState({});
   const [mapRef, setMapRef] = React.useState();
-  const [isOpen, setIsOpen] = useState(false);  
+  const [isOpen, setIsOpen] = useState(false); 
+
   // Getting the user current location
   useEffect(() => {
     if (navigator.geolocation) {
@@ -30,6 +32,7 @@ function MapComponent() {
   const onMapLoad = (map) => {
     setMapRef(map);
   };
+  
   // Handling the marker click event
   const handelMarkerClicked = (pos) => {
     mapRef.panTo(pos);
