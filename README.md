@@ -1,4 +1,4 @@
-<h1>MOEEN ✨♿️</h1> ♿️🪄📌📍🔗✨⭐️🌟
+<h1>MOEEN ✨♿️</h1>
 <h2>Project Description:</h2>
 Our website is an innovative online platform designed to assist individuals with special needs navigate public spaces. The platform aims to provide detailed information about accessible places to people with disabilities, addressing issues like parking facilities, ramps for wheelchair access, overall accessibility features, etc.
 
