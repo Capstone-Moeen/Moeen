@@ -14,7 +14,7 @@ import { MailIcon } from "../Assets/Icons/MailIcon";
 import { LockIcon } from "../Assets/Icons/LockIcon";
 import { UserSignUpIcon } from "../Assets/Icons/UserSignUpIcon";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../Firebase";
+import { auth } from "../Config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 

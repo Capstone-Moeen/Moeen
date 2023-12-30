@@ -13,7 +13,7 @@ import {
 import { MailIcon } from "../Assets/Icons/MailIcon";
 import { LockIcon } from "../Assets/Icons/LockIcon";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../Firebase";
+import { auth } from "../Config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
