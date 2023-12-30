@@ -211,9 +211,10 @@ function Nav() {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/EasyLayout" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
-                          <EasyModeIcon />
-                          الوضع السهل
+                          <Link to="/EasyLayout" 
+                            className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                            <EasyModeIcon />
+                            الوضع السهل
                           </Link>
                         </li>
 
