@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { Button } from '@nextui-org/react';
 
 function RequestList() {
 
@@ -27,10 +28,6 @@ function RequestList() {
         )
         setData(filterdData);
       };
-
-    const del = (id)=>{
-        
-    }
 
 
   return (
@@ -58,20 +55,15 @@ function RequestList() {
                                     <td class="py-4 px-6 border-b border-gray-200 max-sm:text-[13px] text-black text-right">
                                         {item.placeName}</td>
 
-                                    {/* <td class="py-4 px-6 border-b border-gray-200">
-                                        {item.status === 'waiting' && <span class="bg-yellow-500 text-white py-1 px-2 rounded-full text-xs">قيد المعالجة</span>}
-                                        {item.status === 'approved' && <span class="bg-green-500 text-white py-1 px-2 rounded-full text-xs">مقبول</span>}
-                                       
-                                        
-                                    </td> */}
-
                                     <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-start">
-                                        <button className='bg-gray-500 p-1 rounded-md w-16 text-white' 
-                                        onClick={()=>{navigate(``)}}>تفاصيل</button></td>
+
+                                         <Button color="primary" 
+                                         onClick={()=>{navigate(``)}}>
+                                        تفاصيل
+                                        </Button>
+                                        </td>
                                     </tr>
-                
-                            </tbody>
-                            
+                            </tbody>      
                     ))}
                     </table>
                 </div>
