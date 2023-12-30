@@ -75,7 +75,8 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
         .then(res=>{
           console.log(res.user);
           navigate('/');
-          localStorage.setItem('user', JSON.stringify(inputs));
+          localStorage.setItem('userEmail', inputs.email.value);
+          localStorage.setItem('username', res.user.displayName);
           localStorage.setItem('isLogged', true);
           openModal()
         })
