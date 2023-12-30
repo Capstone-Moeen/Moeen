@@ -1,7 +1,7 @@
 import React from 'react'
 import Nav from '../Components/Nav'
 import {Tabs, Tab} from "@nextui-org/react";
-
+import RequestList from '../Components/RequestList';
 
 function AdminHome() {
   const [selected, setSelected] = React.useState("Dashboard");
@@ -19,19 +19,22 @@ function AdminHome() {
             fullWidth="true"
             color="success"
           >
+
             <Tab 
              key="dashboard"
              title="لوحة المعلومات"
              className={`text-lg font-bold p-5
               ${ selected === "dashboard" ? "text-green-900" : "" } max-sm:text-sm`}
              >
-              
+              dashboard :3
             </Tab>
+
             <Tab key="new-request"
              title="الطلبات"
              className="text-lg font-bold p-5 max-sm:text-sm"
              >
-              {/* request table */}
+              {/* request table :3 */}
+              <RequestList />
             </Tab>
           </Tabs>
     </div>
