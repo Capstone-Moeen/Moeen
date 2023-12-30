@@ -129,7 +129,8 @@ export default function NewRequest() {
   return (
     <>
       {loading && (
-        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center items-center ">
+        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
+        items-center ">
           <CircularProgress
             className="z-50"
             color="primary"

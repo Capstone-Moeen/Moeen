@@ -117,7 +117,7 @@ const sign_up = () => {
             })
             .then((res)=>{
                 navigate('/');
-                localStorage.setItem('userEmail', inputs.email);
+                localStorage.setItem('userEmail', inputs.email.value);
                 localStorage.setItem('username', inputs.name.value);
                 localStorage.setItem('isLogged', true);
                 openSignUpModel(false);
@@ -227,10 +227,10 @@ React.useEffect(() => {
 
               </ModalBody>
 
-              <ModalFooter className="self-start">
+              <ModalFooter className="self-center">
                 
                 <Button color="primary" onClick={sign_up}>
-                  تسجيل دخول
+                  تسجيل جديد
                 </Button>
                 <Button color="danger" variant="flat" onClick={openSignUpModel}>
                   تراجع
