@@ -30,12 +30,13 @@ function Nav() {
 
   const getUserInfo = () => {
     const isLogged = localStorage.getItem('isLogged');
+    const isAdmin = localStorage.getItem('isAdmin');
     const userEmail = localStorage.getItem('userEmail');
     const username = localStorage.getItem('username');
-    return { isLogged, userEmail, username };
+    return { isLogged, isAdmin, userEmail, username };
   };
 
-  const { isLogged, userEmail, username } = getUserInfo();
+  const { isLogged, isAdmin, userEmail, username } = getUserInfo();
 
   // to close the menu every time the user clicks anywhere 
   const userMenuRef = React.useRef();
@@ -91,6 +92,43 @@ function Nav() {
 
   return (
     <>
+      {isAdmin ? 
+      <nav className="bg-[#005B41] h-[12vh] flex justify-between py-4 px-8 items-center">
+      <Link to='/'>
+        <div className="">
+          <ArLogo size={100}/>
+        </div>
+      </Link>
+     
+      {/* <div className="lg:w-[35rem] md:w-[16rem] max-sm:w-[16rem]">
+        <Input
+          classNames={{
+            base: " sm:max-w-[10rem] h-12 max-sm:hidden",
+            mainWrapper: "h-full",
+            input: "text-large",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-white lg:w-[35rem] md:w-[20rem] max-md:w-[15rem] max-sm:w-[4rem]",
+          }}
+          placeholder="بحث"
+          
+          endContent={<SearchIcon size={22} />}
+          type="search"
+          fullWidth={true}
+        />
+      </div> */}
+      
+      <Button
+        size="lg"
+        onClick={sign_out}
+        className="text-black font-bold bg-white lg:text-xl 
+        max-sm:text-sm md:text-base"
+      >
+        تسجيل خروج
+      </Button>
+    </nav>
+
+      :
+
       <nav className="bg-[#005B41] h-[12vh] flex justify-between py-4 px-8 items-center">
         <Link to='/'>
           <div className="">
@@ -252,6 +290,7 @@ function Nav() {
           <SignUpWindow isSignUpModel={isSignUpModel} openSignUpModel={openSignUpModel} openModal={openModal} />
 
       </nav>
+      }
     </>
   );
 }
