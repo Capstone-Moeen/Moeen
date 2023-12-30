@@ -94,6 +94,7 @@ export default function NewRequest() {
           placeCity: userInput.placeCity,
           services: service,
           Images: imagesRes,
+          Status: 'waiting',
           placeLocation: mapRef.getCenter().toJSON(),
         }).then(() => {
           setLoading(false);
