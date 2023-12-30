@@ -18,8 +18,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="أبواب اوتوماتيكية"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={AutomaticDoorsActive} alt="AutomaticDoorsIcons"></img>
@@ -28,8 +28,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="المصاعد"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={ElevatorActive} alt="ElevatorActive"></img>
@@ -39,8 +39,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="مواقف السيارات"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={ParkingActive} alt="ParkingActive"></img>
@@ -49,8 +49,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="المنحدرات"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={RampsDisabled} alt="RampsActive"></img>
@@ -59,8 +59,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="طاولات طعام مخصصة"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={ResturantDisabled} alt="ResturantDisabled"></img>
@@ -69,8 +69,8 @@ function ServicesGrid() {
             placement="top"
             color="success"
             content="دورات مياه مخصصة"
-            size="lg"
-            className="text-2xl"
+            size="sm"
+            className="text-lg"
             showArrow={true}
           >
             <img src={WCDisabled} alt="WCDisabled"></img>

@@ -1,173 +1,431 @@
-import React from 'react'
-import Nav from '../Components/Nav'
-import { Tooltip, Button, Input } from '@nextui-org/react';
-import {Checkbox , Select, SelectItem} from '@nextui-org/react';
-import { useState } from 'react';
-import imageMap from '../Assets/MapPins/ImageMap.png'
-import { SendIcon } from '../Assets/Icons/SendIcon';
-import { AddIcon } from '../Assets/Icons/AddIcon';
-import { Avatar } from '@nextui-org/react';
-
-
-
+import React from "react";
+import Nav from "../Components/Nav";
+import {
+  Tooltip,
+  Button,
+  Input,
+  Checkbox,
+  Select,
+  SelectItem,
+  CircularProgress,
+  Image,
+} from "@nextui-org/react";
+import { useState } from "react";
+import { SendIcon } from "../Assets/Icons/SendIcon";
+import { AddIcon } from "../Assets/Icons/AddIcon";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { useEffect } from "react";
+import defaultMarker from "../Assets/MapPins/DefultPin.svg";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../Config/firebase";
+import { addDoc, collection } from "firebase/firestore";
 export default function NewRequest() {
-    const [isSelected, setIsSelected] = useState(false);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
+  });
+  const [service, setService] = useState({});
+  const [userPosition, setUserPosition] = useState({});
+  const [mapRef, setMapRef] = React.useState();
+  const [images, setImages] = useState([]);
+  const [imagesObjects, setImagesObjects] = useState([]);
+  const [userInput, setUserInput] = useState({});
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      });
+    }
+  }, []);
+
+  //Storing the map reference in state to access it later
+  const onMapLoad = (map) => {
+    setMapRef(map);
+  };
+
+  const handelService = (e) => {
+    setService({ ...service, [e.target.name]: e.target.checked });
+  };
+
+  const handelInput = (e) => {
+    setUserInput({ ...userInput, [e.target.name]: e.target.value });
+  };
+
+  const handelImage = (e) => {
+    const reader = new FileReader();
+
+    setImagesObjects([...imagesObjects, e.target.files[0]]);
+
+    reader.onload = (e) => {
+      setImages([...images, e.target.result]);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handelSubmit = () => {
+    if (userInput.placeName === "" || !userInput.placeName) {
+      setError({ ...error, placeName: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeType === "" || !userInput.placeType) {
+      setError({ ...error, placeType: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeRegion === "" || !userInput.placeRegion) {
+      setError({ ...error, placeRegion: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeCity === "" || !userInput.placeCity) {
+      setError({ ...error, placeCity: "هذا الحقل مطلوب" });
+      return;
+    } else if (Object.keys(imagesObjects).length === 0) {
+      setError({ ...error, image: "يجب إرفاق صورة واحدة على الاقل" });
+      return;
+    } else {
+      setError({});
+      setLoading(true);
+      window.scrollTo(0,0)
+      uploadImages().then(async (imagesRes) => {
+        await addDoc(collection(db, "placeRequest"), {
+          placeName: userInput.placeName,
+          placeType: userInput.placeType,
+          placeRegion: userInput.placeRegion,
+          placeCity: userInput.placeCity,
+          services: service,
+          Images: imagesRes,
+          placeLocation: mapRef.getCenter().toJSON(),
+        }).then(() => {
+          setLoading(false);
+          console.log("Request Sent");
+        }).catch((error)=>{
+          setLoading(false)
+          setError({...error, generalError: "فشلت عملية رفع الطلب، الرجاء المحاولة مرة اخرى"})
+        });
+      });
+    }
+  };
+
+  const uploadImage = async (image) => {
+    const storageRef = ref(
+      storage,
+      `/placeImages/${userInput.placeName}_${new Date().getTime()}`
+    );
+    const response = await uploadBytes(storageRef, image);
+    const url = await getDownloadURL(response.ref);
+    return url;
+  };
+
+  const uploadImages = async () => {
+    const imagesPromises = Array.from(imagesObjects, (image) =>
+      uploadImage(image)
+    );
+    const imageRes = await Promise.all(imagesPromises);
+    setLoading(false);
+    return imageRes;
+  };
 
   return (
-  <>
-  
-    <Nav/>
-    <div className='w-full h-full overflow-auto text-right bg-[#FAFAFB]'>
-
-    <div className='w-full flex justify-center h-full items-center p-10 max-sm:p-3'>
-      <div className='w-[60%] shadow-lg py-10 rounded-lg bg-white max-sm:w-full max-sm:px-2'>
-        <div className='flex flex-col justify-start  items-center text-center w-full'>
-            <h1 className='font-extrabold text-[2rem] text-black'>طلب إضافة مكان جديد</h1>
-            <p className='text-md pt-3 w-[85%] text-black max-sm:w-full'>
-           الرجاء تعبئة الأستبيان بمعلومات صحيحة ودقيقة، سيتم مراجعة جميع المعلومات قبل أضافة المكان. 
-            </p>
-
-         <div className='flex flex-col w-[85%] justify-center items-center pt-5 gap-5 max-sm:w-full '>
-
-            <label className="form-control w-full ">
-             <div className="label">
-               <span className="label-text-alt font-medium text-xl text-black">اسم المكان</span>
-             </div>
-             <Input
-              className={`w-full  rounded-lg font-medium  border-none
-            placeholder-gray-400 text-sm  text-right`}
-              type="text"
-              color="primary"
-              variant="bordered"
-              placeholder=" ادخل اسم المكان"
-            />
-           </label>
-
-
-
-
-           <label className="form-control w-full ">
-              <div className="label">
-                <span className="label-text font-medium text-xl text-black ">تصنيف المكان</span>
-             </div>
-             <Select 
-              placeholder="اختر التصنيف"
-              color="primary" variant="bordered" className="border-none font-medium text-black">
-                  <SelectItem  key="restaurant">مطعم</SelectItem>
-                  <SelectItem key="Park">منتزه</SelectItem>
-                  <SelectItem key="cafe">مقهى</SelectItem>
-                  <SelectItem key="shopping">تسوق</SelectItem>
-                  <SelectItem key="Other">أخرى</SelectItem>
-             </Select>
-          </label>
-
-           <label className="form-control w-full ">
-             <div className="label">
-               <span className="label-text-alt font-medium text-xl text-black">المنطقة </span>
-             </div>
-             <Input
-              className={`w-full  rounded-lg font-medium  border-none
-            placeholder-gray-400 text-sm  text-right`}
-              type="text"
-              color="primary"
-              variant="bordered"
-              placeholder=" ادخل اسم المنطقة"
-             />
-           </label>
-
-           <label className="form-control w-full ">
-             <div className="label">
-               <span className="label-text-alt font-medium text-xl text-black">المدينة </span>
-             </div>
-             <Input
-              className={`w-full  rounded-lg font-medium  border-none
-            placeholder-gray-400 text-sm  text-right `}
-              type="text"
-              color="primary"
-              variant="bordered"
-              placeholder=" ادخل اسم المدينة"
-             />
-           </label>
-
-        <div className='flex flex-col w-full text-start gap-4 pt-3 px-2 max-sm:gap-2'>
-
-          <h1 className='font-medium text-xl text-black'>الخدمات المقدمة</h1>
-
-          <div className='w-full flex gap-44 px-3 max-sm:gap-5'>
-            <div className=' flex flex-col gap-3'>
-              <Checkbox isSelected={isSelected} onValueChange={setIsSelected}   className=" font-medium text-xl text-black"> مواقف المقعدين </Checkbox>
-              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black"> المنحدرات  </Checkbox>
-              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black">  طاولات الطعام </Checkbox>
-            </div>
-
-            <div className=' flex flex-col gap-3'>
-              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black"> دورات المياه  </Checkbox>
-              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black"> المصاعد  </Checkbox>
-              <Checkbox defaultSelected={false}   className=" font-medium text-xl text-black">  ابواب اوتوماتيكة  </Checkbox>
-            </div>
-
-          </div>
-          </div>
-
-          <div className='flex flex-col w-full text-start gap-3 pt-3 px-2'>
-          <h1  className='font-medium text-xl text-black ' >اختر الموقع على الخريطة</h1>
-          <img src={imageMap} className='border border-[#005B41] rounded-lg' ></img>
-          </div>
-
-          <div className='flex flex-col w-full text-start gap-3 pt-3 px-2'>
-          <h1  className='font-medium text-xl text-black' > إضافة صور للمكان </h1>
-          <div className='border border-[#005B41] w-full grid grid-cols-3 rounded-lg justify-center items-center py-2 relative'>
-            <div className=' grid justify-center items-center gap-2'>
-            <img src='https://www.al-watan.com/uploads%2Fimported_images%2Fdata%2F20170209%2Fimages%2F11_1_1.jpg' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image1'/>
-            <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20' alt='image4'/>
-            </div>
-            <div className=' grid justify-center items-center gap-2'>
-            <img src='https://firstglass.om/wp-content/uploads/2022/06/Automatic-Hinged-Door-2.jpg' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image1'/>
-            <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image5'/>
-            </div>
-            <div className=' grid justify-center items-center gap-2'>
-            <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image3'/>
-            <img src='' className='bg-[#80808021] w-44 h-44 rounded-md max-sm:w-20 max-sm:h-20 ' alt='image6'/>
-            </div>
-            <Tooltip showArrow={true} content="اضف صورة" className="bg-[#CEEAD6] text-black">
-            <Button
-            className="bg-[#005B41] w-fit absolute top-[45%] right-[45%] max-sm:top-[40%] max-sm:right-[40%] "
-            endContent={<AddIcon size={20}/>}
-            size="sm"
-          >    
-          </Button>
-          </Tooltip>
-          </div>
-          
-          </div>
-
-          <div className='flex flex-col w-full text-start pt-3 px-2 '>
-          <Checkbox defaultSelected className=" font-medium text-xl text-black"> 
-            أوافق على  
-           <span className='text-[#005B41]'> الشروط والأحكام </span> 
-           وسياسة 
-           <span className='text-[#005B41]'> الخصوصية </span>
-           </Checkbox>
-           </div>
-
-
-           <Button
-            className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-[50%]"
-            endContent={<SendIcon size={24} />}
-            size="lg"
-          >    
-          ارسال
-          </Button>
-
-
-            
-       </div>
-
+    <>
+      {loading && (
+        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center items-center ">
+          <CircularProgress
+            className="z-50"
+            color="primary"
+            label="Proccesing"
+          ></CircularProgress>
         </div>
-     </div>
-    </div>    
-    </div>
-    </>
-  )
-}
+      )}
 
+      <Nav />
+      <div className="w-full h-full overflow-auto text-right bg-[#FAFAFB]">
+        <div className="w-full flex justify-center h-full items-center p-10 max-sm:p-3">
+          <div className="w-[60%] shadow-lg py-10 rounded-lg bg-white max-sm:w-full max-sm:px-2">
+            <div className="flex flex-col justify-start  items-center text-center w-full">
+              <h1 className="font-extrabold text-[2rem] text-black">
+                طلب إضافة مكان جديد
+              </h1>
+              <p className="text-md pt-3 w-[85%] text-black max-sm:w-full">
+                الرجاء تعبئة الأستبيان بمعلومات صحيحة ودقيقة، سيتم مراجعة جميع
+                المعلومات قبل أضافة المكان.
+              </p>
+
+              <div className="flex flex-col w-[85%] justify-center items-center pt-5 gap-5 max-sm:w-full ">
+                <label className="form-control w-full ">
+                  <div className="label">
+                    <span className="label-text-alt font-medium text-xl text-black">
+                      اسم المكان
+                    </span>
+                  </div>
+                  <Input
+                    className={`w-full text-black  rounded-lg font-medium  border-none
+            placeholder-gray-400 text-sm  text-right`}
+                    type="text"
+                    color="primary"
+                    variant="bordered"
+                    placeholder=" ادخل اسم المكان"
+                    name="placeName"
+                    onChange={handelInput}
+                  />
+                </label>
+                <span className="text-red-600 text-right">
+                  {error.placeName}
+                </span>
+
+                <label className="form-control w-full ">
+                  <div className="label">
+                    <span className="label-text font-medium text-xl text-black ">
+                      تصنيف المكان
+                    </span>
+                  </div>
+                  <Select
+                    placeholder="اختر التصنيف"
+                    color="primary"
+                    variant="bordered"
+                    className="border-none font-medium text-black"
+                    aria-label="placeType"
+                    name="placeType"
+                    onChange={handelInput}
+                  >
+                    <SelectItem className="text-black" key="restaurant">
+                      مطعم
+                    </SelectItem>
+                    <SelectItem className="text-black" key="Park">
+                      منتزه
+                    </SelectItem>
+                    <SelectItem className="text-black" key="cafe">
+                      مقهى
+                    </SelectItem>
+                    <SelectItem className="text-black" key="shopping">
+                      تسوق
+                    </SelectItem>
+                    <SelectItem className="text-black" key="Other">
+                      أخرى
+                    </SelectItem>
+                  </Select>
+                </label>
+                <span className="text-red-600 text-right">
+                  {error.placeType}
+                </span>
+                <label className="form-control w-full ">
+                  <div className="label">
+                    <span className="label-text-alt font-medium text-xl text-black">
+                      المنطقة{" "}
+                    </span>
+                  </div>
+                  <Input
+                    className={`w-full  rounded-lg font-medium  border-none
+            placeholder-gray-400  text-black text-right`}
+                    type="text"
+                    color="primary"
+                    variant="bordered"
+                    placeholder=" ادخل اسم المنطقة"
+                    name="placeRegion"
+                    onChange={handelInput}
+                  />
+                </label>
+                <span className="text-red-600 text-right">
+                  {error.placeRegion}
+                </span>
+                <label className="form-control w-full ">
+                  <div className="label">
+                    <span className="label-text-alt font-medium text-xl text-black">
+                      المدينة
+                    </span>
+                  </div>
+                  <Input
+                    className={`w-full  rounded-lg font-medium  border-none
+            placeholder-gray-400 text-black  text-right `}
+                    type="text"
+                    color="primary"
+                    variant="bordered"
+                    placeholder=" ادخل اسم المدينة"
+                    name="placeCity"
+                    onChange={handelInput}
+                  />
+                </label>
+                <span className="text-red-600 text-right">
+                  {error.placeCity}
+                </span>
+
+                <div className="flex flex-col w-full text-start gap-4 pt-3 px-2 max-sm:gap-2">
+                  <h1 className="font-medium text-xl text-black">
+                    الخدمات المقدمة
+                  </h1>
+
+                  <div className="w-full flex gap-44 px-3 max-sm:gap-5">
+                    <div className=" flex flex-col gap-3">
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl  text-black"
+                        name="parking"
+                      >
+                        <span className="mr-1"> مواقف المقعدين</span>
+                      </Checkbox>
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl text-black"
+                        name="ramps"
+                      >
+                        <span className="mr-1">المنحدرات</span>
+                      </Checkbox>
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl text-black"
+                        name="tables"
+                      >
+                        <span className="mr-1"> طاولات الطعام</span>
+                      </Checkbox>
+                    </div>
+
+                    <div className=" flex flex-col gap-3">
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl text-black"
+                        name="toilets"
+                      >
+                        <span className="mr-1"> دورات المياه</span>
+                      </Checkbox>
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl text-black"
+                        name="elevators"
+                      >
+                        <span className="mr-1"> المصاعد</span>
+                      </Checkbox>
+                      <Checkbox
+                        onChange={handelService}
+                        defaultSelected={false}
+                        className=" font-medium text-xl text-black"
+                        name="automaticGates"
+                      >
+                        <span className="mr-1"> ابواب اوتوماتيكة</span>
+                      </Checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-full text-start gap-3 pt-3 px-2">
+                  <h1 className="font-medium text-xl text-black ">
+                    اختر الموقع على الخريطة
+                  </h1>
+                  {!isLoaded ? (
+                    <CircularProgress color="primary" />
+                  ) : (
+                    <>
+                      <GoogleMap
+                        zoom={16}
+                        mapContainerClassName="requersFromMapContainer"
+                        center={userPosition}
+                        mapContainerStyle={{
+                          width: "100%",
+                          height: "300px",
+                          position: "relative",
+                        }}
+                        options={{
+                          zoomControl: false,
+                          streetViewControl: false,
+                          mapTypeControl: false,
+                          fullscreenControl: false,
+                          mapId: "a128fd791f572fa9",
+                        }}
+                        onLoad={onMapLoad}
+                      >
+                        <Button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent">
+                          <img
+                            src={defaultMarker}
+                            className="w-10 h-10"
+                            alt="location"
+                          />
+                        </Button>
+                      </GoogleMap>
+                    </>
+                  )}
+                </div>
+
+                <div className="flex flex-col w-full text-start gap-3 pt-3 px-2">
+                  <h1 className="font-medium text-xl text-black">
+                    إضافة صور للمكان
+                  </h1>
+                  <div
+                    className={`${
+                      images.length != 0 ? "border" : ""
+                    } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center justify-items-center relative`}
+                  >
+                    <img
+                      className="object-fill object-center rounded w-full"
+                      src={images[0]}
+                    ></img>
+                    <img
+                      className="object-cover object-center rounded  w-full"
+                      src={images[1]}
+                    ></img>
+                    <img
+                      className="object-cover object-center rounded  w-full"
+                      src={images[2]}
+                    ></img>
+                    <img
+                      className="object-cover object-center rounded  w-full"
+                      src={images[3]}
+                    ></img>
+                    <img
+                      className="object-cover object-center rounded  w-full"
+                      src={images[4]}
+                    ></img>
+                    <img
+                      className="object-cover object-center rounded w-full"
+                      src={images[5]}
+                    ></img>
+
+                    <input
+                      type="file"
+                      id="file"
+                      style={{ display: "none" }}
+                      accept=".jpg, .jpeg, .png"
+                      onChange={handelImage}
+                    />
+                    <label
+                      htmlFor="file"
+                      className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded p-2 ${
+                        images.length >= 6 ? "hidden" : ""
+                      }`}
+                    >
+                      <AddIcon size={24} color="white" />
+                    </label>
+                  </div>
+                  <span className="text-red-600">{error.image}</span>
+                </div>
+
+                <div className="flex flex-col w-full text-start pt-3 px-2 ">
+                  <Checkbox
+                    defaultSelected
+                    className=" font-medium text-xl text-black"
+                  >
+                    أوافق على
+                    <span className="text-[#005B41]"> الشروط والأحكام </span>
+                    وسياسة
+                    <span className="text-[#005B41]"> الخصوصية</span>
+                  </Checkbox>
+                </div>
+
+                <Button
+                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-[50%]"
+                  endContent={<SendIcon size={24} />}
+                  size="lg"
+                  onClick={handelSubmit}
+                >
+                  ارسال
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
