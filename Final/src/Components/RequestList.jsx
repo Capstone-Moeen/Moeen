@@ -9,7 +9,6 @@ function RequestList() {
         window.open('/', '_self')
     }
 
-    const [isLoggIn, setIsLoggIn] = React.useState(localStorage.getItem('isLoggIn'))
     const [data, setData] = React.useState([])
     const navigate = useNavigate()
 

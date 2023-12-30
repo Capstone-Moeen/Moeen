@@ -4,6 +4,11 @@ import {Tabs, Tab} from "@nextui-org/react";
 import RequestList from '../Components/RequestList';
 
 function AdminHome() {
+
+    if (!localStorage.getItem('isAdmin')) {
+        window.open('/', '_self')
+    }
+    
   const [selected, setSelected] = React.useState("Dashboard");
 
   return (

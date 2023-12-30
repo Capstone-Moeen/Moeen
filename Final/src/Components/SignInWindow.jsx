@@ -160,7 +160,7 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
 
               </ModalBody>
 
-              <ModalFooter className="self-start">
+              <ModalFooter className="self-center">
                 
                 <Button color="primary" onClick={sign_in}>
                   تسجيل دخول
