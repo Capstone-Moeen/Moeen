@@ -16,15 +16,21 @@ import { AddIcon } from "../Assets/Icons/AddIcon";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useEffect } from "react";
 import defaultMarker from "../Assets/MapPins/DefultPin.svg";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../Config/firebase";
+import { addDoc, collection } from "firebase/firestore";
 export default function NewRequest() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
   });
-  const [isSelected, setIsSelected] = useState(false);
+  const [service, setService] = useState({});
   const [userPosition, setUserPosition] = useState({});
   const [mapRef, setMapRef] = React.useState();
   const [images, setImages] = useState([]);
-  const [imagesObjects, setImagesObjects]= useState([])
+  const [imagesObjects, setImagesObjects] = useState([]);
+  const [userInput, setUserInput] = useState({});
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -41,19 +47,96 @@ export default function NewRequest() {
     setMapRef(map);
   };
 
+  const handelService = (e) => {
+    setService({ ...service, [e.target.name]: e.target.checked });
+  };
+
+  const handelInput = (e) => {
+    setUserInput({ ...userInput, [e.target.name]: e.target.value });
+  };
+
   const handelImage = (e) => {
     const reader = new FileReader();
 
-    setImagesObjects([...imagesObjects, e.target.files[0]])
-    
+    setImagesObjects([...imagesObjects, e.target.files[0]]);
+
     reader.onload = (e) => {
       setImages([...images, e.target.result]);
     };
     reader.readAsDataURL(e.target.files[0]);
   };
 
+  const handelSubmit = () => {
+    if (userInput.placeName === "" || !userInput.placeName) {
+      setError({ ...error, placeName: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeType === "" || !userInput.placeType) {
+      setError({ ...error, placeType: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeRegion === "" || !userInput.placeRegion) {
+      setError({ ...error, placeRegion: "هذا الحقل مطلوب" });
+      return;
+    } else if (userInput.placeCity === "" || !userInput.placeCity) {
+      setError({ ...error, placeCity: "هذا الحقل مطلوب" });
+      return;
+    } else if (Object.keys(imagesObjects).length === 0) {
+      setError({ ...error, image: "يجب إرفاق صورة واحدة على الاقل" });
+      return;
+    } else {
+      setError({});
+      setLoading(true);
+      window.scrollTo(0,0)
+      uploadImages().then(async (imagesRes) => {
+        await addDoc(collection(db, "placeRequest"), {
+          placeName: userInput.placeName,
+          placeType: userInput.placeType,
+          placeRegion: userInput.placeRegion,
+          placeCity: userInput.placeCity,
+          services: service,
+          Images: imagesRes,
+          placeLocation: mapRef.getCenter().toJSON(),
+        }).then(() => {
+          setLoading(false);
+          console.log("Request Sent");
+        }).catch((error)=>{
+          setLoading(false)
+          setError({...error, generalError: "فشلت عملية رفع الطلب، الرجاء المحاولة مرة اخرى"})
+        });
+      });
+    }
+  };
+
+  const uploadImage = async (image) => {
+    const storageRef = ref(
+      storage,
+      `/placeImages/${userInput.placeName}_${new Date().getTime()}`
+    );
+    const response = await uploadBytes(storageRef, image);
+    const url = await getDownloadURL(response.ref);
+    return url;
+  };
+
+  const uploadImages = async () => {
+    const imagesPromises = Array.from(imagesObjects, (image) =>
+      uploadImage(image)
+    );
+    const imageRes = await Promise.all(imagesPromises);
+    setLoading(false);
+    return imageRes;
+  };
+
   return (
     <>
+      {loading && (
+        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center items-center ">
+          <CircularProgress
+            className="z-50"
+            color="primary"
+            label="Proccesing"
+          ></CircularProgress>
+        </div>
+      )}
+
       <Nav />
       <div className="w-full h-full overflow-auto text-right bg-[#FAFAFB]">
         <div className="w-full flex justify-center h-full items-center p-10 max-sm:p-3">
@@ -81,8 +164,13 @@ export default function NewRequest() {
                     color="primary"
                     variant="bordered"
                     placeholder=" ادخل اسم المكان"
+                    name="placeName"
+                    onChange={handelInput}
                   />
                 </label>
+                <span className="text-red-600 text-right">
+                  {error.placeName}
+                </span>
 
                 <label className="form-control w-full ">
                   <div className="label">
@@ -96,6 +184,8 @@ export default function NewRequest() {
                     variant="bordered"
                     className="border-none font-medium text-black"
                     aria-label="placeType"
+                    name="placeType"
+                    onChange={handelInput}
                   >
                     <SelectItem className="text-black" key="restaurant">
                       مطعم
@@ -114,7 +204,9 @@ export default function NewRequest() {
                     </SelectItem>
                   </Select>
                 </label>
-
+                <span className="text-red-600 text-right">
+                  {error.placeType}
+                </span>
                 <label className="form-control w-full ">
                   <div className="label">
                     <span className="label-text-alt font-medium text-xl text-black">
@@ -128,13 +220,17 @@ export default function NewRequest() {
                     color="primary"
                     variant="bordered"
                     placeholder=" ادخل اسم المنطقة"
+                    name="placeRegion"
+                    onChange={handelInput}
                   />
                 </label>
-
+                <span className="text-red-600 text-right">
+                  {error.placeRegion}
+                </span>
                 <label className="form-control w-full ">
                   <div className="label">
                     <span className="label-text-alt font-medium text-xl text-black">
-                      المدينة{" "}
+                      المدينة
                     </span>
                   </div>
                   <Input
@@ -144,8 +240,13 @@ export default function NewRequest() {
                     color="primary"
                     variant="bordered"
                     placeholder=" ادخل اسم المدينة"
+                    name="placeCity"
+                    onChange={handelInput}
                   />
                 </label>
+                <span className="text-red-600 text-right">
+                  {error.placeCity}
+                </span>
 
                 <div className="flex flex-col w-full text-start gap-4 pt-3 px-2 max-sm:gap-2">
                   <h1 className="font-medium text-xl text-black">
@@ -155,21 +256,26 @@ export default function NewRequest() {
                   <div className="w-full flex gap-44 px-3 max-sm:gap-5">
                     <div className=" flex flex-col gap-3">
                       <Checkbox
-                        isSelected={isSelected}
-                        onValueChange={setIsSelected}
+                        onChange={handelService}
+                        defaultSelected={false}
                         className=" font-medium text-xl  text-black"
+                        name="parking"
                       >
                         <span className="mr-1"> مواقف المقعدين</span>
                       </Checkbox>
                       <Checkbox
+                        onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+                        name="ramps"
                       >
                         <span className="mr-1">المنحدرات</span>
                       </Checkbox>
                       <Checkbox
+                        onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+                        name="tables"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>
@@ -177,20 +283,26 @@ export default function NewRequest() {
 
                     <div className=" flex flex-col gap-3">
                       <Checkbox
+                        onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+                        name="toilets"
                       >
                         <span className="mr-1"> دورات المياه</span>
                       </Checkbox>
                       <Checkbox
+                        onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+                        name="elevators"
                       >
                         <span className="mr-1"> المصاعد</span>
                       </Checkbox>
                       <Checkbox
+                        onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+                        name="automaticGates"
                       >
                         <span className="mr-1"> ابواب اوتوماتيكة</span>
                       </Checkbox>
@@ -215,6 +327,13 @@ export default function NewRequest() {
                           height: "300px",
                           position: "relative",
                         }}
+                        options={{
+                          zoomControl: false,
+                          streetViewControl: false,
+                          mapTypeControl: false,
+                          fullscreenControl: false,
+                          mapId: "a128fd791f572fa9",
+                        }}
                         onLoad={onMapLoad}
                       >
                         <Button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-transparent">
@@ -233,35 +352,33 @@ export default function NewRequest() {
                   <h1 className="font-medium text-xl text-black">
                     إضافة صور للمكان
                   </h1>
-                  <div className={`${images.length != 0 ? "border":""} border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center justify-items-center relative`}>
+                  <div
+                    className={`${
+                      images.length != 0 ? "border" : ""
+                    } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center justify-items-center relative`}
+                  >
                     <img
                       className="object-fill object-center rounded w-full"
-                     
                       src={images[0]}
                     ></img>
                     <img
                       className="object-cover object-center rounded  w-full"
-                     
                       src={images[1]}
                     ></img>
                     <img
                       className="object-cover object-center rounded  w-full"
-                      
                       src={images[2]}
                     ></img>
                     <img
                       className="object-cover object-center rounded  w-full"
-                     
                       src={images[3]}
                     ></img>
                     <img
                       className="object-cover object-center rounded  w-full"
-                      
                       src={images[4]}
                     ></img>
                     <img
                       className="object-cover object-center rounded w-full"
-                      
                       src={images[5]}
                     ></img>
 
@@ -281,6 +398,7 @@ export default function NewRequest() {
                       <AddIcon size={24} color="white" />
                     </label>
                   </div>
+                  <span className="text-red-600">{error.image}</span>
                 </div>
 
                 <div className="flex flex-col w-full text-start pt-3 px-2 ">
@@ -291,7 +409,7 @@ export default function NewRequest() {
                     أوافق على
                     <span className="text-[#005B41]"> الشروط والأحكام </span>
                     وسياسة
-                    <span className="text-[#005B41]"> الخصوصية </span>
+                    <span className="text-[#005B41]"> الخصوصية</span>
                   </Checkbox>
                 </div>
 
@@ -299,6 +417,7 @@ export default function NewRequest() {
                   className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-[50%]"
                   endContent={<SendIcon size={24} />}
                   size="lg"
+                  onClick={handelSubmit}
                 >
                   ارسال
                 </Button>
