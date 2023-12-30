@@ -56,6 +56,17 @@ const validateInputs = () => {
         isValid = false;
     }
 
+    if (inputs.name.value.trim() === 'admin') {
+      setInputs((prevInputs) => ({
+          ...prevInputs,
+          name: {
+              ...prevInputs.name,
+              errorMessage: 'اسم غير مصرح به، الرجاء ادخال اسمك الصحيح',
+          },
+      }));
+      isValid = false;
+  }
+
     if (!inputs.email.value || (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(inputs.email.value.trim()))) {
         setInputs((prevInputs) => ({
             ...prevInputs,
@@ -106,7 +117,8 @@ const sign_up = () => {
             })
             .then((res)=>{
                 navigate('/');
-                localStorage.setItem('user', JSON.stringify(inputs));
+                localStorage.setItem('userEmail', inputs.email);
+                localStorage.setItem('username', inputs.name.value);
                 localStorage.setItem('isLogged', true);
                 openSignUpModel(false);
             })
