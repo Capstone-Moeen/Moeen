@@ -6,7 +6,7 @@ import { ParkIcon } from "../Assets/Icons/ParkIcon";
 import { HotelIcon } from "../Assets/Icons/HotelIcon";
 function FilterBtns() {
   return (
-    <div className="flex justify-center py-5 gap-5 w-full flex-row-reverse shadow-2xl overflow-x-clip">
+    <div className="flex justify-center py-5 gap-5 w-full flex-row-reverse  overflow-x-clip">
       <Button
         className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
         endContent={<ShoppingIcon size={22} />}
