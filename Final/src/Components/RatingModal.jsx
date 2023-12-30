@@ -37,7 +37,8 @@ function RatingModal({ isModalOpen, handelOpenModal }) {
               <ModalFooter className="flex justify-center">
                 <Button
                   size="lg"
-                  className=" text-2xl text-red-500 bg-gray-200"
+                  color="danger" variant="flat"
+                  className=" text-2xl text-red-500"
                   onClick={handelOpenModal}
                 >
                   إلغاء
@@ -60,3 +61,5 @@ function RatingModal({ isModalOpen, handelOpenModal }) {
 }
 
 export default RatingModal;
+
+

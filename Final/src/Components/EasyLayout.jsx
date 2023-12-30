@@ -28,10 +28,12 @@ export default function EasyLayout() {
 
         </div>
 
-        <div className='max-sm:hidden '>
+        <div className='max-sm:hidden  ' >
 
          <EasyPlaceInfoSideCard/>
+
         </div>
+
            
     </div>
     </>

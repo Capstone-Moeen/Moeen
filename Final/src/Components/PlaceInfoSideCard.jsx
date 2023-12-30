@@ -44,7 +44,7 @@ function PlaceInfoSideCard({ isOpen }) {
             <Image
               width="100%"
               className={`object-fit ${
-                selected === "details" ? "" : "pt-[24rem]"
+                selected === "details" ? "" : "pt-[15rem]"
               }  rounded-none`}
               src="https://lh3.googleusercontent.com/p/AF1QipMYTWtnsrHICvloeWZUvdGLXVKQ5KUQMvpy7CL6=s0"
             />
