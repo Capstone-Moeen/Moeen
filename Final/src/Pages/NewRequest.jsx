@@ -85,7 +85,7 @@ export default function NewRequest() {
     } else {
       setError({});
       setLoading(true);
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0);
       uploadImages().then(async (imagesRes) => {
         await addDoc(collection(db, "placeRequest"), {
           placeName: userInput.placeName,
@@ -96,13 +96,17 @@ export default function NewRequest() {
           Images: imagesRes,
           Status: 'waiting',
           placeLocation: mapRef.getCenter().toJSON(),
-        }).then(() => {
-          setLoading(false);
-          console.log("Request Sent");
-        }).catch((error)=>{
-          setLoading(false)
-          setError({...error, generalError: "فشلت عملية رفع الطلب، الرجاء المحاولة مرة اخرى"})
-        });
+        })
+          .then(() => {
+            setLoading(false);
+          })
+          .catch((error) => {
+            setLoading(false);
+            setError({
+              ...error,
+              generalError: "فشلت عملية رفع الطلب، الرجاء المحاولة مرة اخرى",
+            });
+          });
       });
     }
   };
