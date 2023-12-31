@@ -149,7 +149,9 @@ function toastDelete() {
                       اسم المكان
                     </span>
                   </div>
-                  <div>{placeDetails.placeName}</div>
+                  <div className='flex justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
+                    {placeDetails.placeName}
+                    </div>
                 </label>
 
                 <label className="form-control w-full ">
@@ -158,7 +160,7 @@ function toastDelete() {
                       تصنيف المكان
                     </span>
                   </div>
-                <div>
+                <div className='flex justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
                 {placeDetails.placeType}
                  </div>
 
@@ -170,7 +172,7 @@ function toastDelete() {
                       المنطقة{" "}
                     </span>
                   </div>
-                <div>
+                <div className='flex justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
                 {placeDetails.placeRegion}
                 </div>
                 
@@ -182,14 +184,14 @@ function toastDelete() {
                       المدينة
                     </span>
                   </div>
-                 <div>
+                 <div className='flex justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
                  {placeDetails.placeCity}
                  </div>
                 </label>
 
                 <div className="flex flex-col w-full text-start gap-4 pt-3 px-2 max-sm:gap-2">
                 <h1 className="font-medium text-xl text-black">الخدمات المقدمة</h1>
-                 <div>
+                 <div className='flex flex-col justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
                    {Object.entries(placeDetails.services).map(([service]) => (
                    <div key={service}>
                    <span>{service} </span>
@@ -257,37 +259,38 @@ function toastDelete() {
                 </span>
                 </div>
 
-                <div className=' flex w-full justify-between'>
+                <div className=' flex w-full justify-between px-3 max-sm:flex-col max-sm:gap-4 max-sm:w-[70%]'>
 
-                <div className=' flex w-full gap-4'>
+                <div className=' flex gap-4 w-full max-sm:flex-col'>
 
                 <Button
-                  className="flex justify-center items-center bg-[#005B41] text-white font-bold 
-                  text-xl max-sm:text-base max-sm:w-[50%]"
-                  size="lg"
+                 className="flex justify-center items-center bg-[#005B41] text-white font-bold 
+                 text-xl max-sm:text-base "
+                 size="lg max-sm:sm "
                   onClick={()=>{handelAcceptedPlaces(id)}}
                 >
                   اضافة
                 </Button>
 
                 <Button
-                  size="lg"
-                  color="danger" variant="flat"
-                  className=" text-2xl text-red-500"
-                  onClick={()=>{handelClickDelete(id)}}
+                 size="lg max-sm:sm"
+                 color="danger" variant="flat"
+                 className=" text-red-500 font-bold 
+                 text-xl max-sm:text-base"
+                 onClick={()=>{handelClickDelete(id)}}
                 >
                   رفض
                 </Button>
                 </div>
 
 
-                <div className=' flex w-full justify-end'>
+                <div className=' flex w-full justify-end max-sm:flex-col'>
 
                 <Button
-                
-                  size="lg"
+                  size="lg max-sm:sm"
                   color="" variant="flat"
-                  className=" text-2xl text-[#005B41] bg-[#FAFAFB]"
+                  className=" text-[#005B41] bg-[#FAFAFB] font-bold 
+                   text-xl max-sm:text-base "
                   onClick={() => navigate('/Dashboard')}> 
                   الرجوع
                 </Button>

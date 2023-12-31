@@ -421,7 +421,7 @@ function toastSuccess() {
                     />
                     <label
                       htmlFor="file"
-                      className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 rounded p-2 ${
+                      className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-sm:my-3 rounded p-2 ${
                         images.length >= 6 ? "hidden" : ""
                       }`}
                     >
