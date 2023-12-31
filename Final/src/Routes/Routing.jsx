@@ -5,6 +5,7 @@ import Error from '../Errors/Error'
 import NewRequest from '../Pages/NewRequest'
 import EasyLayout from '../Components/EasyLayout'
 import AdminHome from '../Pages/AdminHome'
+import PlaceDetails from '../Pages/PlaceDetails'
 
 function Routing() {
   return (
@@ -15,6 +16,8 @@ function Routing() {
             <R path='/NewRequest' element={<NewRequest/>}></R>
             <R path='/EasyLayout' element={<EasyLayout/>}></R>
             <R path='/Dashboard' element={<AdminHome/>}></R>
+            <R path='/PlaceDetails/:id' element={<PlaceDetails/>}></R>
+
         </Routes>
     </>
   )

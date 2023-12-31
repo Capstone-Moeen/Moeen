@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { Button } from '@nextui-org/react';
+import PlaceDetails from '../Pages/PlaceDetails';
 
 function RequestList() {
 
@@ -29,16 +30,22 @@ function RequestList() {
         setData(filterdData);
       };
 
+    //   
+
+ const handleclick = (id) => {
+    navigate(`/PlaceDetails/${id}`);
+};
+
 
   return (
     <>
         <p class="text-right font-extrabold uppercase p-10 mt-10">الطلبات</p>
             
             <div className='mb-20'>
-                    <div class="shadow-lg rounded-lg mx-4 md:mx-10">
+                    <div class="mx-4 md:mx-10">
                 
-                <div class="overflow-x-auto">
-                    <table class="table-fixed w-full">
+                <div class="overflow-x-auto rounded-lg shadow-lg">
+                    <table class="table-fixed w-full ">
                         
                             <thead>
                                 <tr class="bg-gray-100">
@@ -58,7 +65,7 @@ function RequestList() {
                                     <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-start">
 
                                          <Button color="primary" 
-                                         onClick={()=>{navigate(``)}}>
+                                         onClick={() => handleclick(item.id)}>
                                         تفاصيل
                                         </Button>
                                         </td>
@@ -76,3 +83,5 @@ function RequestList() {
 }
 
 export default RequestList
+
+
