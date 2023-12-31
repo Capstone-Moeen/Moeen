@@ -11,7 +11,7 @@ import AdminHome from '../Pages/AdminHome'
 function Routing() {
   return (
     <>
-
+    
         <Routes>
             <R path='/' element={<Home/>}></R>
             <R path='/*' element={<Error/>}></R>
