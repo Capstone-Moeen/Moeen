@@ -15,9 +15,9 @@ import "simplebar-react/dist/simplebar.min.css";
 import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
+import calculateDistance from "../utils/CalculateDistance";
 
-function PlaceInfoSideCard({ isOpen }) {
-  
+function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -37,8 +37,9 @@ function PlaceInfoSideCard({ isOpen }) {
         <Card
           className={`${
             isOpen ? "translate-x-0" : "translate-x-[110%]"
-          }     bg-[#FAFAFB] shadow-2xl rounded  w-full flex flex-col justify-center items-center h-full relative  overflow-y-auto`}
+          }     bg-[#FAFAFB] shadow-2xl rounded  w-full flex flex-col justify-center items-center h-full relative overflow-y-visible  `}
         >
+        
           <div className="w-full">
             <Image
               width="100%"
@@ -51,14 +52,25 @@ function PlaceInfoSideCard({ isOpen }) {
               <CloseIconWhite size={18} className="mr-2 " />
             </button>
           </div>
+
+
+            
+          
+
           <CardBody className="overflow-visible py-2  ">
             <div className="w-full flex items-center">
               <div className="w-full flex flex-col mt-5">
                 <h1 className="text-2xl font-bold text-right max-sm:text-xl">
-                  أسم المكان
+                  {placeData.placeName}
                 </h1>
-                <span className="text-xl text-right text-gray-400 mt-2 max-sm:text-lg">
-                  4.2 كم
+                <span className="text-lg text-right text-gray-400 mt-2 max-sm:text-lg">
+                  {calculateDistance(
+                    userLocation.lat,
+                    userLocation.lng,
+                    placeData.placeLocation.lat,
+                    placeData.placeLocation.lng
+                  )}{" "}
+                  كم
                 </span>
               </div>
               <Button
@@ -84,7 +96,7 @@ function PlaceInfoSideCard({ isOpen }) {
                   selected === "details" ? "text-green-900" : ""
                 } max-sm:text-sm`}
               >
-                <ServicesGrid></ServicesGrid>
+                <ServicesGrid services= {placeData.services}></ServicesGrid>
               </Tab>
 
               <Tab

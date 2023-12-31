@@ -1,15 +1,18 @@
 import React from "react";
 import AutomaticDoorsActive from "../Assets/ServicesIcons/AutomaticDoorsActive.svg";
+import AutomaticDoorsDisabled from "../Assets/ServicesIcons/AutomaticDoorsDisabled.svg";
 import ElevatorActive from "../Assets/ServicesIcons/ElevatorActive.svg";
+import ElevatorDisabled from "../Assets/ServicesIcons/ElevatorDisabled.svg";
 import ParkingActive from "../Assets/ServicesIcons/ParkingActive.svg";
+import ParkingDisabled from "../Assets/ServicesIcons/ParkingDisabled.svg";
 import RampsActive from "../Assets/ServicesIcons/RampsActive.svg";
-import ResturansActive from "../Assets/ServicesIcons/ResturantActive.svg";
-import WCActive from "../Assets/ServicesIcons/WCActive.svg";
 import RampsDisabled from "../Assets/ServicesIcons/RampDisabled.svg";
+import ResturantActive from "../Assets/ServicesIcons/ResturantActive.svg";
 import ResturantDisabled from "../Assets/ServicesIcons/ResturantDisabled.svg";
+import WCActive from "../Assets/ServicesIcons/WCActive.svg";
 import WCDisabled from "../Assets/ServicesIcons/WCDisabled.svg";
 import { Tooltip } from "@nextui-org/react";
-function ServicesGrid() {
+function ServicesGrid({ services }) {
   return (
     <>
       <div className="w-full flex justify-center items-center mt-5">
@@ -22,7 +25,14 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={AutomaticDoorsActive} alt="AutomaticDoorsIcons"></img>
+            <img
+              src={
+                services.automaticGates
+                  ? AutomaticDoorsActive
+                  : AutomaticDoorsDisabled
+              }
+              alt="AutomaticDoorsIcons"
+            ></img>
           </Tooltip>
           <Tooltip
             placement="top"
@@ -32,7 +42,10 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={ElevatorActive} alt="ElevatorActive"></img>
+            <img
+              src={services.elevators ? ElevatorActive : ElevatorDisabled}
+              alt="ElevatorActive"
+            ></img>
           </Tooltip>
 
           <Tooltip
@@ -43,7 +56,10 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={ParkingActive} alt="ParkingActive"></img>
+            <img
+              src={services.parking ? ParkingActive : ParkingDisabled}
+              alt="ParkingActive"
+            ></img>
           </Tooltip>
           <Tooltip
             placement="top"
@@ -53,7 +69,10 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={RampsDisabled} alt="RampsActive"></img>
+            <img
+              src={services.ramps ? RampsActive : RampsDisabled}
+              alt="RampsActive"
+            ></img>
           </Tooltip>
           <Tooltip
             placement="top"
@@ -63,7 +82,9 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={ResturantDisabled} alt="ResturantDisabled"></img>
+            <img
+              src={services.tables ? ResturantActive : ResturantDisabled}
+            ></img>
           </Tooltip>
           <Tooltip
             placement="top"
@@ -73,7 +94,7 @@ function ServicesGrid() {
             className="text-lg"
             showArrow={true}
           >
-            <img src={WCDisabled} alt="WCDisabled"></img>
+            <img src={services.toilets ? WCActive : WCDisabled}></img>
           </Tooltip>
         </div>
       </div>

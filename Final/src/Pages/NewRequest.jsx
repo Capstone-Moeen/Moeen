@@ -205,6 +205,9 @@ export default function NewRequest() {
                     <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
+                    <SelectItem className="text-black" key="hotel">
+                      فندق
+                    </SelectItem>
                     <SelectItem className="text-black" key="Other">
                       أخرى
                     </SelectItem>
