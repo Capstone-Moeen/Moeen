@@ -2,6 +2,9 @@ import React from 'react'
 import Nav from '../Components/Nav'
 import {Tabs, Tab} from "@nextui-org/react";
 import RequestList from '../Components/RequestList';
+import PlacesList from '../Components/PlacesList';
+import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 function AdminHome() {
 
@@ -13,9 +16,9 @@ function AdminHome() {
 
   return (
     <>
-        <Nav/>
-
-<div className="flex flex-col w-full  bg-[#FAFAFB] p-5">
+      <Nav/>
+          <ToastContainer toastStyle={{ backgroundColor: "#FAFAFB" }}></ToastContainer>
+        <div className="flex flex-col w-full  bg-[#FAFAFB] p-5">
           <Tabs
             size="md"
             aria-label="Tabs form"
@@ -32,6 +35,8 @@ function AdminHome() {
               ${ selected === "dashboard" ? "text-green-900" : "" } max-sm:text-sm`}
              >
               dashboard :3
+              <hr />
+              <PlacesList />
             </Tab>
 
             <Tab key="new-request"

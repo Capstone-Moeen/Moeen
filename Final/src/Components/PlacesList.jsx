@@ -5,11 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { Button, CircularProgress } from '@nextui-org/react';
 import PlaceDetails from '../Pages/PlaceDetails';
 
-function RequestList() {
-
-    if (!localStorage.getItem('isAdmin')) {
-        window.open('/', '_self')
-    }
+function PlacesList() {
 
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
@@ -20,29 +16,24 @@ function RequestList() {
     }, [])
 
     const getData = async () => {
-        const query = await getDocs(collection(db, "placeRequest"));
+        const query = await getDocs(collection(db, "AcceptedPlaces"));
         const data = query.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        const filterdData = data.filter((item)=>
-            item.Status === 'waiting'
-        )
-        setData(filterdData);
+        
+        setData(data);
         setLoading(false)
       };
 
-    //   
-
- const handleDetails = (id) => {
-    navigate(`/PlaceDetails/${id}`);
-};
+      const handleUpdate =(id)=>{
+        navigate(`/Dashboard/Update/${id}`);
+      }
 
 
   return (
-    <>
-
-{loading && (
+    <> 
+    {loading && (
         <div className="w-full h-[100vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
         items-center ">
           <CircularProgress
@@ -53,10 +44,10 @@ function RequestList() {
         </div>
       )}
 
-        <p class="text-right font-extrabold uppercase p-10 mt-10">الطلبات</p>
-            
-            <div className='mb-20'>
-                    <div class="mx-4 md:mx-10">
+      
+<p class="text-right font-extrabold uppercase p-10 mt-10">الاماكن</p>   
+        <div className='mb-20'>
+            <div class="mx-4 md:mx-10">
                 
                 <div class="overflow-x-auto rounded-lg shadow-lg">
                     <table class="table-fixed w-full ">
@@ -79,8 +70,8 @@ function RequestList() {
                                     <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-start">
 
                                          <Button color="primary" 
-                                         onClick={() => handleDetails(item.id)}>
-                                        تفاصيل
+                                         onClick={() => handleUpdate(item.id)}>
+                                        تحديث
                                         </Button>
                                         </td>
                                     </tr>
@@ -91,11 +82,8 @@ function RequestList() {
                 
                         </div>
                         </div>
-                   
     </>
   )
 }
 
-export default RequestList
-
-
+export default PlacesList

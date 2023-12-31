@@ -3,20 +3,26 @@ import {
     Button,
     CircularProgress,
   } from "@nextui-org/react";
-import { doc, getDoc , deleteDoc } from "firebase/firestore";
+import { doc, getDoc , deleteDoc, addDoc, collection } from "firebase/firestore";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { db } from '../Config/firebase';
 import { useState , useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import Nav from '../Components/Nav';
 import defaultMarker from "../Assets/MapPins/DefultPin.svg";
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function PlaceDetails() {
+
+  if (!localStorage.getItem('isAdmin')) {
+    window.open('/', '_self')
+}
+
     const {id}= useParams();
     const navigate = useNavigate(); // Using useNavigate hook to navigate
     const [placeDetails, setPlaceDetails] = useState(null);
+    const [error, setError] = useState('');
 
 
 // map
@@ -24,7 +30,7 @@ function PlaceDetails() {
         googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
       });
 
-        //Storing the map reference in state to access it later
+//Storing the map reference in state to access it later
      const onMapLoad = (map) => {
     setMapRef(map);
   };
@@ -45,8 +51,6 @@ function PlaceDetails() {
       };
 
 
-    //   
-
 // get data from firebase
 useEffect(() => {
     const getPlaceDetails = async () => {
@@ -63,16 +67,68 @@ useEffect(() => {
     getPlaceDetails();
   }, [id]);
 
-  const handelClickDelete = async () => {
+  // deleting rejected places 
+  const handelClickDelete = async (id) => {
     try {
       await deleteDoc(doc(db, 'placeRequest', id));
       navigate('/Dashboard'); // Redirect after successful deletion
+      toastDelete()
     } catch (error) {
       console.error("Error removing document: ", error);
     }
   };
-        
 
+  // sending accepted places to new collection and delete them from here 
+  const handelAcceptedPlaces = async (id)=>{
+    await addDoc(collection(db, "AcceptedPlaces"), {
+      placeName: placeDetails.placeName,
+      placeType: placeDetails.placeType,
+      placeRegion: placeDetails.placeRegion,
+      placeCity: placeDetails.placeCity,
+      services: placeDetails.services,
+      Images: placeDetails.Images,
+      Status: 'approved',
+      placeLocation: placeDetails.placeLocation,
+    })
+      .then(() => {
+        // setLoading(false);
+        deleteDoc(doc(db, 'placeRequest', id));
+        navigate('/Dashboard'); 
+        toastSuccessAdd();
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError("فشلت العملية، الرجاء المحاولة مرة اخرى");
+      }); 
+  }
+
+  // toast functions
+function toastSuccessAdd() {
+  toast.success('تمت الاضافة بنجاح', {
+    position: "top-right",
+   autoClose: 4000,
+   hideProgressBar: false,
+   closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "light"
+    })
+  }
+
+function toastDelete() {
+  toast.success('تم الحذف بنجاح', {
+    position: "top-right",
+   autoClose: 4000,
+   hideProgressBar: false,
+   closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "light"
+    })
+  }
+        
   return (
     
 <>
@@ -194,13 +250,22 @@ useEffect(() => {
                    ))}
 
                 </div>
+
+                <div>
+                <span className="text-red-600 text-right">
+                  {error}
+                </span>
+                </div>
+
                 <div className=' flex w-full justify-between'>
 
                 <div className=' flex w-full gap-4'>
 
                 <Button
-                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl max-sm:text-base max-sm:w-[50%]"
+                  className="flex justify-center items-center bg-[#005B41] text-white font-bold 
+                  text-xl max-sm:text-base max-sm:w-[50%]"
                   size="lg"
+                  onClick={()=>{handelAcceptedPlaces(id)}}
                 >
                   اضافة
                 </Button>
@@ -229,11 +294,8 @@ useEffect(() => {
 
                 </div>
                 </div>
-
-
               </div>
       )}
-
             </div>
           </div>
         </div>
