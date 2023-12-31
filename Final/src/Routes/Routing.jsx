@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Routes, Route as R } from 'react-router-dom'
 import Home from '../Pages/Home'
@@ -7,9 +8,11 @@ import EasyLayout from '../Components/EasyLayout'
 import AdminHome from '../Pages/AdminHome'
 import PlaceDetails from '../Pages/PlaceDetails'
 
+
 function Routing() {
   return (
     <>
+
         <Routes>
             <R path='/' element={<Home/>}></R>
             <R path='/*' element={<Error/>}></R>
@@ -19,8 +22,11 @@ function Routing() {
             <R path='/PlaceDetails/:id' element={<PlaceDetails/>}></R>
 
         </Routes>
+
     </>
-  )
+  );
 }
 
+
 export default Routing
+
