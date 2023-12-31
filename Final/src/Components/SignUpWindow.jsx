@@ -56,6 +56,17 @@ const validateInputs = () => {
         isValid = false;
     }
 
+    if (inputs.name.value.trim() === 'admin') {
+      setInputs((prevInputs) => ({
+          ...prevInputs,
+          name: {
+              ...prevInputs.name,
+              errorMessage: 'اسم غير مصرح به، الرجاء ادخال اسمك الصحيح',
+          },
+      }));
+      isValid = false;
+  }
+
     if (!inputs.email.value || (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(inputs.email.value.trim()))) {
         setInputs((prevInputs) => ({
             ...prevInputs,
@@ -106,7 +117,8 @@ const sign_up = () => {
             })
             .then((res)=>{
                 navigate('/');
-                localStorage.setItem('user', JSON.stringify(inputs));
+                localStorage.setItem('userEmail', inputs.email.value);
+                localStorage.setItem('username', inputs.name.value);
                 localStorage.setItem('isLogged', true);
                 openSignUpModel(false);
             })
@@ -215,10 +227,10 @@ React.useEffect(() => {
 
               </ModalBody>
 
-              <ModalFooter className="self-start">
+              <ModalFooter className="self-center">
                 
                 <Button color="primary" onClick={sign_up}>
-                  تسجيل دخول
+                  تسجيل جديد
                 </Button>
                 <Button color="danger" variant="flat" onClick={openSignUpModel}>
                   تراجع

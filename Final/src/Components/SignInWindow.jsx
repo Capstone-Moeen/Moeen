@@ -74,10 +74,19 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
         signInWithEmailAndPassword(auth, inputs.email.value, inputs.password.value)
         .then(res=>{
           console.log(res.user);
-          navigate('/');
-          localStorage.setItem('user', JSON.stringify(inputs));
-          localStorage.setItem('isLogged', true);
-          openModal()
+          if (inputs.email.value === 'admin@admin.com') {
+            navigate('/Dashboard');
+            localStorage.setItem('userEmail', inputs.email.value);
+            localStorage.setItem('username', res.user.displayName);
+            localStorage.setItem('isAdmin', true);
+            openModal()
+          } else {
+            navigate('/');
+            localStorage.setItem('userEmail', inputs.email.value);
+            localStorage.setItem('username', res.user.displayName);
+            localStorage.setItem('isLogged', true);
+            openModal()
+          }
         })
       } else {
           setLoading(false);
@@ -151,7 +160,7 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
 
               </ModalBody>
 
-              <ModalFooter className="self-start">
+              <ModalFooter className="self-center">
                 
                 <Button color="primary" onClick={sign_in}>
                   تسجيل دخول

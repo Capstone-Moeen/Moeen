@@ -9,6 +9,7 @@ import CoffePin from '../Assets/MapPins/CoffePin.svg'
 import HotelPin from '../Assets/MapPins/HotelPin.svg'
 import ParkPin from '../Assets/MapPins/ParkPin.svg'
 import ShoppingPin from '../Assets/MapPins/shopPin.svg'
+
 function MapComponent() {
 
   // Initializing the google maps with the api key
