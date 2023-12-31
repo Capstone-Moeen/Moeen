@@ -19,7 +19,13 @@ import defaultMarker from "../Assets/MapPins/DefultPin.svg";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import {useNavigate}  from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function NewRequest() {
+
+  const navegate = useNavigate();
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
   });
@@ -99,6 +105,7 @@ export default function NewRequest() {
         })
           .then(() => {
             setLoading(false);
+            navegate('/');            
           })
           .catch((error) => {
             setLoading(false);
@@ -127,11 +134,28 @@ export default function NewRequest() {
     );
     const imageRes = await Promise.all(imagesPromises);
     setLoading(false);
+    toastSuccess();
     return imageRes;
   };
 
+// toast functions
+function toastSuccess() {
+  toast.success('تم الارسال بنجاح', {
+    position: "top-right",
+   autoClose: 4000,
+   hideProgressBar: false,
+   closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "light"
+    });
+  
+}
   return (
     <>
+    {/* <ToastContainer></ToastContainer> */}
+
       {loading && (
         <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
         items-center ">
@@ -435,3 +459,5 @@ export default function NewRequest() {
     </>
   );
 }
+
+

@@ -45,3 +45,7 @@ body {
   width: 300px;
   height: 180px;
 }
+
+.Toastify__progress-bar {
+  background-color: #CEEAD6;
+}
