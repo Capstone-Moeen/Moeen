@@ -74,7 +74,7 @@ function Nav() {
         <div className="w-[35rem] max-sm:w-[16rem]">
           <Input
             classNames={{
-              base: " sm:max-w-[10rem] h-12 max-sm:hidden",
+              base: `sm:max-w-[10rem] h-12 max-sm:hidden`,
               mainWrapper: "h-full",
               input: "text-large",
               inputWrapper:
