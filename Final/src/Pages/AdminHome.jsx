@@ -15,7 +15,7 @@ function AdminHome() {
     <>
         <Nav/>
 
-<div className="flex flex-col w-full  bg-[#FAFAFB]">
+<div className="flex flex-col w-full  bg-[#FAFAFB] p-5">
           <Tabs
             size="md"
             aria-label="Tabs form"
