@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { Button } from '@nextui-org/react';
+import { Button, CircularProgress } from '@nextui-org/react';
 import PlaceDetails from '../Pages/PlaceDetails';
 
 function RequestList() {
@@ -11,6 +11,7 @@ function RequestList() {
         window.open('/', '_self')
     }
 
+    const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
     const navigate = useNavigate()
 
@@ -28,6 +29,7 @@ function RequestList() {
             item.Status === 'waiting'
         )
         setData(filterdData);
+        setLoading(false)
       };
 
     //   
@@ -39,6 +41,18 @@ function RequestList() {
 
   return (
     <>
+
+{loading && (
+        <div className="w-full h-[100vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
+        items-center ">
+          <CircularProgress
+            className="z-50"
+            color="primary"
+            label="Proccesing"
+          ></CircularProgress>
+        </div>
+      )}
+
         <p class="text-right font-extrabold uppercase p-10 mt-10">الطلبات</p>
             
             <div className='mb-20'>

@@ -33,10 +33,11 @@ function Nav() {
     const isAdmin = localStorage.getItem('isAdmin');
     const userEmail = localStorage.getItem('userEmail');
     const username = localStorage.getItem('username');
-    return { isLogged, isAdmin, userEmail, username };
+    const easy = localStorage.getItem('easy');
+    return { isLogged, isAdmin, userEmail, username, easy };
   };
 
-  const { isLogged, isAdmin, userEmail, username } = getUserInfo();
+  const { isLogged, isAdmin, userEmail, username, easy } = getUserInfo();
 
   // to close the menu every time the user clicks anywhere 
   const userMenuRef = React.useRef();
@@ -51,6 +52,7 @@ function Nav() {
         localStorage.clear()
         // setIsLogged(false)
         setShowUserMenu(false);
+        navigate('/')
     };
 
     // for sign in model 
@@ -248,13 +250,28 @@ function Nav() {
                           عمى الالوان
                           </Link>
                         </li>
+                        {easy ? 
                         <li>
-                          <Link to="/EasyLayout" 
+                        <button 
+                        onClick={()=>{localStorage.removeItem('easy'); navigate('/')}}
+                        // to="/EasyLayout" 
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
+                          <EasyModeIcon />
+                          الوضع الافتراضي
+                        </button>
+                      </li>
+                        :
+                        <li>
+                          <button 
+                          onClick={()=>{localStorage.setItem('easy', true); navigate('/')}}
+                          // to="/EasyLayout" 
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                             <EasyModeIcon />
                             الوضع السهل
-                          </Link>
+                          </button>
                         </li>
+                        }
+                        
 
                         <hr className="w-48 h-1 mx-auto bg-gray-200 border-0 
                         rounded md:my-7 max-sm:my-7"/>

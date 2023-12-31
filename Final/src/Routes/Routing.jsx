@@ -17,7 +17,7 @@ function Routing() {
             <R path='/' element={<Home/>}></R>
             <R path='/*' element={<Error/>}></R>
             <R path='/NewRequest' element={<NewRequest/>}></R>
-            <R path='/EasyLayout' element={<EasyLayout/>}></R>
+            {/* <R path='/EasyLayout' element={<EasyLayout/>}></R> */}
             <R path='/Dashboard' element={<AdminHome/>}></R>
             <R path='/PlaceDetails/:id' element={<PlaceDetails/>}></R>
 

@@ -1,17 +1,58 @@
 import React from 'react'
 import Nav from '../Components/Nav'
 import MapComponent from '../Components/MapComponent'
+import EasyLayout from '../Components/EasyLayout'
+
 import { ToastContainer, toast } from 'react-toastify';
 
 function Home() {
+
+  const LayoutMode = () => {
+    const easyMode = localStorage.getItem('easy');
+    return { easyMode };
+  };
+
+  const { easyMode } = LayoutMode();
+
+  
+
+  // const [easyMode, setEasyMode] = React.useState(localStorage.getItem('easy'));
+
+  // React.useEffect(() => {
+  //   setEasyMode(localStorage.getItem('easy'));
+  // }, [localStorage.getItem('easy')]);
+
+  // const [easyMode, setEasyMode] = React.useState(() => localStorage.getItem('easy'));
+
+  // const [easyMode, setEasyMode] = React.useState(localStorage.getItem('easy') === 'true');
+
+  // React.useEffect(() => {
+  //   const handleStorageChange = () => {
+  //     // Update the state when storage changes
+  //     setEasyMode(localStorage.getItem('easy') === 'true');
+  //   };
+
+  //   window.addEventListener('storage', handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener('storage', handleStorageChange);
+  //   };
+  // }, []);
+  
+
   return (
     <>
-    <div className='h-screen overflow-hidden'>
-    <Nav></Nav>
-    <ToastContainer toastStyle={{ backgroundColor: "#FAFAFB" }}></ToastContainer>
+    {easyMode ? 
+      <EasyLayout />
+    :
+      <div className='h-screen overflow-hidden'>
+      <Nav></Nav>
+      <ToastContainer toastStyle={{ backgroundColor: "#FAFAFB" }}></ToastContainer>
 
     <MapComponent></MapComponent>
-    </div>
+      </div>
+    }
+    
     </>
   )
 }
