@@ -16,10 +16,7 @@ import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 
-
-
 function EasyPlaceInfoSideCard() {
-
 
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller

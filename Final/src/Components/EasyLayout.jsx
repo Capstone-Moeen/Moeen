@@ -1,40 +1,36 @@
 import React from 'react'
 import FilterBtns from "./FilterBtns";
 import Nav from './Nav';
-import EasyPlaceInfoSideCard from './EasyPlaceInfoSideCard';
 import EasyCardPlaces from './EasyCardPlaces';
+import FeaturedPlaceCardEasyLayout from './FeaturedPlaceCardEasyLayout';
+import { Divider } from '@nextui-org/react';
 
 export default function EasyLayout() {
 
   return (
     <>
     <Nav/>
+     <div className='w-full flex justify-center'>
+     </div>
+     <h1 className='text-center font-bold text-3xl px-5 mt-12'>
+        الاعلى تقييما
+      </h1>
+      
+      <div className='w-full flex justify-center gap-5 p-10 items-center mt-5 mb-5 flex-wrap max-sm:p-4'>
+     <FeaturedPlaceCardEasyLayout placeImage={"https://lh3.googleusercontent.com/p/AF1QipN-mBb87BJTqnySmMSQ2D8Qf-f0c7p1KoA6lssN=s0"} placename={"بوليفارد وورلد"}></FeaturedPlaceCardEasyLayout>
+     <FeaturedPlaceCardEasyLayout placeImage={"https://lh3.googleusercontent.com/p/AF1QipM0MyykTZIerh4-ONkywBkGc7tPKTMf9Me6xEA=s0"}
+            placename={"واجهة الرياض"}></FeaturedPlaceCardEasyLayout>
+      </div>
+     
+      <FilterBtns></FilterBtns>
 
-    <div className=' grid grid-cols-2 gap-14 justify-center items-start w-full h-full px-10  bg-[#FAFAFB] max-sm:grid-cols-1 max-sm:px-1 '>
-        <div className='flex flex-col gap-3 py-11 max-sm:py-5'>
-
-         <FilterBtns/>
-
-         <h1 className='text-black font-extrabold text-[2rem] mb-3'>الاعلى تقيمًا </h1>
-         <div>
-
-         <EasyCardPlaces/>
-
-         </div>
-
-        <h1 className='text-black font-extrabold text-[2rem] mb-3 mt-5'>قائمة الاماكن </h1>
-
-        <EasyCardPlaces/>
-
-        </div>
-
-        <div className='max-sm:hidden  ' >
-
-         <EasyPlaceInfoSideCard/>
-
-        </div>
-
-           
+    <div className='w-full grid grid-cols-3 justify-items-center items-center flex-wrap gap-5 m p-20 max-sm:grid-cols-1 max-sm:p-6'>
+     <EasyCardPlaces></EasyCardPlaces>
+     <EasyCardPlaces></EasyCardPlaces>
+     <EasyCardPlaces></EasyCardPlaces>
+     <EasyCardPlaces></EasyCardPlaces>
+     <EasyCardPlaces></EasyCardPlaces>
+     <EasyCardPlaces></EasyCardPlaces>
     </div>
     </>
 

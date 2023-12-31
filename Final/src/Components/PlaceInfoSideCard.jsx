@@ -14,7 +14,6 @@ import ServicesGrid from "./ServicesGrid";
 import "simplebar-react/dist/simplebar.min.css";
 import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
-import { CloseIcon } from "../Assets/Icons/CloseIcon";
 import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 
 function PlaceInfoSideCard({ isOpen }) {
