@@ -3,7 +3,7 @@ import {
     Button,
     CircularProgress,
   } from "@nextui-org/react";
-  import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc , deleteDoc } from "firebase/firestore";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { db } from '../Config/firebase';
 import { useState , useEffect } from "react";
@@ -63,6 +63,14 @@ useEffect(() => {
     getPlaceDetails();
   }, [id]);
 
+  const handelClickDelete = async () => {
+    try {
+      await deleteDoc(doc(db, 'placeRequest', id));
+      navigate('/Dashboard'); // Redirect after successful deletion
+    } catch (error) {
+      console.error("Error removing document: ", error);
+    }
+  };
         
 
   return (
@@ -201,6 +209,7 @@ useEffect(() => {
                   size="lg"
                   color="danger" variant="flat"
                   className=" text-2xl text-red-500"
+                  onClick={()=>{handelClickDelete(id)}}
                 >
                   رفض
                 </Button>
