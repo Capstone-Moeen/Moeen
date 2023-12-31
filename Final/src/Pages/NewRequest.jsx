@@ -217,19 +217,19 @@ function toastSuccess() {
                     name="placeType"
                     onChange={handelInput}
                   >
-                    <SelectItem className="text-black" key="restaurant">
+                    <SelectItem className="text-black" key="مطعم">
                       مطعم
                     </SelectItem>
-                    <SelectItem className="text-black" key="Park">
+                    <SelectItem className="text-black" key="منتزه">
                       منتزه
                     </SelectItem>
-                    <SelectItem className="text-black" key="cafe">
+                    <SelectItem className="text-black" key="مقهى">
                       مقهى
                     </SelectItem>
-                    <SelectItem className="text-black" key="shopping">
+                    <SelectItem className="text-black" key="تسوق">
                       تسوق
                     </SelectItem>
-                    <SelectItem className="text-black" key="Other">
+                    <SelectItem className="text-black" key="أخرى">
                       أخرى
                     </SelectItem>
                   </Select>
@@ -289,7 +289,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl  text-black"
-                        name="parking"
+                        name="مواقف المقعدين"
                       >
                         <span className="mr-1"> مواقف المقعدين</span>
                       </Checkbox>
@@ -297,7 +297,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="ramps"
+                        name="المنحدرات"
                       >
                         <span className="mr-1">المنحدرات</span>
                       </Checkbox>
@@ -305,7 +305,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="tables"
+                        name=" طاولات الطعام"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>
@@ -316,7 +316,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="toilets"
+                        name="دورات المياه"
                       >
                         <span className="mr-1"> دورات المياه</span>
                       </Checkbox>
@@ -324,7 +324,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="elevators"
+                        name="المصاعد"
                       >
                         <span className="mr-1"> المصاعد</span>
                       </Checkbox>
@@ -332,7 +332,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="automaticGates"
+                        name="ابواب اوتوماتيكة"
                       >
                         <span className="mr-1"> ابواب اوتوماتيكة</span>
                       </Checkbox>
