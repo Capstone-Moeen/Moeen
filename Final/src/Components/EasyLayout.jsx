@@ -9,7 +9,7 @@ export default function EasyLayout() {
 
   return (
     <>
-    <Nav/>
+   
      <div className='w-full flex justify-center'>
      </div>
      <h1 className='text-center font-bold text-3xl px-5 mt-12'>
