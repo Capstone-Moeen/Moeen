@@ -15,9 +15,10 @@ import ServicesGrid from "./ServicesGrid";
 import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 import { Carousel } from "react-responsive-carousel";
+import calculateDistance from "../utils/CalculateDistance";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-function EasyLayoutModal({ isOpen, onOpenChange }) {
+function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   const [selected, setSelected] = React.useState("details");
 
   return (
@@ -28,27 +29,47 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
         backdrop="blur"
         scrollBehavior="inside"
         className="overflow-hidden relative"
-        closeButton={<DirectionsIcon></DirectionsIcon>}
       >
         <Modal
           className="overflow-y-auto overflow-x-hidden "
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           backdrop="blur"
-          closeButton={<DirectionsIcon></DirectionsIcon>}
+          motionProps={{
+            variants: {
+              enter: {
+                y: 0,
+                x: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.3,
+                  ease: "easeOut",
+                },
+              },
+              exit: {
+                x: 200,
+                opacity: 0,
+                transition: {
+                  duration: 0.2,
+                  ease: "easeIn",
+                },
+              },
+            },
+          }}
         >
           <ModalContent className="h-[90%] ">
             {(onClose) => (
               <>
-                <Button
-                  className="absolute top-1 -left-3 p-0 w-1  rounded-full  text-white  bg-transparent z-50"
-                  onPress={onClose}
+                <button
+                  className="absolute top-2 left-3 p-2   rounded-full bg-[rgba(0,0,0,0.6)]  text-white z-50 hover:bg-[rgba(0,0,0,0.8)]"
+                  onClick={onClose}
                 >
                   <svg
-                    viewBox="0 0 24 24"
+                    viewBox="-0.5 0 25 25"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    stroke="#ffffff"
+                    width={24}
+                    height={24}
                   >
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g
@@ -58,20 +79,23 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                     ></g>
                     <g id="SVGRepo_iconCarrier">
                       {" "}
-                      <g id="Edit / Close_Circle">
-                        {" "}
-                        <path
-                          id="Vector"
-                          d="M9 9L11.9999 11.9999M11.9999 11.9999L14.9999 14.9999M11.9999 11.9999L9 14.9999M11.9999 11.9999L14.9999 9M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
-                          stroke="#ffffff"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>{" "}
-                      </g>{" "}
+                      <path
+                        d="M3 21.32L21 3.32001"
+                        stroke="#ffffff"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
+                      <path
+                        d="M3 3.32001L21 21.32"
+                        stroke="#ffffff"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>{" "}
                     </g>
                   </svg>
-                </Button>
+                </button>
                 <ModalBody className="gap-1 p-0 z-0 ">
                   <Carousel
                     className="slider rounded-2xl "
@@ -82,41 +106,45 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                     swipeable
                     interva={2000}
                   >
-                    <div className="">
-                      <img
-                        className="h-52 object-cover object-center "
-                        src="https://lh3.googleusercontent.com/p/AF1QipMcPwzVhV5G5eXkXuAZhXGnGWxAbmBHAqq5cKFU=s0"
-                      />
-                    </div>
-                    <div className="">
-                      <img
-                        className="h-52 object-cover object-center "
-                        src="https://lh3.googleusercontent.com/p/AF1QipMcPwzVhV5G5eXkXuAZhXGnGWxAbmBHAqq5cKFU=s0"
-                      />
-                    </div>
-                    <div className="">
-                      <img
-                        className="h-52 object-cover object-center "
-                        src="https://lh3.googleusercontent.com/p/AF1QipMcPwzVhV5G5eXkXuAZhXGnGWxAbmBHAqq5cKFU=s0"
-                      />
-                    </div>
+                    {placeData.Images.map((image, index) => (
+                      <div key={index} className="">
+                        <img
+                          className="h-52 object-cover object-center "
+                          src={image}
+                        />
+                      </div>
+                    ))}
                   </Carousel>
                   <div className="flex justify-between px-3 items-center">
                     <div className="flex flex-col">
-                  <h1 className="text-right font-bold text-xl  mt-2">
-                    سنتريا مول
-                  </h1>
-                  <span className="text-[#70757a]">4.5 كم </span>
-                  </div>
-                  <Button
-                className="bg-[#005B41]  text-white font-semibold w-32  text-md max-sm:text-sm max-sm:w-52 max-sm:py-0"
-                endContent={<DirectionsIcon size={22} />}
-              >
-                الإتجاهات
-              </Button>
+                      <h1 className="text-right font-bold text-2xl  mt-2">
+                        {placeData.placeName}
+                      </h1>
+                      <span className="text-[#70757a]">
+                        {calculateDistance(
+                          userLocation.lat,
+                          userLocation.lng,
+                          placeData.placeLocation.lat,
+                          placeData.placeLocation.lng
+                        )}
+                        <span className="mr-1">كم</span>
+                      </span>
+                    </div>
+                    <Button
+                      onClick={() =>
+                        window.open(
+                          `https://www.google.com/maps/dir/?api=1&destination=${placeData.placeLocation.lat},${placeData.placeLocation.lng}`,
+                          "_blank"
+                        )
+                      }
+                      className="bg-[#005B41]  text-white font-semibold w-32  text-md max-sm:text-sm max-sm:w-32 max-sm:py-0"
+                      endContent={<DirectionsIcon size={22} />}
+                    >
+                      الإتجاهات
+                    </Button>
                   </div>
                   <Tabs
-                    className="w-full block mt-3 px-5"
+                    className="w-full block mt-3 px-3"
                     aria-label="Tabs sizes"
                     selectedKey={selected}
                     onSelectionChange={setSelected}
@@ -130,7 +158,9 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                         selected === "details" ? "text-green-900" : ""
                       } max-sm:text-sm`}
                     >
-                      {/* <ServicesGrid></ServicesGrid> */}
+                      <ServicesGrid
+                        services={placeData.services}
+                      ></ServicesGrid>
                     </Tab>
 
                     <Tab

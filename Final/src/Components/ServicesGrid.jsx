@@ -13,8 +13,10 @@ import WCActive from "../Assets/ServicesIcons/WCActive.svg";
 import WCDisabled from "../Assets/ServicesIcons/WCDisabled.svg";
 import { Tooltip } from "@nextui-org/react";
 function ServicesGrid({ services }) {
+  const [servicesObj, setServicesObj] = React.useState(JSON.parse(JSON.stringify(services)));
   return (
     <>
+  
       <div className="w-full flex justify-center items-center mt-5">
         <div className="grid grid-cols-3 justify-items-center grid-rows-2 gap-y-2 gap-x-9">
           <Tooltip
