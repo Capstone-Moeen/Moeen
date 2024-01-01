@@ -5,10 +5,10 @@ import FilterBtns from "./FilterBtns";
 import PlaceInfoSideCard from "./PlaceInfoSideCard";
 import BackDrop from "./BackDrop";
 import FeaturedPlaces from "./FeaturedPlaces";
-import cafe from "../Assets/MapPins/CoffePin.svg";
+import cafe  from "../Assets/MapPins/CoffePin.svg";
 import hotel from "../Assets/MapPins/HotelPin.svg";
 import Park from "../Assets/MapPins/ParkPin.svg";
-import shopping from "../Assets/MapPins/shopPin.svg";
+import shopping from "../Assets/MapPins/shopPin.svg"; 
 import Other from "../Assets/MapPins/DefultPin.svg";
 import restaurant from "../Assets/MapPins/resturantPin.svg";
 import { db } from "../Config/firebase";
@@ -23,7 +23,7 @@ function MapComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [places, setPlaces] = useState([]);
   const [placeData, setPlaceData] = useState({});
-
+  const [mapPin , setMapPin] = useState()
   useEffect(() => {
     getUserLocation();
     getPlaces();
@@ -102,12 +102,16 @@ function MapComponent() {
 
             {/* Mapping through places and placing marker for each place*/}
             {places.map((place) => {
+      
+
+
+
               return (
                 <Marker
                   onClick={() => handelMarkerClicked(place)}
                   key={place.id}
                   position={place.placeLocation}
-                  
+                  icon={Other}
                 ></Marker>
               );
             })}
