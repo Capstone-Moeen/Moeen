@@ -1,11 +1,14 @@
 import React from "react";
-import { Card, CardHeader, CardBody, Image, Button, CardFooter } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Image, Button, CardFooter,useDisclosure } from "@nextui-org/react";
 import { Rating } from "@mui/material";
+import EasyLayoutModal from "./EasyLayoutModal";
 function EasyCardPlaces() {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
 
   
   return (
+    <>
     <Card className="hover:bg-gray-100 cursor-pointer ">
       <CardHeader className=" flex-col items-start p-0 w-full">
         <Image
@@ -26,10 +29,14 @@ function EasyCardPlaces() {
         <p className="text-right font-light">مركز تسوق</p>
       </CardBody>
 <CardFooter>
-  <Button color="primary">عرض</Button>
+  <Button onPress={onOpen} color="primary">عرض</Button>
 </CardFooter>
     </Card>
 
+
+
+    <EasyLayoutModal onOpen={onOpen} isOpen={isOpen} onOpenChange={onOpenChange} ></EasyLayoutModal>
+    </>
   );
 }
 
