@@ -49,3 +49,7 @@ body {
 .Toastify__progress-bar {
   background-color: #CEEAD6;
 }
+.slider{
+
+  direction: ltr !important;
+}

@@ -50,6 +50,7 @@ function Nav({ handelLayoutChange, easyMode }) {
   const [isSignUpModel, setIsSignUpModel] = React.useState(false);
 
   const openSignUpModel = () => {
+    console.log("hello")
     setIsSignUpModel(!isSignUpModel);
   };
 
