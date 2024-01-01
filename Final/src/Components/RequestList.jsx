@@ -86,7 +86,10 @@ const filteredData = data.filter((item) =>
                                 </tr>
                             </thead>
             
-                    {[...data].reverse().map((item)=>(
+                    {filteredData.length === 0 || filteredData.length === '' ? 
+                    <div className='p-5'>لا يوجد نتائج</div>
+                    :
+                    [...data].reverse().map((item)=>(
                         
                             <tbody class="bg-white">
                                 <tr>
