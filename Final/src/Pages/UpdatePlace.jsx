@@ -75,21 +75,51 @@ const handelUpdatePlaces = async (id) => {
       Status: 'approved',
     });
     navigate('/Dashboard');
-    toast.success('تم التحديث بنجاح', {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light"
-    });
+    toastSuccessAdd();
   } catch (error) {
     console.error("Error updating document: ", error);
     setError("فشلت العملية، الرجاء المحاولة مرة اخرى");
   }
 };
+
+  // deleting rejected places 
+  const handelClickDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'AcceptedPlaces', id));
+      navigate('/Dashboard'); // Redirect after successful deletion
+      toastDelete()
+    } catch (error) {
+      console.error("Error removing document: ", error);
+    }
+  };
+
+
+    // toast functions
+    function toastSuccessAdd() {
+      toast.success('تم التحديث بنجاح', {
+        position: "top-right",
+       autoClose: 4000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "light"
+        })
+      }
+    
+    function toastDelete() {
+      toast.success('تم الحذف بنجاح', {
+        position: "top-right",
+       autoClose: 4000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "light"
+        })
+      }
          
   return (
 <>

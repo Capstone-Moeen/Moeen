@@ -88,6 +88,7 @@ useEffect(() => {
       services: placeDetails.services,
       Images: placeDetails.Images,
       Status: 'approved',
+      RatingMoeen : '0',
       placeLocation: placeDetails.placeLocation,
     })
       .then(() => {

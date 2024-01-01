@@ -4,6 +4,7 @@ import { db } from '../Config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { Button, CircularProgress } from '@nextui-org/react';
 import PlaceDetails from '../Pages/PlaceDetails';
+import RatingMoeenPopUp from './RatingMoeenPopUp';
 
 function PlacesList() {
 
@@ -29,6 +30,14 @@ function PlacesList() {
       const handleUpdate =(id)=>{
         navigate(`/Dashboard/Update/${id}`);
       }
+
+  
+  // for Rating in model
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
 
   return (
@@ -68,7 +77,7 @@ function PlacesList() {
                                     <td class="py-4 px-6 border-b border-gray-200 max-sm:text-[13px] text-black text-right">
                                         {item.placeName}</td>
 
-                                    <td class="py-4 px-6 border-b border-gray-200 flex justify-evenly max-sm:flex-col ">
+                                    <td class="py-4 px-6 border-b border-gray-200 flex  gap-3 justify-evenly max-sm:flex-col ">
 
                                          <Button
                                           size="lg max-sm:sm"
@@ -83,7 +92,9 @@ function PlacesList() {
                                          size="lg max-sm:sm"
                                          variant="flat"
                                          className=" text-[#005B41] bg-[#E4EFE7]
-                                          text-lg max-sm:text-base " >
+                                          text-lg max-sm:text-base "
+                                          onClick={openModal}
+                                          >
                                          تقييم
                                         </Button>
 
@@ -92,13 +103,15 @@ function PlacesList() {
 
               
                                     </tr>
-                            </tbody>      
+                            </tbody>  
+    
                     ))}
                     </table>
                 </div>
                 
-                        </div>
-                        </div>
+          </div>
+       </div>
+       <RatingMoeenPopUp isOpen={isModalOpen} openModal={openModal} />
     </>
   )
 }
