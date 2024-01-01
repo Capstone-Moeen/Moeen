@@ -107,7 +107,7 @@ function MapComponent() {
                   onClick={() => handelMarkerClicked(place)}
                   key={place.id}
                   position={place.placeLocation}
-                  icon={eval(place.placeType)}
+                  
                 ></Marker>
               );
             })}

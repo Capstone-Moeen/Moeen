@@ -32,7 +32,7 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
       <Card
         className={`${
           isOpen ? "translate-x-0" : "translate-x-[110%]"
-        }     bg-[#FAFAFB] shadow-2xl absolute  right-5 w-[22rem] flex flex-col justify-center items-center h-[85%] top-5 max-sm:right-2 overflow-hidden max-sm:w-[95%]`}
+        }     bg-[#FAFAFB] shadow-2xl absolute  right-5 w-[22rem] flex flex-col justify-center items-center h-[85%] top-2 max-sm:right-2 overflow-hidden max-sm:w-[95%]`}
       >
         <Card
           className={`${
@@ -44,7 +44,7 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
             <Image
               width="100%"
               className={`object-fit ${
-                selected === "details" ? "" : "pt-[15rem]"
+                selected === "details" ? "" : "pt-[20rem]"
               }  rounded-none`}
               src="https://lh3.googleusercontent.com/p/AF1QipMYTWtnsrHICvloeWZUvdGLXVKQ5KUQMvpy7CL6=s0"
             />
