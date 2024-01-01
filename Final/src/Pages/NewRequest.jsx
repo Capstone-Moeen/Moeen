@@ -22,6 +22,8 @@ import { addDoc, collection } from "firebase/firestore";
 import {useNavigate}  from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {DeleteIcon} from "../Assets/Icons/DeleteIcon";
+
 export default function NewRequest() {
 
   const navegate = useNavigate();
@@ -151,6 +153,20 @@ function toastSuccess() {
    theme: "light"
     });
 }
+
+//delete image
+const handelDeleteImage = (index) => {
+  const updatedImages = [...images];
+  const updatedImagesObjects = [...imagesObjects];
+
+  updatedImages.splice(index, 1);
+  updatedImagesObjects.splice(index, 1);
+
+  setImages(updatedImages);
+  setImagesObjects(updatedImagesObjects);
+};
+
+
 
   return (
     <>
@@ -382,57 +398,48 @@ function toastSuccess() {
                 </div>
 
                 <div className="flex flex-col w-full text-start gap-3 pt-3 px-2">
-                  <h1 className="font-medium text-xl text-black">
-                    إضافة صور للمكان
-                  </h1>
-                  <div
-                    className={`${
-                      images.length != 0 ? "border" : ""
-                    } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center justify-items-center relative`}
-                  >
-                    <img
-                      className="object-fill object-center rounded w-full"
-                      src={images[0]}
-                    ></img>
-                    <img
-                      className="object-cover object-center rounded  w-full"
-                      src={images[1]}
-                    ></img>
-                    <img
-                      className="object-cover object-center rounded  w-full"
-                      src={images[2]}
-                    ></img>
-                    <img
-                      className="object-cover object-center rounded  w-full"
-                      src={images[3]}
-                    ></img>
-                    <img
-                      className="object-cover object-center rounded  w-full"
-                      src={images[4]}
-                    ></img>
-                    <img
-                      className="object-cover object-center rounded w-full"
-                      src={images[5]}
-                    ></img>
-
-                    <input
-                      type="file"
-                      id="file"
-                      style={{ display: "none" }}
-                      accept=".jpg, .jpeg, .png"
-                      onChange={handelImage}
-                    />
-                    <label
-                      htmlFor="file"
-                      className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-sm:my-3 rounded p-2 ${
-                        images.length >= 6 ? "hidden" : ""
-                      }`}
+                 <h1 className="font-medium text-xl text-black">إضافة صور للمكان</h1>
+                 <div className={`images-container ${
+                  images.length !== 0 ? "border" : ""
+                  } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center p-1 gap-1 justify-items-center relative`}>
+                 {images.map((image, index) => (
+                 <div key={index} className="relative delete-button-container">
+                   <img
+                   className="object-fill object-center rounded w-full"
+                   src={image}
+                   alt={`Image ${index}`}
+                   />
+                   <button
+                   className="delete-button"
+                   onClick={() => handelDeleteImage(index)}
                     >
-                      <AddIcon size={24} color="white" />
-                    </label>
-                  </div>
-                  <span className="text-red-600">{error.image}</span>
-                </div>
+                   <DeleteIcon /> 
+                   </button>
+                 </div>
+                  ))}
+                 {images.length < 6 && (
+                  <>
+                  <input
+                 type="file"
+                 id="file"
+                 style={{ display: "none" }}
+                 accept=".jpg, .jpeg, .png"
+                 onChange={handelImage}
+                 />
+                 <label
+                   htmlFor="file"
+                   className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-sm:my-3 rounded p-2 ${
+                   images.length >= 6 ? "hidden" : ""
+                   }`}
+                  >
+                  <AddIcon size={24} color="white" />
+                  </label>
+                  </>
+                  )}
+               </div>
+               <span className="text-red-600">{error.image}</span>
+             </div>
+
 
                 <div className="flex flex-col w-full text-start pt-3 px-2 ">
                   <Checkbox
@@ -479,5 +486,9 @@ function toastSuccess() {
     </>
   );
 }
+
+
+
+
 
 

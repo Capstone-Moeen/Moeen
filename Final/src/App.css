@@ -50,6 +50,30 @@ body {
   background-color: #CEEAD6;
 }
 .slider{
-
   direction: ltr !important;
+}
+
+/* css delete button */
+.delete-button-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 6px 10px;
+  background-color: #B71F1F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  box-shadow: 0 1px 2px rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+}
+
+.delete-button-container:hover .delete-button {
+  opacity: 1;
 }
