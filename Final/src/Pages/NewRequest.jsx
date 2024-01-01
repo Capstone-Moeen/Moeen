@@ -229,6 +229,9 @@ function toastSuccess() {
                     <SelectItem className="text-black" key="تسوق">
                       تسوق
                     </SelectItem>
+                    <SelectItem className="text-black" key="hotel">
+                      فندق
+                    </SelectItem>
                     <SelectItem className="text-black" key="أخرى">
                       أخرى
                     </SelectItem>

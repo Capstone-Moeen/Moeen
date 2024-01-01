@@ -12,7 +12,7 @@ import UpdatePlace from '../Pages/UpdatePlace'
 function Routing() {
   return (
     <>
-
+    
         <Routes>
             <R path='/' element={<Home/>}></R>
             <R path='/*' element={<Error/>}></R>

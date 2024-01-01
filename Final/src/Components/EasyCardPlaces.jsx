@@ -1,23 +1,36 @@
-import React from 'react'
-import { Rating } from '@mui/material'
-
+import React from "react";
+import { Card, CardHeader, CardBody, Image, Button, CardFooter } from "@nextui-org/react";
+import { Rating } from "@mui/material";
 function EasyCardPlaces() {
-    
 
+
+  
   return (
+    <Card className="hover:bg-gray-100 cursor-pointer ">
+      <CardHeader className=" flex-col items-start p-0 w-full">
+        <Image
+          alt="Card background"
+          className="object-cover w-full rounded-none"
+          src="https://lh3.googleusercontent.com/p/AF1QipMcPwzVhV5G5eXkXuAZhXGnGWxAbmBHAqq5cKFU=s0"
+        />
+      </CardHeader>
+      <CardBody className="overflow-visible py-2">
+        <div className="flex justify-between items-center">
+          <h1 className="text-right font-bold text-xl">سنتريا مول</h1>
+          <span className="text-[#70757a]">4.5 كم </span>
+        </div>
+        <div className="flex items-center gap-1 mt-1">
+          <span className=" text-[#70757a]">4.3</span>
+          <Rating size="small" value={4}></Rating>
+        </div>
+        <p className="text-right font-light">مركز تسوق</p>
+      </CardBody>
+<CardFooter>
+  <Button color="primary">عرض</Button>
+</CardFooter>
+    </Card>
 
-   <div className="card card-side bg-white text-black w-full shadow-xl flex flex-row justify-center items-center" >
-      <figure className='w-[50%]'> 
-         <img className='rounded-r-md w-full h-[14rem]' src="https://lh3.googleusercontent.com/p/AF1QipMYTWtnsrHICvloeWZUvdGLXVKQ5KUQMvpy7CL6=s0" alt="image"/>
-      </figure>
-     <div className="card-body">
-          <h2 className="card-title text-2xl">اسم المكان</h2>
-          <h2 className="text-xl text-black">4.5</h2>
-          <Rating value={4} precision={0.5} readOnly></Rating>            
-     </div>
-
-   </div>
-  )
+  );
 }
 
 export default EasyCardPlaces;

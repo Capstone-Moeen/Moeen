@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Textarea,
 } from "@nextui-org/react";
 import { Rating } from "@mui/material";
 

@@ -16,19 +16,15 @@ import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 
-
-
 function EasyPlaceInfoSideCard() {
-
-
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   // Rating Modal Handel
-  const handelOpenModal = ()=>{
-    setIsModalOpen(!isModalOpen)
-  }
+  const handelOpenModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <>
@@ -154,13 +150,10 @@ function EasyPlaceInfoSideCard() {
               </Tab>
             </Tabs>
 
-            <Button
-                className=" hidden bg-[#005B41] my-5 self-end text-white font-semibold w-32 text-md max-sm:visible  "
-             >
-                العودة
-              </Button>
+            <Button className=" hidden bg-[#005B41] my-5 self-end text-white font-semibold w-32 text-md max-sm:visible  ">
+              العودة
+            </Button>
           </CardBody>
-          
         </Card>
       </Card>
       <RatingModal

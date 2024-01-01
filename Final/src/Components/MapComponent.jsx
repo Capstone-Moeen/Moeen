@@ -5,23 +5,46 @@ import FilterBtns from "./FilterBtns";
 import PlaceInfoSideCard from "./PlaceInfoSideCard";
 import BackDrop from "./BackDrop";
 import FeaturedPlaces from "./FeaturedPlaces";
-import CoffePin from '../Assets/MapPins/CoffePin.svg'
-import HotelPin from '../Assets/MapPins/HotelPin.svg'
-import ParkPin from '../Assets/MapPins/ParkPin.svg'
-import ShoppingPin from '../Assets/MapPins/shopPin.svg'
-
+import cafe  from "../Assets/MapPins/CoffePin.svg";
+import hotel from "../Assets/MapPins/HotelPin.svg";
+import Park from "../Assets/MapPins/ParkPin.svg";
+import shopping from "../Assets/MapPins/shopPin.svg"; 
+import Other from "../Assets/MapPins/DefultPin.svg";
+import restaurant from "../Assets/MapPins/resturantPin.svg";
+import { db } from "../Config/firebase";
+import { collection, getDocs } from "firebase/firestore";
 function MapComponent() {
-
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0',
+    googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
   });
   const [userPosition, setUserPosition] = React.useState({});
   const [mapRef, setMapRef] = React.useState();
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [places, setPlaces] = useState([]);
+  const [placeData, setPlaceData] = useState({});
+  const [mapPin , setMapPin] = useState()
+  useEffect(() => {
+    getUserLocation();
+    getPlaces();
+  }, []);
+
+  //Getting places Data
+  const getPlaces = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "AcceptedPlaces"));
+      const placesData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setPlaces(placesData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Getting the user current location
-  useEffect(() => {
+  const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setUserPosition({
@@ -30,31 +53,31 @@ function MapComponent() {
         });
       });
     }
-  }, []);
+  };
 
   //Storing the map reference in state to access it later
   const onMapLoad = (map) => {
-    
     setMapRef(map);
   };
-  
+
   // Handling the marker click event
-  const handelMarkerClicked = (pos) => {
-    mapRef.panTo(pos);
+  const handelMarkerClicked = (place) => {
+    setPlaceData(place);
+    mapRef.panTo(place.placeLocation);
     mapRef.setZoom(16);
     setIsOpen(true);
   };
 
-  //This function will close the side card info on mobile
+  // This function will close the side card info on mobile
   const handelMobileColse = () => {
     setIsOpen(false);
-  }
+  };
+
   return (
     <>
       <div className="h-screen">
         {!isLoaded ? (
           <div className="w-full h-full flex justify-center items-center">
-            
             <CircularProgress size="lg" color="success" label="Loading..." />
           </div>
         ) : (
@@ -71,37 +94,41 @@ function MapComponent() {
               mapTypeControl: false,
               fullscreenControl: false,
               mapId: "a128fd791f572fa9",
-            
             }}
             onLoad={onMapLoad}
             onClick={() => setIsOpen(false)}
           >
             <FilterBtns></FilterBtns>
-            <Marker
-              onClick={() => {
-                handelMarkerClicked({
-                  lat: 24.71638356962413,
-                  lng: 46.68675486224617,
-                });
-              }}
-              position={{ lat: 24.71638356962413, lng: 46.68675486224617 }}
-              icon={CoffePin}
-            />
-            <Marker
-              position={{ lat: 24.7, lng: 46.68675486224617 }}
-              icon={HotelPin}
-            />
-            <Marker
-              position={{ lat: 24.71638356962413, lng: 46.64 }}
-              icon={ParkPin}
-            />
-            <Marker
-              position={{ lat: 24.7, lng: 46.64 }}
-              icon={ShoppingPin}
-            />
-            
-            <BackDrop handelBackDropClick={() => setIsOpen(false)} isOpen={isOpen}></BackDrop>
-            <PlaceInfoSideCard isOpen={isOpen}></PlaceInfoSideCard>
+
+            {/* Mapping through places and placing marker for each place*/}
+            {places.map((place) => {
+      
+
+
+
+              return (
+                <Marker
+                  onClick={() => handelMarkerClicked(place)}
+                  key={place.id}
+                  position={place.placeLocation}
+                  icon={Other}
+                ></Marker>
+              );
+            })}
+
+            <BackDrop
+              handelBackDropClick={() => setIsOpen(false)}
+              isOpen={isOpen}
+            ></BackDrop>
+            {
+              isOpen &&
+              <PlaceInfoSideCard
+              placeData={placeData}
+              isOpen={isOpen}
+              userLocation={userPosition}
+            ></PlaceInfoSideCard>
+            }
+          
             <FeaturedPlaces isOpen={isOpen}></FeaturedPlaces>
           </GoogleMap>
         )}
