@@ -189,7 +189,7 @@ function toastSuccess() {
                   </div>
                   <Input
                     className={`w-full text-black  rounded-lg font-medium  border-none
-            placeholder-gray-400 text-sm  text-right`}
+                    placeholder-gray-400 text-sm  text-right`}
                     type="text"
                     color="primary"
                     variant="bordered"
@@ -217,22 +217,22 @@ function toastSuccess() {
                     name="placeType"
                     onChange={handelInput}
                   >
-                    <SelectItem className="text-black" key="مطعم">
+                    <SelectItem className="text-black" key="restaurant">
                       مطعم
                     </SelectItem>
-                    <SelectItem className="text-black" key="منتزه">
+                    <SelectItem className="text-black" key="park">
                       منتزه
                     </SelectItem>
-                    <SelectItem className="text-black" key="مقهى">
+                    <SelectItem className="text-black" key="coffee">
                       مقهى
                     </SelectItem>
-                    <SelectItem className="text-black" key="تسوق">
+                    <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
                     <SelectItem className="text-black" key="hotel">
                       فندق
                     </SelectItem>
-                    <SelectItem className="text-black" key="أخرى">
+                    <SelectItem className="text-black" key="other">
                       أخرى
                     </SelectItem>
                   </Select>
@@ -292,7 +292,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl  text-black"
-                        name="مواقف المقعدين"
+                        name="parking"
                       >
                         <span className="mr-1"> مواقف المقعدين</span>
                       </Checkbox>
@@ -300,7 +300,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="المنحدرات"
+                        name="ramps"
                       >
                         <span className="mr-1">المنحدرات</span>
                       </Checkbox>
@@ -308,7 +308,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name=" طاولات الطعام"
+                        name="tables"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>
@@ -319,7 +319,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="دورات المياه"
+                        name=""
                       >
                         <span className="mr-1"> دورات المياه</span>
                       </Checkbox>
@@ -327,7 +327,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="المصاعد"
+                        name="elevators"
                       >
                         <span className="mr-1"> المصاعد</span>
                       </Checkbox>
@@ -335,7 +335,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="ابواب اوتوماتيكة"
+                        name="automaticGates"
                       >
                         <span className="mr-1"> ابواب اوتوماتيكة</span>
                       </Checkbox>
