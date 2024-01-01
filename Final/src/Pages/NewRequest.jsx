@@ -443,14 +443,31 @@ function toastSuccess() {
                   </Checkbox>
                 </div>
 
+                <div className=" flex justify-center gap-5 w-full max-sm:flex-col max-sm:px-10">
+
                 <Button
-                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-[50%]"
+                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
                   endContent={<SendIcon size={24} />}
                   size="lg"
+                  variant="flat"
                   onClick={handelSubmit}
                 >
                   ارسال
                 </Button>
+
+                <Button
+                  size="lg"
+                  variant="flat"
+                  className=" flex  justify-center items-center text-[#005B41] bg-[#f2f3f5ff] font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
+                  onClick={() => navegate('/')}> 
+                  الرجوع
+                </Button>
+
+
+                </div>
+
+
+
               </div>
             </div>
           </div>

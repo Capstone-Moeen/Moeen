@@ -53,19 +53,19 @@ function RequestList() {
         </div>
       )}
 
-        <p class="text-right font-extrabold uppercase p-10 mt-10">الطلبات</p>
+        <p class="text-right font-extrabold uppercase p-10 mt-10 max-sm:py-5 max-sm:px-0">الطلبات</p>
             
             <div className='mb-20'>
-                    <div class="mx-4 md:mx-10">
+                    <div class="mx-4 md:mx-10 max-sm:mx-0">
                 
                 <div class="overflow-x-auto rounded-lg shadow-lg">
                     <table class="table-fixed w-full ">
                         
                             <thead>
                                 <tr class="bg-gray-100">
-                                    <th class=" py-4 px-6 text-right text-gray-600 font-bold">اسم المكان</th>
+                                    <th class=" py-4 px-6 text-center text-gray-600 font-bold">اسم المكان</th>
                                     {/* <th class=" py-4 px-6 text-right text-gray-600 font-bold">الحالة</th> */}
-                                    <th class=" py-4 px-6 text-right text-gray-600 font-bold">تفاصيل</th>
+                                    <th class=" py-4 px-6 text-center text-gray-600 font-bold"> تفاصيل المكان  </th>
                                 </tr>
                             </thead>
             
@@ -76,11 +76,15 @@ function RequestList() {
                                     <td class="py-4 px-6 border-b border-gray-200 max-sm:text-[13px] text-black text-right">
                                         {item.placeName}</td>
 
-                                    <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-start">
+                                    <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-center">
 
-                                         <Button color="primary" 
-                                         onClick={() => handleDetails(item.id)}>
-                                        تفاصيل
+                                         <Button 
+                                            size="lg max-sm:sm"
+                                           variant="flat"
+                                           className="  text-white bg-[#005B41]  
+                                           text-lg max-sm:text-base "
+                                          onClick={() => handleDetails(item.id)}>
+                                          تفاصيل
                                         </Button>
                                         </td>
                                     </tr>

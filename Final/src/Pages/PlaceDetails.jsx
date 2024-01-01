@@ -289,7 +289,7 @@ function toastDelete() {
                 <Button
                   size="lg max-sm:sm"
                   color="" variant="flat"
-                  className=" text-[#005B41] bg-[#FAFAFB] font-bold 
+                  className=" text-[#005B41] bg-[#f2f3f5ff] font-bold 
                    text-xl max-sm:text-base "
                   onClick={() => navigate('/Dashboard')}> 
                   الرجوع

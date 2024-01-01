@@ -45,18 +45,19 @@ function PlacesList() {
       )}
 
       
-<p class="text-right font-extrabold uppercase p-10 mt-10">الاماكن</p>   
+<p class="text-right font-extrabold uppercase p-10 mt-10 max-sm:py-5 max-sm:px-0">الاماكن</p>   
         <div className='mb-20'>
-            <div class="mx-4 md:mx-10">
+            <div class="mx-4 md:mx-10 max-sm:mx-0">
                 
                 <div class="overflow-x-auto rounded-lg shadow-lg">
                     <table class="table-fixed w-full ">
                         
                             <thead>
-                                <tr class="bg-gray-100">
-                                    <th class=" py-4 px-6 text-right text-gray-600 font-bold">اسم المكان</th>
+                                <tr class="bg-gray-100 ">
+                                    <th class=" py-4 px-6 text-center text-gray-600 font-bold">اسم المكان</th>
                                     {/* <th class=" py-4 px-6 text-right text-gray-600 font-bold">الحالة</th> */}
-                                    <th class=" py-4 px-6 text-right text-gray-600 font-bold">تفاصيل</th>
+                                    <th class=" py-4 px-6 text-center text-gray-600 font-bold">خيارات</th>
+
                                 </tr>
                             </thead>
             
@@ -67,13 +68,29 @@ function PlacesList() {
                                     <td class="py-4 px-6 border-b border-gray-200 max-sm:text-[13px] text-black text-right">
                                         {item.placeName}</td>
 
-                                    <td class="py-4 px-6 border-b border-gray-200 flex flex-col gap-y-2 justify-center items-start">
+                                    <td class="py-4 px-6 border-b border-gray-200 flex justify-evenly max-sm:flex-col ">
 
-                                         <Button color="primary" 
-                                         onClick={() => handleUpdate(item.id)}>
-                                        تحديث
+                                         <Button
+                                          size="lg max-sm:sm"
+                                           variant="flat"
+                                           className="  text-white bg-[#005B41]  
+                                           text-lg max-sm:text-base "
+                                           onClick={() => handleUpdate(item.id)}>
+                                            تحديث
                                         </Button>
+
+                                        <Button 
+                                         size="lg max-sm:sm"
+                                         variant="flat"
+                                         className=" text-[#005B41] bg-[#E4EFE7]
+                                          text-lg max-sm:text-base " >
+                                         تقييم
+                                        </Button>
+
+
                                         </td>
+
+              
                                     </tr>
                             </tbody>      
                     ))}
