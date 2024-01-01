@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../Config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { Button, CircularProgress } from '@nextui-org/react';
-import PlaceDetails from '../Pages/PlaceDetails';
+import {Input} from "@nextui-org/react";
 
 function RequestList() {
 
@@ -13,6 +13,7 @@ function RequestList() {
 
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
+    const [search, setSearch] = React.useState('');
     const navigate = useNavigate()
 
     React.useEffect(()=>{
@@ -36,8 +37,11 @@ function RequestList() {
 
  const handleDetails = (id) => {
     navigate(`/PlaceDetails/${id}`);
-};
+}
 
+const filteredData = data.filter((item) =>
+      item.placeName.includes(search)
+    )
 
   return (
     <>
@@ -55,6 +59,19 @@ function RequestList() {
 
         <p class="text-right font-extrabold uppercase p-10 mt-10 max-sm:py-5 max-sm:px-0">الطلبات</p>
             
+        <Input
+                className={`text-black rounded-lg font-medium border-none
+                placeholder-gray-400 text-sm text-right w-[50%] lg:w-[35%]
+                px-10 mb-9 max-sm:py-5 max-sm:px-0`}
+                color="black"
+                variant="bordered"
+                type="search" 
+                label="بحث" 
+                value={search}
+                onChange={(event)=>{setSearch(event.target.value)}}
+
+               />  
+
             <div className='mb-20'>
                     <div class="mx-4 md:mx-10 max-sm:mx-0">
                 
