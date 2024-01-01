@@ -17,26 +17,23 @@ import SignInWindow from "./SignInWindow";
 import SignUpWindow from "./SignUpWindow";
 import { ArLogo } from "../Assets/Logo/ArLogo";
 import { AuthContext } from "../Context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../Config/firebase";
 
-// admin account
-// email: admin@admin.com
-// pass: admin1admin
-
-function Nav() {
+function Nav({ handelLayoutChange, easyMode }) {
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  // to close the menu every time the user clicks anywhere
   const userMenuRef = React.useRef();
-
+  // to close the menu every time the user clicks anywhere
   const [showUserMenu, setShowUserMenu] = React.useState(false);
 
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
   };
-
+  const admins = ["RdDQQRbPBIWUcmD10UICl6S7TTb2"];
   const sign_out = () => {
-    localStorage.clear();
+    signOut(auth);
     // setIsLogged(false)
     setShowUserMenu(false);
     navigate("/");
@@ -62,7 +59,11 @@ function Nav() {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
         setShowUserMenu(false);
       }
-     
+      if (admins.includes(currentUser.uid)) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
     };
 
     document.body.addEventListener("click", outsideClick);
@@ -70,12 +71,6 @@ function Nav() {
       document.body.removeEventListener("click", outsideClick);
     };
   }, [showUserMenu]);
-
-  // React.useEffect(() => {
-  //   setIsLogged(localStorage.getItem('isLogged'));
-  // }, [isLogged]);
-
-  console.log(localStorage.getItem("username"));
 
   return (
     <>
@@ -102,7 +97,7 @@ function Nav() {
                 />
               </button>
 
-              {showUserMenu && (
+              {currentUser && (
                 <div
                   className="absolute left-1 top-20 text-right mt-2 w-80 max-sm:w-64 bg-white border 
                   rounded-lg shadow z-[1000] overflow-y-auto max-h-[80vh]"
@@ -131,7 +126,7 @@ function Nav() {
                           className="flex justify-center items-center text-black 
                        font-bold gap-2"
                         >
-                          <div>{username}</div>
+                          <div>{currentUser.displayName}</div>
                           {/* <div><AddNewPlaceIcon size={16}/></div> */}
                         </div>
 
@@ -140,7 +135,7 @@ function Nav() {
                           className="flex justify-center items-center text-gray-600 
                        font-bold gap-2 mb-6"
                         >
-                          <div>{userEmail}</div>
+                          <div>{currentUser.email}</div>
                           {/* <div><AddNewPlaceIcon size={16}/></div> */}
                         </div>
                       </div>
@@ -209,13 +204,10 @@ function Nav() {
                           عمى الالوان
                         </Link>
                       </li>
-                      {easy ? (
+                      {easyMode ? (
                         <li>
                           <button
-                            onClick={() => {
-                              localStorage.removeItem("easy");
-                              navigate("/");
-                            }}
+                            onClick={handelLayoutChange}
                             // to="/EasyLayout"
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
@@ -226,10 +218,7 @@ function Nav() {
                       ) : (
                         <li>
                           <button
-                            onClick={() => {
-                              localStorage.setItem("easy", true);
-                              navigate("/");
-                            }}
+                            onClick={handelLayoutChange}
                             // to="/EasyLayout"
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
@@ -366,7 +355,7 @@ function Nav() {
                           className="flex justify-center items-center text-black 
                        font-bold gap-2"
                         >
-                          <div>{username}</div>
+                          <div>{currentUser.displayName}</div>
                           <div>
                             <AddNewPlaceIcon size={16} />
                           </div>
@@ -377,7 +366,7 @@ function Nav() {
                           className="flex justify-center items-center text-gray-600 
                        font-bold gap-2 mb-6"
                         >
-                          <div>{userEmail}</div>
+                          <div>{currentUser.email}</div>
                           <div>
                             <AddNewPlaceIcon size={16} />
                           </div>
@@ -439,14 +428,10 @@ function Nav() {
                           عمى الالوان
                         </Link>
                       </li>
-                      {easy ? (
+                      {easyMode ? (
                         <li>
                           <button
-                            onClick={() => {
-                              localStorage.removeItem("easy");
-                              navigate("/");
-                            }}
-                            // to="/EasyLayout"
+                            onClick={handelLayoutChange}
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
                             <EasyModeIcon />
@@ -456,11 +441,7 @@ function Nav() {
                       ) : (
                         <li>
                           <button
-                            onClick={() => {
-                              localStorage.setItem("easy", true);
-                              navigate("/");
-                            }}
-                            // to="/EasyLayout"
+                            onClick={handelLayoutChange}
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
                             <EasyModeIcon />

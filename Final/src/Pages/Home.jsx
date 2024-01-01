@@ -1,20 +1,15 @@
-import React from 'react'
-import Nav from '../Components/Nav'
-import MapComponent from '../Components/MapComponent'
-import EasyLayout from '../Components/EasyLayout'
+import React, { useState } from "react";
+import Nav from "../Components/Nav";
+import MapComponent from "../Components/MapComponent";
+import EasyLayout from "../Components/EasyLayout";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 function Home() {
-
-  const LayoutMode = () => {
-    const easyMode = localStorage.getItem('easy');
-    return { easyMode };
+  const [easyMode, setEasyMode] = useState(false);
+  const handelLayoutChange = () => {
+    setEasyMode(!easyMode);
   };
-
-  const { easyMode } = LayoutMode();
-
-  
 
   // const [easyMode, setEasyMode] = React.useState(localStorage.getItem('easy'));
 
@@ -38,23 +33,26 @@ function Home() {
   //     window.removeEventListener('storage', handleStorageChange);
   //   };
   // }, []);
-  
 
   return (
     <>
-    {easyMode ? 
-      <EasyLayout />
-    :
-      <div className='h-screen overflow-hidden'>
-      <Nav></Nav>
-      <ToastContainer toastStyle={{ backgroundColor: "#FAFAFB" }}></ToastContainer>
+      {easyMode ? (
+        <>
+        <Nav handelLayoutChange ={handelLayoutChange} easyMode={easyMode}></Nav>
+        <EasyLayout />
+        </>
+      ) : (
+        <div className="h-screen overflow-hidden">
+          <Nav handelLayoutChange ={handelLayoutChange} easyMode={easyMode}></Nav>
+          <ToastContainer
+            toastStyle={{ backgroundColor: "#FAFAFB" }}
+          ></ToastContainer>
 
-    <MapComponent></MapComponent>
-      </div>
-    }
-    
+          <MapComponent></MapComponent>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
