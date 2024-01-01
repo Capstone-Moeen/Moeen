@@ -16,7 +16,7 @@ function RatingRow({name, body}) {
             <Rating value={value} readOnly size="small"></Rating>
           </div>
         </div>
-        <p className="text-right font-medium  mt-2 mr-2 text-lg">
+        <p className="text-right font-medium  mt-2 mr-2 text-base">
           {body}
         </p>
       </div>
