@@ -7,9 +7,9 @@ import BackDrop from "./BackDrop";
 import FeaturedPlaces from "./FeaturedPlaces";
 import cafe  from "../Assets/MapPins/CoffePin.svg";
 import hotel from "../Assets/MapPins/HotelPin.svg";
-import Park from "../Assets/MapPins/ParkPin.svg";
+import park from "../Assets/MapPins/ParkPin.svg";
 import shopping from "../Assets/MapPins/shopPin.svg"; 
-import Other from "../Assets/MapPins/DefultPin.svg";
+import other from "../Assets/MapPins/DefultPin.svg";
 import restaurant from "../Assets/MapPins/resturantPin.svg";
 import { db } from "../Config/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -111,7 +111,7 @@ function MapComponent() {
                   onClick={() => handelMarkerClicked(place)}
                   key={place.id}
                   position={place.placeLocation}
-                  icon={Other}
+                  icon={eval(place.placeType)}
                 ></Marker>
               );
             })}
