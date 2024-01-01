@@ -308,7 +308,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name=" طاولات الطعام"
+                        name="طاولات الطعام"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>

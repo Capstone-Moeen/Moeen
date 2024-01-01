@@ -31,7 +31,7 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
         closeButton={<DirectionsIcon></DirectionsIcon>}
       >
         <Modal
-          className="overflow-y-auto"
+          className="overflow-y-auto overflow-x-hidden "
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           backdrop="blur"
@@ -40,7 +40,38 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
           <ModalContent className="h-[90%] ">
             {(onClose) => (
               <>
-
+                <Button
+                  className="absolute top-1 -left-3 p-0 w-1  rounded-full  text-white  bg-transparent z-50"
+                  onPress={onClose}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#ffffff"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <g id="Edit / Close_Circle">
+                        {" "}
+                        <path
+                          id="Vector"
+                          d="M9 9L11.9999 11.9999M11.9999 11.9999L14.9999 14.9999M11.9999 11.9999L9 14.9999M11.9999 11.9999L14.9999 9M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
+                          stroke="#ffffff"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>{" "}
+                      </g>{" "}
+                    </g>
+                  </svg>
+                </Button>
                 <ModalBody className="gap-1 p-0 z-0 ">
                   <Carousel
                     className="slider rounded-2xl "
@@ -70,12 +101,22 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                       />
                     </div>
                   </Carousel>
-                  <h1 className="text-right font-bold text-xl px-3 mt-2">
+                  <div className="flex justify-between px-3 items-center">
+                    <div className="flex flex-col">
+                  <h1 className="text-right font-bold text-xl  mt-2">
                     سنتريا مول
                   </h1>
-                  <span className="text-[#70757a] px-3">4.5 كم </span>
+                  <span className="text-[#70757a]">4.5 كم </span>
+                  </div>
+                  <Button
+                className="bg-[#005B41]  text-white font-semibold w-32  text-md max-sm:text-sm max-sm:w-52 max-sm:py-0"
+                endContent={<DirectionsIcon size={22} />}
+              >
+                الإتجاهات
+              </Button>
+                  </div>
                   <Tabs
-                    className="w-full block mt-3 "
+                    className="w-full block mt-3 px-5"
                     aria-label="Tabs sizes"
                     selectedKey={selected}
                     onSelectionChange={setSelected}
@@ -85,7 +126,7 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                     <Tab
                       key="details"
                       title="تفاصيل"
-                      className={`text-lg font-bold ${
+                      className={`text-lg font-bold transition-colors  ${
                         selected === "details" ? "text-green-900" : ""
                       } max-sm:text-sm`}
                     >
@@ -136,7 +177,7 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                         </div>
                       </div>
                       <Divider className="mt-5" />
-                      <div className="flex justify-between items-center mt-5">
+                      <div className="flex justify-between items-center mt-5 px-2">
                         <h1 className="font-bold text-xl max-sm:text-lg text-right">
                           التقييمات و الاراء
                         </h1>
@@ -149,7 +190,7 @@ function EasyLayoutModal({ isOpen, onOpenChange }) {
                         </Button>
                       </div>
                       <Divider className="mt-5" />
-                      <div className="flex flex-col justify-center items-center mt-5">
+                      <div className="flex flex-col justify-center items-center mt-5 p-2">
                         <RatingRow
                           name={"معن"}
                           body={
