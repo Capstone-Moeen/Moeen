@@ -34,23 +34,25 @@ function RatingModal({ isModalOpen, handelOpenModal }) {
                 <Rating dir="ltr" size="large" defaultValue={1}></Rating>
               </ModalBody>
               <ModalFooter className="flex justify-center">
-              <Button
+                <Button
                   size="lg"
-                  className=" text-2xl"
-                  color="primary"
+                  variant="flat"
+                  className=" text-white bg-[#005B41]
+                  text-xl max-sm:text-base "
                   onClick={handelOpenModal}
                 >
                   ارسال
                 </Button>
                 <Button
                   size="lg"
-                  color="danger" variant="flat"
-                  className=" text-2xl text-red-500"
+                  variant="flat"
+                  color='danger'
+                  className="text-red-500 
+                  text-xl max-sm:text-base "
                   onClick={handelOpenModal}
                 >
                   إلغاء
                 </Button>
-                
               </ModalFooter>
             </>
           )}
