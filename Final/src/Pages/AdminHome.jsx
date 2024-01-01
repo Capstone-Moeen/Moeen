@@ -4,7 +4,8 @@ import {Tabs, Tab} from "@nextui-org/react";
 import RequestList from '../Components/RequestList';
 import PlacesList from '../Components/PlacesList';
 import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import LineChart from '../Components/LineChart';
+import RatingBarChart from '../Components/BarChart';
 
 function AdminHome() {
 
@@ -27,7 +28,7 @@ function AdminHome() {
             fullWidth="true"
             color="success"
           >
-
+            {/* first tap  */}
             <Tab 
              key="dashboard"
              title="لوحة المعلومات"
@@ -35,10 +36,21 @@ function AdminHome() {
               ${ selected === "dashboard" ? "text-green-900" : "" } max-sm:text-sm`}
              >
               dashboard :3
+              <div className='flex flex-wrap'>
+                <div className='w-[50%] max-sm:w-[100%]'>
+                <LineChart />
+                </div>
+
+                <div className='w-[50%] max-sm:w-[100%]'>
+                  <RatingBarChart />
+                {/* <LineChart /> */}
+                </div>
+              </div>
               <hr />
               <PlacesList />
             </Tab>
 
+            {/* second tap  */}
             <Tab key="new-request"
              title="الطلبات"
              className="text-lg font-bold p-5 max-sm:text-sm"
