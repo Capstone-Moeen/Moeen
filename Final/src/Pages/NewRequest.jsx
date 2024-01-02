@@ -304,11 +304,11 @@ const handelDeleteImage = (index) => {
 
                   <div className="w-full flex gap-44 px-3 max-sm:gap-5">
                     <div className=" flex flex-col gap-3">
-                      <Checkbox
+                    <Checkbox
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl  text-black"
-                        name="parking"
+                        name="مواقف المقعدين"
                       >
                         <span className="mr-1"> مواقف المقعدين</span>
                       </Checkbox>
@@ -316,7 +316,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="ramps"
+                        name="المنحدرات"
                       >
                         <span className="mr-1">المنحدرات</span>
                       </Checkbox>
@@ -324,7 +324,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="tables"
+                        name="طاولات الطعام"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>
@@ -335,7 +335,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name=""
+                        name="دورات المياه"
                       >
                         <span className="mr-1"> دورات المياه</span>
                       </Checkbox>
@@ -343,7 +343,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="elevators"
+                        name="المصاعد"
                       >
                         <span className="mr-1"> المصاعد</span>
                       </Checkbox>
@@ -351,7 +351,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="automaticGates"
+                        name="ابواب اوتوماتيكة"
                       >
                         <span className="mr-1"> ابواب اوتوماتيكة</span>
                       </Checkbox>
