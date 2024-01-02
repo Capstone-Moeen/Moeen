@@ -177,19 +177,19 @@ const handelUpdatePlaces = async (id) => {
                    })
                    }                   
                   >
-                    <SelectItem className="text-black" key="مطعم">
+                    <SelectItem className="text-black" key="restaurant">
                       مطعم
                     </SelectItem>
-                    <SelectItem className="text-black" key="منتزه">
+                    <SelectItem className="text-black" key="park">
                       منتزه
                     </SelectItem>
-                    <SelectItem className="text-black" key="مقهى">
+                    <SelectItem className="text-black" key="cafe">
                       مقهى
                     </SelectItem>
-                    <SelectItem className="text-black" key="تسوق">
+                    <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
-                    <SelectItem className="text-black" key="أخرى">
+                    <SelectItem className="text-black" key="other">
                       أخرى
                     </SelectItem>
                   </Select>
