@@ -28,6 +28,8 @@ function Nav({ handelLayoutChange, easyMode }) {
   
   // to close the menu every time the user clicks anywhere
   const [showUserMenu, setShowUserMenu] = React.useState(false);
+  const [updateName, setUpdateName] = React.useState(false);
+  const [updateEmail, setUpdateEmail] = React.useState(false);
 
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
@@ -73,6 +75,10 @@ function Nav({ handelLayoutChange, easyMode }) {
       document.body.removeEventListener("click", outsideClick);
     };
   }, [showUserMenu]);
+
+  const updateUsername =()=>{
+    setUpdateName(!updateName)
+  }
 
   return (
     <>
@@ -337,8 +343,10 @@ function Nav({ handelLayoutChange, easyMode }) {
                        font-bold gap-2"
                         >
                           <div>{currentUser.displayName}</div>
-                          <div>
-                            <AddNewPlaceIcon size={16} />
+                          <div
+                            onClick={updateUsername}>
+                            {updateName ? <div>hi</div> : <AddNewPlaceIcon size={16} />}
+                            
                           </div>
                         </div>
 

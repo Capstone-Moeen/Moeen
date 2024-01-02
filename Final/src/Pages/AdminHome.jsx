@@ -6,12 +6,9 @@ import PlacesList from '../Components/PlacesList';
 import { ToastContainer, toast } from 'react-toastify';
 import LineChart from '../Components/LineChart';
 import RatingBarChart from '../Components/BarChart';
+import { AuthContext } from "../Context/AuthContext";
 
 function AdminHome() {
-
-    if (!localStorage.getItem('isAdmin')) {
-        window.open('/', '_self')
-    }
     
   const [selected, setSelected] = React.useState("Dashboard");
 
