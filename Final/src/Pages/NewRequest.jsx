@@ -245,7 +245,7 @@ const handelDeleteImage = (index) => {
                     <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
-                    <SelectItem className="text-black" key="hotel">
+                    <SelectItem className="text-black" key="فندق">
                       فندق
                     </SelectItem>
                     <SelectItem className="text-black" key="other">
@@ -324,6 +324,7 @@ const handelDeleteImage = (index) => {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+
                         name="طاولات الطعام"
                       >
                         <span className="mr-1"> طاولات الطعام</span>

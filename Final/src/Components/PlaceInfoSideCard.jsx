@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
-  CardHeader,
   CardBody,
-  Image,
   Button,
   CircularProgress,
   Divider,
@@ -16,15 +14,71 @@ import RatingRow from "./RatingRow";
 import RatingModal from "./RatingModal";
 import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 import calculateDistance from "../utils/CalculateDistance";
-
-function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { HeartIcon } from "../Assets/Icons/HeartIcon";
+import { AuthContext } from "../Context/AuthContext";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+  collection,
+  arrayRemove,
+} from "firebase/firestore";
+import toastSuccess from "../utils/Toast";
+import { db } from "../Config/firebase";
+function PlaceInfoSideCard({
+  isOpen,
+  placeData,
+  userLocation,
+  handelMobileColse,
+}) {
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  const [userLikes, setUserLikes] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+  const [count, setCount] = useState(1);
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  useEffect(() => {
+    getUserLikes();
+  }, [count]);
+
+  const getUserLikes = async () => {
+    try {
+      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+      const data = querySnapshot.data().favorites;
+      setUserLikes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addTofavorite = async (place) => {
+    if (userLikes.includes(place.id)) {
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        favorites: arrayRemove(place.id),
+      }).then(()=>{
+        setCount(count + 1)
+      });
+    } else {
+      try {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          favorites: arrayUnion(place.id),
+        }).then(() => {
+          console.log("added");
+          toastSuccess("تمت العملية بنجاح");
+          setCount(count + 1);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -39,27 +93,52 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
             isOpen ? "translate-x-0" : "translate-x-[110%]"
           }     bg-[#FAFAFB] shadow-2xl rounded  w-full flex flex-col justify-center items-center h-full relative overflow-y-visible  `}
         >
-        
           <div className="w-full">
-            <Image
-              width="100%"
-              className={`object-fit ${
-                selected === "details" ? "" : "pt-[20rem]"
-              }  rounded-none`}
-              src="https://lh3.googleusercontent.com/p/AF1QipMYTWtnsrHICvloeWZUvdGLXVKQ5KUQMvpy7CL6=s0"
-            />
-            <button className="fixed top-2 left-2 hidden text-white z-50 rounded-[50%] w-8 h-8 bg-[rgba(0,0,0,0.6)] max-sm:block ">
+            <Carousel
+              className="slider rounded-2xl "
+              showThumbs={false}
+              autoPlay
+              dynamicHeight
+              infiniteLoop={true}
+              swipeable
+              interva={2000}
+              showArrows={false}
+            >
+              {placeData.Images.map((image, index) => {
+                return (
+                  <div key={index} className="">
+                    <img
+                      className="h-40 object-cover object-center "
+                      src={image}
+                    />
+                  </div>
+                );
+              })}
+            </Carousel>
+            <Button
+              onClick={handelMobileColse}
+              className="fixed top-2 -left-5 hidden text-white z-50 rounded-[50%] w-8 h-8 bg-transparent max-sm:block "
+            >
               <CloseIconWhite size={18} className="mr-2 " />
-            </button>
+            </Button>
+            <Button
+              onClick={() => {
+                addTofavorite(placeData);
+              }}
+              isIconOnly
+              color="danger"
+              className="absolute top-28 left-2 z-50"
+              aria-label="Like"
+            >
+              <HeartIcon
+                filled={userLikes.includes(placeData.id) ? true : false}
+              />
+            </Button>
           </div>
 
-
-            
-          
-
-          <CardBody className="overflow-visible py-2  ">
+          <CardBody className=" py-2  ">
             <div className="w-full flex items-center">
-              <div className="w-full flex flex-col mt-5">
+              <div className="w-full flex flex-col mt-1">
                 <h1 className="text-2xl font-bold text-right max-sm:text-xl">
                   {placeData.placeName}
                 </h1>
@@ -69,11 +148,17 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
                     userLocation.lng,
                     placeData.placeLocation.lat,
                     placeData.placeLocation.lng
-                  )}{" "}
-                  كم
+                  )}
+                  <span className="mr-1">كم</span>
                 </span>
               </div>
               <Button
+                onPress={() =>
+                  window.open(
+                    `https://www.google.com/maps/dir/?api=1&destination=${placeData.placeLocation.lat},${placeData.placeLocation.lng}`,
+                    "_blank"
+                  )
+                }
                 className="bg-[#005B41]  text-white font-semibold w-52 text-md max-sm:text-sm max-sm:w-52 max-sm:py-0"
                 endContent={<DirectionsIcon size={22} />}
               >
@@ -96,7 +181,7 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
                   selected === "details" ? "text-green-900" : ""
                 } max-sm:text-sm`}
               >
-                <ServicesGrid services= {placeData.services}></ServicesGrid>
+                <ServicesGrid services={placeData.services}></ServicesGrid>
               </Tab>
 
               <Tab
@@ -172,6 +257,7 @@ function PlaceInfoSideCard({ isOpen, placeData, userLocation }) {
       <RatingModal
         handelOpenModal={handelOpenModal}
         isModalOpen={isModalOpen}
+        placeId={placeData.id}
       ></RatingModal>
     </>
   );
