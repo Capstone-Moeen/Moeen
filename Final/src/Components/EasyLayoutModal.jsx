@@ -17,6 +17,8 @@ import RatingModal from "./RatingModal";
 import { Carousel } from "react-responsive-carousel";
 import calculateDistance from "../utils/CalculateDistance";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {HeartIcon} from "../Assets/Icons/HeartIcon";
+
 function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   const [selected, setSelected] = React.useState("details");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -64,7 +66,7 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
             {(onClose) => (
               <>
                 <button
-                  className="absolute top-2 left-3 p-2   rounded-full bg-[rgba(0,0,0,0.6)]  text-white z-50 hover:bg-[rgba(0,0,0,0.8)]"
+                  className="absolute top-2 left-3 p-2 rounded-full bg-[rgba(0,0,0,0.6)]  text-white z-50 hover:bg-[rgba(0,0,0,0.8)]"
                   onClick={onClose}
                 >
                   <svg
@@ -118,6 +120,9 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                       </div>
                     ))}
                   </Carousel>
+                  <Button isIconOnly color="primary" className="absolute top-40 left-2 z-50" aria-label="Like">
+              <HeartIcon filled={true} />
+            </Button>
                   <div className="flex justify-between px-3 items-center">
                     <div className="flex flex-col">
                       <h1 className="text-right font-bold text-2xl  mt-2 max-sm:text-xl">

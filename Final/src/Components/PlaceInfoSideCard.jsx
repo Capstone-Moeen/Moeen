@@ -16,6 +16,7 @@ import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 import calculateDistance from "../utils/CalculateDistance";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {HeartIcon} from "../Assets/Icons/HeartIcon";
 function PlaceInfoSideCard({
   isOpen,
   placeData,
@@ -25,7 +26,7 @@ function PlaceInfoSideCard({
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  
+
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -69,6 +70,9 @@ function PlaceInfoSideCard({
               className="fixed top-2 -left-5 hidden text-white z-50 rounded-[50%] w-8 h-8 bg-transparent max-sm:block "
             >
               <CloseIconWhite size={18} className="mr-2 " />
+            </Button>
+            <Button isIconOnly color="primary" className="absolute top-28 left-2 z-50" aria-label="Like">
+              <HeartIcon filled={true} />
             </Button>
           </div>
 
