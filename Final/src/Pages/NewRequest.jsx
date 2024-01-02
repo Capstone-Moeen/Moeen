@@ -229,7 +229,7 @@ function toastSuccess() {
                     <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
-                    <SelectItem className="text-black" key="hotel">
+                    <SelectItem className="text-black" key="فندق">
                       فندق
                     </SelectItem>
                     <SelectItem className="text-black" key="other">
@@ -308,6 +308,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
+
                         name="tables"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
