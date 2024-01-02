@@ -164,7 +164,17 @@ const handelUpdatePlaces = async (id) => {
                </div>
 
                   <Select
-                    placeholder={placeDetails.placeType}
+                    placeholder= {placeDetails.placeType === "cafe"
+                    ? "مقهى"
+                    : placeDetails.placeType === "hotel"
+                    ? "فندق"
+                    : placeDetails.placeType === "park"
+                    ? "منتزه"
+                    : placeDetails.placeType === "shopping"
+                    ? "تسوق"
+                    : placeDetails.placeType === "other"
+                    ? "اخرى"
+                    : "مطعم"}
                     color="primary"
                     variant="bordered"
                     className="border-none font-medium text-black"
@@ -175,7 +185,7 @@ const handelUpdatePlaces = async (id) => {
                    ...placeDetails,
                    placeType: e.target.value,
                    })
-                   }                   
+                   }   
                   >
                     <SelectItem className="text-black" key="restaurant">
                       مطعم

@@ -162,7 +162,17 @@ function toastDelete() {
                     </span>
                   </div>
                 <div className='flex justify-start font-medium bg-[#E4EFE7] rounded-lg p-3'>
-                {placeDetails.placeType}
+                {placeDetails.placeType === "cafe"
+              ? "مقهى"
+              : placeDetails.placeType === "hotel"
+              ? "فندق"
+              : placeDetails.placeType === "park"
+              ? "منتزه"
+              : placeDetails.placeType === "shopping"
+              ? "تسوق"
+              : placeDetails.placeType === "other"
+              ? "اخرى"
+              : "مطعم"}
                  </div>
 
                 </label>
