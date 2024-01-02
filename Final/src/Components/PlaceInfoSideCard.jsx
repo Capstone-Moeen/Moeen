@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -16,7 +16,18 @@ import { CloseIconWhite } from "../Assets/Icons/CloseIconWhite";
 import calculateDistance from "../utils/CalculateDistance";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {HeartIcon} from "../Assets/Icons/HeartIcon";
+import { HeartIcon } from "../Assets/Icons/HeartIcon";
+import { AuthContext } from "../Context/AuthContext";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+  collection,
+  arrayRemove,
+} from "firebase/firestore";
+import toastSuccess from "../utils/Toast";
+import { db } from "../Config/firebase";
 function PlaceInfoSideCard({
   isOpen,
   placeData,
@@ -26,11 +37,50 @@ function PlaceInfoSideCard({
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  const [userLikes, setUserLikes] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+  const [count, setCount] = useState(1);
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+  useEffect(() => {
+    getUserLikes();
+  }, [count]);
+
+  const getUserLikes = async () => {
+    try {
+      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+      const data = querySnapshot.data().favorites;
+      setUserLikes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addTofavorite = async (place) => {
+    if (userLikes.includes(place.id)) {
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        favorites: arrayRemove(place.id),
+      }).then(()=>{
+        setCount(count + 1)
+      });
+    } else {
+      try {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          favorites: arrayUnion(place.id),
+        }).then(() => {
+          console.log("added");
+          toastSuccess("تمت العملية بنجاح");
+          setCount(count + 1);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <Card
@@ -71,8 +121,18 @@ function PlaceInfoSideCard({
             >
               <CloseIconWhite size={18} className="mr-2 " />
             </Button>
-            <Button isIconOnly color="primary" className="absolute top-28 left-2 z-50" aria-label="Like">
-              <HeartIcon filled={true} />
+            <Button
+              onClick={() => {
+                addTofavorite(placeData);
+              }}
+              isIconOnly
+              color="danger"
+              className="absolute top-28 left-2 z-50"
+              aria-label="Like"
+            >
+              <HeartIcon
+                filled={userLikes.includes(placeData.id) ? true : false}
+              />
             </Button>
           </div>
 

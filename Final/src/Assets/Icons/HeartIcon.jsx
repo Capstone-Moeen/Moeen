@@ -23,6 +23,7 @@ export const HeartIcon = ({
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
+        
       />
     </svg>
   );

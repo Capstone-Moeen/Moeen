@@ -13,10 +13,12 @@ import WCActive from "../Assets/ServicesIcons/WCActive.svg";
 import WCDisabled from "../Assets/ServicesIcons/WCDisabled.svg";
 import { Tooltip } from "@nextui-org/react";
 function ServicesGrid({ services }) {
-  const [servicesObj, setServicesObj] = React.useState(JSON.parse(JSON.stringify(services)));
+  const [servicesObj, setServicesObj] = React.useState(
+    JSON.parse(JSON.stringify(services))
+  );
+
   return (
     <>
-  
       <div className="w-full flex justify-center items-center mt-5">
         <div className="grid grid-cols-3 justify-items-center grid-rows-2 gap-y-2 gap-x-9">
           <Tooltip
@@ -28,12 +30,12 @@ function ServicesGrid({ services }) {
             showArrow={true}
           >
             <img
+              alt="AutomaticDoorsIcons"
               src={
-                services.automaticGates
+                servicesObj["ابواب اوتوماتيكة"]
                   ? AutomaticDoorsActive
                   : AutomaticDoorsDisabled
               }
-              alt="AutomaticDoorsIcons"
             ></img>
           </Tooltip>
           <Tooltip
@@ -45,7 +47,7 @@ function ServicesGrid({ services }) {
             showArrow={true}
           >
             <img
-              src={services.elevators ? ElevatorActive : ElevatorDisabled}
+              src={servicesObj["المصاعد"] ? ElevatorActive : ElevatorDisabled}
               alt="ElevatorActive"
             ></img>
           </Tooltip>
@@ -59,7 +61,9 @@ function ServicesGrid({ services }) {
             showArrow={true}
           >
             <img
-              src={services.parking ? ParkingActive : ParkingDisabled}
+              src={
+                servicesObj["مواقف المقعدين"] ? ParkingActive : ParkingDisabled
+              }
               alt="ParkingActive"
             ></img>
           </Tooltip>
@@ -72,7 +76,7 @@ function ServicesGrid({ services }) {
             showArrow={true}
           >
             <img
-              src={services.ramps ? RampsActive : RampsDisabled}
+              src={servicesObj["المنحدرات"] ? RampsActive : RampsDisabled}
               alt="RampsActive"
             ></img>
           </Tooltip>
@@ -85,7 +89,12 @@ function ServicesGrid({ services }) {
             showArrow={true}
           >
             <img
-              src={services.tables ? ResturantActive : ResturantDisabled}
+              src={
+                servicesObj["طاولات الطعام"]
+                  ? ResturantActive
+                  : ResturantDisabled
+              }
+              alt="ResturantActive"
             ></img>
           </Tooltip>
           <Tooltip
@@ -96,7 +105,9 @@ function ServicesGrid({ services }) {
             className="text-lg"
             showArrow={true}
           >
-            <img src={services.toilets ? WCActive : WCDisabled}></img>
+            <img
+              src={servicesObj["دورات المياه"] ? WCActive : WCDisabled}
+            ></img>
           </Tooltip>
         </div>
       </div>

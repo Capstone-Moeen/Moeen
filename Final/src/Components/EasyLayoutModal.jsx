@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -17,11 +17,61 @@ import RatingModal from "./RatingModal";
 import { Carousel } from "react-responsive-carousel";
 import calculateDistance from "../utils/CalculateDistance";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {HeartIcon} from "../Assets/Icons/HeartIcon";
+import { HeartIcon } from "../Assets/Icons/HeartIcon";
+import { AuthContext } from "../Context/AuthContext";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
+import toastSuccess from "../utils/Toast";
+import { db } from "../Config/firebase";
 
 function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   const [selected, setSelected] = React.useState("details");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [count, setCount] = useState(1);
+  const { currentUser } = useContext(AuthContext);
+  const [userLikes, setUserLikes] = useState([]);
+
+  useEffect(() => {
+    getUserLikes();
+  }, [count]);
+
+  const getUserLikes = async () => {
+    try {
+      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+      const data = querySnapshot.data().favorites;
+      setUserLikes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addTofavorite = async (place) => {
+    if (userLikes.includes(place.id)) {
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        favorites: arrayRemove(place.id),
+      }).then(() => {
+        setCount(count + 1);
+      });
+    } else {
+      try {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          favorites: arrayUnion(place.id),
+        }).then(() => {
+          console.log("added");
+          toastSuccess("تمت العملية بنجاح");
+          setCount(count + 1);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -120,9 +170,19 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                       </div>
                     ))}
                   </Carousel>
-                  <Button isIconOnly color="primary" className="absolute top-40 left-2 z-50" aria-label="Like">
-              <HeartIcon filled={true} />
-            </Button>
+                  <Button
+                    isIconOnly
+                    color="danger"
+                    className="absolute top-40 left-2 z-50 "
+                    aria-label="Like"
+                    onClick={() => {
+                      addTofavorite(placeData);
+                    }}
+                  >
+                    <HeartIcon
+                      filled={userLikes.includes(placeData.id) ? true : false}
+                    />
+                  </Button>
                   <div className="flex justify-between px-3 items-center">
                     <div className="flex flex-col">
                       <h1 className="text-right font-bold text-2xl  mt-2 max-sm:text-xl">

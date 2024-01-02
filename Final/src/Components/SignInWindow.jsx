@@ -73,18 +73,13 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
       if (validateInputs()) {
         signInWithEmailAndPassword(auth, inputs.email.value, inputs.password.value)
         .then(res=>{
-          console.log(res.user);
+          
           if (inputs.email.value === 'admin@admin.com') {
             navigate('/Dashboard');
-            localStorage.setItem('userEmail', inputs.email.value);
-            localStorage.setItem('username', res.user.displayName);
-            localStorage.setItem('isAdmin', true);
             openModal()
           } else {
             navigate('/');
-            localStorage.setItem('userEmail', inputs.email.value);
-            localStorage.setItem('username', res.user.displayName);
-            localStorage.setItem('isLogged', true);
+         
             openModal()
           }
         })
