@@ -17,10 +17,13 @@ import RatingModal from "./RatingModal";
 import { Carousel } from "react-responsive-carousel";
 import calculateDistance from "../utils/CalculateDistance";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   const [selected, setSelected] = React.useState("details");
-
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  // Rating Modal Handel
+  const handelOpenModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <>
       <Modal
@@ -117,7 +120,7 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                   </Carousel>
                   <div className="flex justify-between px-3 items-center">
                     <div className="flex flex-col">
-                      <h1 className="text-right font-bold text-2xl  mt-2">
+                      <h1 className="text-right font-bold text-2xl  mt-2 max-sm:text-xl">
                         {placeData.placeName}
                       </h1>
                       <span className="text-[#70757a]">
@@ -242,6 +245,11 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
           </ModalContent>
         </Modal>
       </Modal>
+      <RatingModal
+        handelOpenModal={handelOpenModal}
+        isModalOpen={isModalOpen}
+        placeId={placeData.id}
+      ></RatingModal>
     </>
   );
 }

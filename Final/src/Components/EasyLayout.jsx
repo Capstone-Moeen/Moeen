@@ -46,7 +46,7 @@ export default function EasyLayout() {
         الاعلى تقييما
       </h1>
 
-      <div className="w-full flex justify-center gap-5 p-10 items-center mt-5 mb-5 flex-wrap max-sm:p-4">
+      <div className="w-full flex justify-center gap-5 p-10 items-center mt-5 mb-5 flex-wrap max-sm:p-2">
         <FeaturedPlaceCardEasyLayout
           placeImage={
             "https://lh3.googleusercontent.com/p/AF1QipN-mBb87BJTqnySmMSQ2D8Qf-f0c7p1KoA6lssN=s0"

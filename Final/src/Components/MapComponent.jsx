@@ -13,6 +13,8 @@ import other from "../Assets/MapPins/DefultPin.svg";
 import restaurant from "../Assets/MapPins/resturantPin.svg";
 import { db } from "../Config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function MapComponent() {
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({

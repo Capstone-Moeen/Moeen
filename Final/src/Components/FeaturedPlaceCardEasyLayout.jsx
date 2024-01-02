@@ -5,10 +5,10 @@ function FeaturedPlaceCardEasyLayout({placename, placeImage}) {
 
   return (
    <>
-    <Card isFooterBlurred className="w-[35rem] h-[300px] col-span-12 sm:col-span-7">
+    <Card isFooterBlurred className="w-[35rem] h-[300px] col-span-12 sm:col-span-7 max-sm:h-[200px]">
     
       <CardHeader className="absolute z-10 top-1 flex-col items-start">
-        <h4 className="text-white/90 font-bold text-2xl">{placename}</h4>
+        <h4 className="text-white/90 font-bold text-2xl max-sm:text-xl">{placename}</h4>
       </CardHeader>
 
      <Image
@@ -16,13 +16,12 @@ function FeaturedPlaceCardEasyLayout({placename, placeImage}) {
         alt="Relaxing app background"
         className="z-0 w-full h-full object-cover"
         src= {placeImage}
-    
       />
 
       <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
         <div className="flex flex-grow gap-2 items-center">
           <div className="flex flex-col">
-          <p className='text-white font-bold text-2xl'>4.3</p>
+          <p className='text-white font-bold text-2xl max-sm:text-xl'>4.3</p>
             <Rating value={4} readOnly></Rating>
           </div>
         </div>

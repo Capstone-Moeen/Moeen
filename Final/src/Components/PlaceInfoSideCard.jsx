@@ -25,7 +25,7 @@ function PlaceInfoSideCard({
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -193,6 +193,7 @@ function PlaceInfoSideCard({
       <RatingModal
         handelOpenModal={handelOpenModal}
         isModalOpen={isModalOpen}
+        placeId={placeData.id}
       ></RatingModal>
     </>
   );
