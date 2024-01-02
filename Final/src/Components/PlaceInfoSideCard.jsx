@@ -153,7 +153,7 @@ function PlaceInfoSideCard({
                 </span>
               </div>
               <Button
-                onClick={() =>
+                onPress={() =>
                   window.open(
                     `https://www.google.com/maps/dir/?api=1&destination=${placeData.placeLocation.lat},${placeData.placeLocation.lng}`,
                     "_blank"
