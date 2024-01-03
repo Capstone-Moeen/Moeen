@@ -23,7 +23,6 @@ function UpdatePlace() {
     window.open('/', '_self')
   }
 
- 
 const { id } = useParams();
 const navigate = useNavigate();
 const [placeDetails, setPlaceDetails] = useState(null);

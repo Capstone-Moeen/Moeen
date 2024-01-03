@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { CircularProgress } from "@nextui-org/react";
 import FilterBtns from "./FilterBtns";
@@ -11,11 +11,19 @@ import park from "../Assets/MapPins/ParkPin.svg";
 import shopping from "../Assets/MapPins/shopPin.svg";
 import other from "../Assets/MapPins/DefultPin.svg";
 import restaurant from "../Assets/MapPins/resturantPin.svg";
+import favorite from "../Assets/MapPins/favoritePin.svg";
 import { db } from "../Config/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { ToastContainer, toast } from "react-toastify";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { Button } from "@nextui-org/react";
+import { ShoppingIcon } from "../Assets/Icons/ShoppingIcon";
+import { CoffeIcon } from "../Assets/Icons/CoffeIcon";
+import { ParkIcon } from "../Assets/Icons/ParkIcon";
+import { HotelIcon } from "../Assets/Icons/HotelIcon";
+import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../Context/AuthContext";
 function MapComponent() {
+  const { currentUser } = useContext(AuthContext);
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAPVyiX5oN23vqvYmwilNu3zdeQ1yidLv0",
@@ -25,11 +33,15 @@ function MapComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [places, setPlaces] = useState([]);
   const [placeData, setPlaceData] = useState({});
-  const [mapPin, setMapPin] = useState();
+  const [count, setCount] = useState(1);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [userLikes, setUserLikes] = useState([]);
+  const [likedPlaces, setLikedPlaces] = useState([]);
   useEffect(() => {
+    getUserLikes();
     getUserLocation();
     getPlaces();
-  }, []);
+  }, [currentUser, count]);
 
   //Getting places Data
   const getPlaces = async () => {
@@ -40,6 +52,18 @@ function MapComponent() {
         id: doc.id,
       }));
       setPlaces(placesData);
+      setFilteredPlaces(placesData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Getting user liked places
+  const getUserLikes = async () => {
+    try {
+      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+      const data = querySnapshot.data().favorites;
+      setUserLikes(data);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +81,7 @@ function MapComponent() {
     }
   };
 
-  //Storing the map reference in state to access it later
+  // Storing the map reference in state to access it later
   const onMapLoad = (map) => {
     setMapRef(map);
   };
@@ -73,6 +97,25 @@ function MapComponent() {
   // This function will close the side card info on mobile
   const handelMobileColse = () => {
     setIsOpen(!isOpen);
+  };
+
+  // filtering places
+  const filterPlaces = (type) => {
+    setLikedPlaces([]);
+    const filteredPlaces = places.filter((place) => place.placeType === type);
+    setFilteredPlaces(filteredPlaces);
+    mapRef.setZoom(11);
+  };
+
+  // filtering likes
+  const filterLikes = () => {
+    const likedPlaces = places.filter((place) => userLikes.includes(place.id));
+    setLikedPlaces(likedPlaces);
+    mapRef.setZoom(11);
+  };
+  // rendering the map
+  const renderMap = () => {
+    setCount(count + 1);
   };
 
   return (
@@ -100,17 +143,67 @@ function MapComponent() {
             onLoad={onMapLoad}
             onClick={() => setIsOpen(false)}
           >
-            <FilterBtns></FilterBtns>
+            <div className="flex justify-center py-3 gap-3  flex-row-reverse w-full">
+              <div className="flex flex-row-reverse gap-2  ">
+                <Button
+                  className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
+                  endContent={<ShoppingIcon size={22} />}
+                  onClick={() => filterPlaces("shopping")}
+                >
+                  تسوق
+                </Button>
+                <Button
+                  className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
+                  endContent={<CoffeIcon size={22} />}
+                  onClick={() => filterPlaces("cafe")}
+                >
+                  المقاهي
+                </Button>
+                <Button
+                  className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
+                  endContent={<ParkIcon size={22} />}
+                  onClick={() => filterPlaces("park")}
+                >
+                  حدائق
+                </Button>
+                <Button
+                  className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
+                  endContent={<HotelIcon size={22} />}
+                  onClick={() => filterPlaces("hotel")}
+                >
+                  فنادق
+                </Button>
+
+                <Button
+                  className="w-32 h-8  font-bold text-[#B71F1F] bg-[#FAFAFB] text-lg filterBtn "
+                  endContent={<FavoriteIcon size={22} />}
+                  onClick={() => filterLikes()}
+                >
+                  المفضلة
+                </Button>
+                <Button
+                  className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn"
+                  onClick={() => {
+                    setFilteredPlaces(places);
+                    setLikedPlaces([]);
+                  }}
+                >
+                  الكل
+                </Button>
+              </div>
+            </div>
 
             {/* Mapping through places and placing marker for each place*/}
-            {places.map((place) => {
+            {filteredPlaces.map((place) => {
               return (
                 <Marker
                   onClick={() => handelMarkerClicked(place)}
                   key={place.id}
                   position={place.placeLocation}
                   icon={
-                    place.placeType === "cafe"
+                    likedPlaces.includes(place)
+                      ? favorite
+                      : place.placeType === "cafe"
                       ? cafe
                       : place.placeType === "hotel"
                       ? hotel
@@ -120,7 +213,9 @@ function MapComponent() {
                       ? shopping
                       : place.placeType === "other"
                       ? other
-                      : restaurant
+                      : place.placeType === "restaurant"
+                      ? restaurant
+                      : favorite
                   }
                 ></Marker>
               );
@@ -136,9 +231,9 @@ function MapComponent() {
                 isOpen={isOpen}
                 userLocation={userPosition}
                 handelMobileColse={handelMobileColse}
+                renderMap={renderMap}
               ></PlaceInfoSideCard>
             )}
-
             <FeaturedPlaces isOpen={isOpen}></FeaturedPlaces>
           </GoogleMap>
         )}

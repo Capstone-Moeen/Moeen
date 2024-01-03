@@ -25,7 +25,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import {DeleteIcon} from "../Assets/Icons/DeleteIcon";
 
 export default function NewRequest() {
-
   const navegate = useNavigate();
 
   const { isLoaded } = useLoadScript({
@@ -102,12 +101,12 @@ export default function NewRequest() {
           placeCity: userInput.placeCity,
           services: service,
           Images: imagesRes,
-          Status: 'waiting',
+          Status: "waiting",
           placeLocation: mapRef.getCenter().toJSON(),
         })
           .then(() => {
             setLoading(false);
-            navegate('/');            
+            navegate("/");
           })
           .catch((error) => {
             setLoading(false);
@@ -140,19 +139,19 @@ export default function NewRequest() {
     return imageRes;
   };
 
-// toast functions
-function toastSuccess() {
-  toast.success('تم الارسال بنجاح', {
-    position: "top-right",
-   autoClose: 4000,
-   hideProgressBar: false,
-   closeOnClick: true,
-   pauseOnHover: true,
-   draggable: true,
-   progress: undefined,
-   theme: "light"
+  // toast functions
+  function toastSuccess() {
+    toast.success("تم الارسال بنجاح", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
-}
+  }
 
 //delete image
 const handelDeleteImage = (index) => {
@@ -170,11 +169,13 @@ const handelDeleteImage = (index) => {
 
   return (
     <>
-    {/* <ToastContainer></ToastContainer> */}
+      {/* <ToastContainer></ToastContainer> */}
 
       {loading && (
-        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
-        items-center ">
+        <div
+          className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
+        items-center "
+        >
           <CircularProgress
             className="z-50"
             color="primary"
@@ -456,30 +457,25 @@ const handelDeleteImage = (index) => {
                 </div>
 
                 <div className=" flex justify-center gap-5 w-full max-sm:flex-col max-sm:px-10">
+                  <Button
+                    className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
+                    endContent={<SendIcon size={24} />}
+                    size="lg"
+                    variant="flat"
+                    onClick={handelSubmit}
+                  >
+                    ارسال
+                  </Button>
 
-                <Button
-                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
-                  endContent={<SendIcon size={24} />}
-                  size="lg"
-                  variant="flat"
-                  onClick={handelSubmit}
-                >
-                  ارسال
-                </Button>
-
-                <Button
-                  size="lg"
-                  variant="flat"
-                  className=" flex  justify-center items-center text-[#005B41] bg-[#f2f3f5ff] font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
-                  onClick={() => navegate('/')}> 
-                  الرجوع
-                </Button>
-
-
+                  <Button
+                    size="lg"
+                    variant="flat"
+                    className=" flex  justify-center items-center text-[#005B41] bg-[#f2f3f5ff] font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
+                    onClick={() => navegate("/")}
+                  >
+                    الرجوع
+                  </Button>
                 </div>
-
-
-
               </div>
             </div>
           </div>
@@ -488,9 +484,3 @@ const handelDeleteImage = (index) => {
     </>
   );
 }
-
-
-
-
-
-
