@@ -9,7 +9,9 @@ import RatingBarChart from '../Components/BarChart';
 
 function AdminHome() {
 
-   
+  if (!localStorage.getItem('isAdmin')) {
+    window.open('/', '_self')
+  }
     
   const [selected, setSelected] = React.useState("Dashboard");
 
@@ -33,15 +35,14 @@ function AdminHome() {
              className={`text-lg font-bold p-5
               ${ selected === "dashboard" ? "text-green-900" : "" } max-sm:text-sm`}
              >
-              dashboard :3
+              احصائيات الموقع
               <div className='flex flex-wrap'>
                 <div className='w-[50%] max-sm:w-[100%]'>
-                <LineChart />
+                  <LineChart />
                 </div>
 
                 <div className='w-[50%] max-sm:w-[100%]'>
                   <RatingBarChart />
-                {/* <LineChart /> */}
                 </div>
               </div>
               <hr />

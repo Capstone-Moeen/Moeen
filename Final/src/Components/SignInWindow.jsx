@@ -15,11 +15,13 @@ import { LockIcon } from "../Assets/Icons/LockIcon";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { usePassword } from "../Context/PasswordContext";
 
 function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
 
+  const { updatePassword } = usePassword();
   const { onOpen, onOpenChange } = useDisclosure();
-
+  
   const navigate = useNavigate();
   const [inputs, setInputs] = React.useState({
       email: { value: '', errorMessage: '' },
@@ -76,10 +78,17 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
           
           if (inputs.email.value === 'admin@admin.com') {
             navigate('/Dashboard');
+            updatePassword(inputs.password.value);
+            localStorage.setItem('userEmail', inputs.email.value);
+            localStorage.setItem('username', res.user.displayName);
+            localStorage.setItem('isAdmin', true);
             openModal()
           } else {
             navigate('/');
-         
+            updatePassword(inputs.password.value);
+            localStorage.setItem('userEmail', inputs.email.value);
+            localStorage.setItem('username', res.user.displayName);
+            localStorage.setItem('isLogged', true);
             openModal()
           }
         })
@@ -168,8 +177,6 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
           )}
         </ModalContent>
       </Modal>
-
-      
     </>
   );
 }

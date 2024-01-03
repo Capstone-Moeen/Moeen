@@ -19,9 +19,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function UpdatePlace() {
 
+  if (!localStorage.getItem('isAdmin')) {
+    window.open('/', '_self')
+  }
 
-
- 
 const { id } = useParams();
 const navigate = useNavigate();
 const [placeDetails, setPlaceDetails] = useState(null);
@@ -162,7 +163,17 @@ const handelUpdatePlaces = async (id) => {
                </div>
 
                   <Select
-                    placeholder={placeDetails.placeType}
+                    placeholder= {placeDetails.placeType === "cafe"
+                    ? "مقهى"
+                    : placeDetails.placeType === "hotel"
+                    ? "فندق"
+                    : placeDetails.placeType === "park"
+                    ? "منتزه"
+                    : placeDetails.placeType === "shopping"
+                    ? "تسوق"
+                    : placeDetails.placeType === "other"
+                    ? "اخرى"
+                    : "مطعم"}
                     color="primary"
                     variant="bordered"
                     className="border-none font-medium text-black"
@@ -173,7 +184,7 @@ const handelUpdatePlaces = async (id) => {
                    ...placeDetails,
                    placeType: e.target.value,
                    })
-                   }                   
+                   }   
                   >
                     <SelectItem className="text-black" key="restaurant">
                       مطعم
@@ -186,6 +197,9 @@ const handelUpdatePlaces = async (id) => {
                     </SelectItem>
                     <SelectItem className="text-black" key="shopping">
                       تسوق
+                    </SelectItem>
+                    <SelectItem className="text-black" key="hotel">
+                      فندق
                     </SelectItem>
                     <SelectItem className="text-black" key="other">
                       أخرى

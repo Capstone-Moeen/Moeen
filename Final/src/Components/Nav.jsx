@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Input, Button } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { CloseIcon } from "../Assets/Icons/CloseIcon";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AddNewPlaceIcon } from "../Assets/Icons/AddNewPlaceIcon";
 import { HomeIcon } from "../Assets/Icons/HomeIcon";
 import { ProfileIcon } from "../Assets/Icons/ProfileIcon";
@@ -19,15 +19,34 @@ import { ArLogo } from "../Assets/Logo/ArLogo";
 import { AuthContext } from "../Context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../Config/firebase";
+import { CheckIcon } from "../Assets/Icons/CheckIcon";
+import { EmailAuthProvider, updateProfile, updateEmail, reauthenticateWithCredential } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc, getDoc, collection } from "firebase/firestore";
+import { storage,db } from "../Config/firebase";
+// import { usePassword } from "../Context/PasswordContext"; in future ill do it c:
 
 function Nav({ handelLayoutChange, easyMode }) {
+
+  // const { password } = usePassword();
+  // console.log('pass ' + password);
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
-  const { currentUser } = useContext(AuthContext);
-  const userMenuRef = React.useRef();
-  
+  const { currentUser } = useContext(AuthContext); // to get the user info c:
+  const userMenuRef = React.useRef(); //for the menu
+
+  const [userAvatar, setUserAvatar] = useState()
+
   // to close the menu every time the user clicks anywhere
   const [showUserMenu, setShowUserMenu] = React.useState(false);
+  const [updateName, setUpdateName] = React.useState(false);
+  const [updateUserEmail, setUpdateUserEmail] = React.useState(false);
+
+  const local_username = localStorage.getItem('username')
+  const local_userEmail = localStorage.getItem('userEmail')
+
+  const [newName, setNewName] = React.useState(local_username)
+  // const [newEmail, setNewEmail] = React.useState(local_userEmail) for later
 
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
@@ -35,7 +54,7 @@ function Nav({ handelLayoutChange, easyMode }) {
   const admins = ["RdDQQRbPBIWUcmD10UICl6S7TTb2"];
   const sign_out = () => {
     signOut(auth);
-    // setIsLogged(false)
+    localStorage.clear()
     setShowUserMenu(false);
     navigate("/");
   };
@@ -78,6 +97,80 @@ function Nav({ handelLayoutChange, easyMode }) {
       document.body.removeEventListener("click", outsideClick);
     };
   }, [showUserMenu]);
+
+  const updateUsername = (e) => {
+    e.stopPropagation(); 
+    setUpdateName(!updateName);
+    console.log('e');
+  };
+  
+  // const update_Email = (e) => {
+  //   e.stopPropagation(); 
+  //   setUpdateUserEmail(!updateUserEmail);
+  // };
+
+  const handleNameChange = async () => {
+    try {
+      await updateProfile(auth.currentUser, { displayName: newName });
+      setUpdateName(false);
+    } catch (error) {
+      // console.error(error.message);
+    }
+  };
+
+
+  const uploadAvatar = async (e) => {
+    const file = e.target.files[0];
+ 
+    if (file) {
+       const avatarURL = await handleAvatarUpload(file);
+
+      //  await updateProfile(auth.currentUser, { photoURL: file });
+       await updateDoc(doc(db, "users", currentUser.uid), {
+          avatar: avatarURL,
+       });
+    }
+ };
+
+ const handleAvatarUpload = async (file) => {
+  const date = new Date();
+  const storageRef = ref(
+     storage,
+     `Avatars/${currentUser.uid}_${date.getTime()}`
+  );
+
+  try {
+     await uploadBytes(storageRef, file);
+     const avatarURL = await getDownloadURL(storageRef);
+     return avatarURL;
+  } catch (error) {
+     console.error(error.message);
+  }
+};
+
+// getting the avatar from the firebase
+useEffect(() => {
+  const getAvatar = async () => {
+    const docRef = doc(db, 'users', currentUser.uid);
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      const userData = docSnapshot.data();
+      const userAvatar = userData.avatar;
+
+      setUserAvatar(userAvatar);
+    }
+  };
+
+  getAvatar();
+}, [currentUser]);
+
+  const changingName =(event)=>{
+    // console.log('hi '+ event);
+    setNewName(event.target.value)
+  }
+
+  // console.log(currentUser);
 
   return (
     <>
@@ -188,12 +281,12 @@ function Nav({ handelLayoutChange, easyMode }) {
                       </Link>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                         <FavoriteIcon />
                         من نحن
                         </Link>
-                      </li>
+                      </li> */}
 
                     <hr
                       className="w-48 h-1 mx-auto bg-gray-200 border-0 
@@ -302,11 +395,11 @@ function Nav({ handelLayoutChange, easyMode }) {
                 id="user-menu-button"
                 onClick={userMenuClick}
               >
-                <img
-                  className="w-12 h-12 rounded-full"
-                  src={userIcon}
-                  alt="user icon"
-                />
+                <div className="w-16 h-16 rounded-full bg-center bg-cover 
+                max-sm:w-14 max-sm:h-14"
+                style={{backgroundImage: `url(${userAvatar || userIcon})`}}
+                >
+                </div>
               </button>
 
               {showUserMenu && (
@@ -325,11 +418,21 @@ function Nav({ handelLayoutChange, easyMode }) {
                         <div>
                           <div className="avatar relative">
                             <div className="w-24 rounded-full">
-                              <img src={userIcon} />
+                              <img src={userAvatar || userIcon} />
                               <div>
                                 <div className="absolute bg-[#005B41] rounded-full p-1 bottom-0.5">
-                                  {" "}
-                                  <AddIcon />{" "}
+                                <input
+                                    type="file"
+                                    id="file"
+                                    style={{ display: "none" }}
+                                    accept=".jpg, .jpeg, .png"
+                                    onChange={uploadAvatar}
+                                    />
+                                    <label
+                                    htmlFor="file"
+                                    >
+                                       {" "} <AddIcon /> {" "}
+                                    </label>
                                 </div>
                               </div>
                             </div>
@@ -341,22 +444,76 @@ function Nav({ handelLayoutChange, easyMode }) {
                           className="flex justify-center items-center text-black 
                        font-bold gap-2"
                         >
-                          <div>{currentUser.displayName}</div>
-                          <div>
-                            <AddNewPlaceIcon size={16} />
-                          </div>
-                        </div>
+
+                        <div>
+                                  {updateName ? (
+                                    <div className="flex justify-center">
+                                      <Input
+                                        className={`text-black rounded-lg font-medium border-none
+                                        placeholder-gray-400 text-sm text-right w-[100%] lg:w-[100%]
+                                        mb-3 mt-3`}
+                                        color="black"
+                                        variant="bordered"
+                                        type="text"
+                                        label="اسم المستخدم"
+                                        value={newName}
+                                        // name='username'
+                                        onChange={(event)=>{changingName(event)}}
+                                        size='xs'
+                                      />
+                                      <div className="mt-3" onClick={handleNameChange}>
+                                        <CheckIcon size={45} />
+                                      </div>
+                                      {/* <Button color="success" onClick={handleNameChange}>حفظ</Button> */}
+                                    </div>
+                                  ) : (
+                                    <div className="flex justify-center items-center gap-1">
+                                      <div>{currentUser.displayName}</div>
+                                     <div onClick={(e) => { updateUsername(e) }}>
+                                     <AddNewPlaceIcon size={16} />
+                                      </div> 
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
 
                         {/* user email  */}
                         <div
                           className="flex justify-center items-center text-gray-600 
                        font-bold gap-2 mb-6"
                         >
-                          <div>{currentUser.email}</div>
-                          <div>
-                            <AddNewPlaceIcon size={16} />
-                          </div>
-                        </div>
+                          {/* <div>
+                            {updateUserEmail ? (
+                              <div className="flex justify-center">
+                                <Input
+                                
+                                  className={`text-black rounded-lg font-medium border-none
+                                  placeholder-gray-400 text-sm text-right w-[100%]
+                                  px-10 mb-9 max-sm:py-5 max-sm:px-0`}
+                                  color="black"
+                                  variant="bordered"
+                                  type="email"
+                                  label="البريد الالكتروني"
+                                  value={newEmail}
+                                  onChange={(event)=>{setNewEmail(event.target.value)}}
+                                  size='sm'
+                                />
+                                <div className="ml-9" onClick={handleEmailChange}>
+                                <CheckIcon size={66} />
+                                </div> */}
+                                {/* <Button color="success" >حفظ</Button> */}
+                              {/* </div> */}
+                            {/* ) : ( */}
+                              <div className="flex justify-center items-center gap-1">
+                                <div>{currentUser.email}</div>
+                                {/* <div onClick={(e)=>{update_Email(e)}}>
+                                <AddNewPlaceIcon size={16} />
+                                </div> */}
+                              </div>
+                            {/* )} */}
+
+                         {/* </div>  */}
+                      </div>
                       </div>
 
                       <hr
@@ -384,12 +541,12 @@ function Nav({ handelLayoutChange, easyMode }) {
                         </Link>
                       </li>
 
-                      <li>
+                      {/* <li>
                           <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                           <FavoriteIcon />
                           من نحن
                           </Link>
-                        </li>
+                        </li> */}
 
                       <hr
                         className="w-48 h-1 mx-auto bg-gray-200 border-0 

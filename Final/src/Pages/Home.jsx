@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Nav from "../Components/Nav";
 import MapComponent from "../Components/MapComponent";
 import EasyLayout from "../Components/EasyLayout";
-
 import { ToastContainer, toast } from "react-toastify";
 
 function Home() {
@@ -14,8 +13,6 @@ function Home() {
   const handelLayoutChange = () => {
     setEasyMode(!easyMode);
   };
-
-  
 
   return (
     <>
