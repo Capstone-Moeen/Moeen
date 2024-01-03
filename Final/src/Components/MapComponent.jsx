@@ -37,6 +37,9 @@ function MapComponent() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
   const [likedPlaces, setLikedPlaces] = useState([]);
+  const [featured, setFeatured] = useState([]);
+  const [comments, setComments] = useState([]);
+
   useEffect(() => {
     getUserLikes();
     getUserLocation();
@@ -53,6 +56,7 @@ function MapComponent() {
       }));
       setPlaces(placesData);
       setFilteredPlaces(placesData);
+      setFeaturedPlaces(placesData);
     } catch (error) {
       console.log(error);
     }
@@ -67,6 +71,14 @@ function MapComponent() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const setFeaturedPlaces = (data) => {
+    const filterFeatured = data.filter((place) => place.avgRating > 0);
+    const featuredPlaces = filterFeatured.sort(
+      (a, b) => b.avgRating - a.avgRating
+    );
+    setFeatured(featuredPlaces.slice(0, 2));
   };
 
   // Getting the user current location
@@ -113,6 +125,12 @@ function MapComponent() {
     setLikedPlaces(likedPlaces);
     mapRef.setZoom(11);
   };
+
+ 
+
+
+
+
   // rendering the map
   const renderMap = () => {
     setCount(count + 1);
@@ -234,7 +252,7 @@ function MapComponent() {
                 renderMap={renderMap}
               ></PlaceInfoSideCard>
             )}
-            <FeaturedPlaces isOpen={isOpen}></FeaturedPlaces>
+            <FeaturedPlaces isOpen={isOpen} featured={featured}></FeaturedPlaces>
           </GoogleMap>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  Card, CardBody, CardHeader } from "@nextui-org/react";
 import  FeaturedPlaceCard from "./FeaturedPlaceCard";
-function FeaturedPlaces({isOpen}) {
+function FeaturedPlaces({isOpen, featured}) {
 const  [cardView, setCardView] = useState(false)
 
   return (
@@ -13,18 +13,19 @@ const  [cardView, setCardView] = useState(false)
           <h1 className="text-2xl font-bold text-center ">الاعلى تقييما</h1>
         </CardHeader>
         <CardBody  className="overflow-visible py-2 gap-3">
-          <FeaturedPlaceCard
+         {
+          featured.map((place,index)=>(
+            < FeaturedPlaceCard
+            key={index}
             placeImage={
-              "https://lh3.googleusercontent.com/p/AF1QipN-mBb87BJTqnySmMSQ2D8Qf-f0c7p1KoA6lssN=s0"
+              place.Images[0]
             }
-            placeName={"بوليفارد وورلد"}
+            placeName={place.placeName}
+            rating={place.avgRating}
           ></ FeaturedPlaceCard>
-          < FeaturedPlaceCard
-            placeImage={
-              "https://lh3.googleusercontent.com/p/AF1QipM0MyykTZIerh4-ONkywBkGc7tPKTMf9Me6xEA=s0"
-            }
-            placeName={"واجهة الرياض"}
-          ></ FeaturedPlaceCard>
+          ))
+         }
+       
         </CardBody>
       </Card>
     </>

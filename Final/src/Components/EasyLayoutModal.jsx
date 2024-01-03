@@ -25,6 +25,8 @@ import {
   getDoc,
   updateDoc,
   arrayRemove,
+  getDocs,
+  collection,
 } from "firebase/firestore";
 import toastSuccess from "../utils/Toast";
 import { db } from "../Config/firebase";
@@ -35,9 +37,11 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   const [count, setCount] = useState(1);
   const { currentUser } = useContext(AuthContext);
   const [userLikes, setUserLikes] = useState([]);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     getUserLikes();
+    getComments();
   }, [count]);
 
   const getUserLikes = async () => {
@@ -48,6 +52,18 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getComments = async () => {
+    const querySnapshot = await getDocs(collection(db, "comments"));
+    const comments = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    const commetnsByPlace = comments.filter(
+      (comment) => comment.placeId === placeData.id
+    );
+    setComments(commetnsByPlace);
   };
 
   const addTofavorite = async (place) => {
@@ -62,7 +78,6 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
         await updateDoc(doc(db, "users", currentUser.uid), {
           favorites: arrayUnion(place.id),
         }).then(() => {
-          console.log("added");
           toastSuccess("تمت العملية بنجاح");
           setCount(count + 1);
         });
@@ -75,6 +90,10 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const handelCommentPost = () => {
+    setCount(count + 1);
   };
   return (
     <>
@@ -251,8 +270,24 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                             }}
                             strokeWidth={90}
                             showValueLabel={true}
-                            valueLabel="5 / 4.0"
-                            value={90}
+                            valueLabel={
+                              placeData.RatingMoeen
+                                ? `5 / ${placeData.RatingMoeen}`
+                                : "5 / 0.0"
+                            }
+                            value={
+                              Math.floor(placeData.RatingMoeen) === 0
+                                ? 0
+                                : Math.floor(placeData.RatingMoeen) === 1
+                                ? 20
+                                : Math.floor(placeData.RatingMoeen) === 2
+                                ? 40
+                                : Math.floor(placeData.RatingMoeen) == 3
+                                ? 60
+                                : Math.floor(placeData.RatingMoeen) == 4
+                                ? 80
+                                : 100
+                            }
                           />
                         </div>
                         <div className="flex flex-col justify-center items-center gap-3">
@@ -269,8 +304,24 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                             }}
                             strokeWidth={90}
                             showValueLabel={true}
-                            valueLabel="5 / 4.5"
-                            value={90}
+                            valueLabel={
+                              placeData.avgRating
+                                ? `5 / ${placeData.avgRating.toFixed(1)}`
+                                : "5 / 0.0"
+                            }
+                            value={
+                              Math.floor(placeData.avgRating) === 0 || !placeData.avgRating
+                                ? 0
+                                : Math.floor(placeData.avgRating) === 1
+                                ? 20
+                                : Math.floor(placeData.avgRating) === 2
+                                ? 40
+                                : Math.floor(placeData.avgRating) == 3
+                                ? 60
+                                : Math.floor(placeData.avgRating) == 4
+                                ? 80
+                                : 100
+                            }
                           />
                         </div>
                       </div>
@@ -289,18 +340,16 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
                       </div>
                       <Divider className="mt-5" />
                       <div className="flex flex-col justify-center items-center mt-5 p-2">
-                        <RatingRow
-                          name={"معن"}
-                          body={
-                            "المنتزه رائع وجميل مناسب جدا للعوائل ومجهز بكامل احتياجات ذوي الإعاقة مشكلته الوحيدة بعد دورات المياه عن المنتزه"
-                          }
-                        ></RatingRow>
-                        <RatingRow
-                          name={"أمواج"}
-                          body={
-                            "المنتزه جيد و مناسب لذوي الإعاقة و تتوفر به اهم الخدمات"
-                          }
-                        ></RatingRow>
+                        {comments.map((comment, index) => {
+                          return (
+                            <RatingRow
+                              key={index}
+                              author={comment.commentAuthor}
+                              rating={comment.rating}
+                              body={comment.comment}
+                            />
+                          );
+                        })}
                       </div>
                     </Tab>
                   </Tabs>
@@ -314,6 +363,8 @@ function EasyLayoutModal({ isOpen, onOpenChange, placeData, userLocation }) {
         handelOpenModal={handelOpenModal}
         isModalOpen={isModalOpen}
         placeId={placeData.id}
+        handelCommentPost={handelCommentPost}
+        comments={comments}
       ></RatingModal>
     </>
   );
