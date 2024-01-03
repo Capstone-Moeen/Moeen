@@ -73,7 +73,7 @@ function RatingModal({
  
 
   const calcAvg = () => {
-    if (!comments) {
+    if (comments.length === 0) {
       return 0;
     } else {
       let sum = 0;
