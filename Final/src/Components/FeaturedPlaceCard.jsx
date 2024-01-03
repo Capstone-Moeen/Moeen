@@ -29,10 +29,10 @@ function FeaturedPlaceCard({ placeImage, placeName, rating }) {
         >
           <div className="flex flex-grow gap-2 items-center">
             <div className="flex flex-col items-start">
-            <p className="text-white font-bold text-2xl max-sm:text-xl">
+            <p className="text-white font-bold text-xl max-sm:text-lg">
                 {rating.toFixed(2)}
               </p>
-              <Rating value={rating.toFixed(2)} readOnly ></Rating>
+              <Rating value={rating.toFixed(2)} readOnly size="small"></Rating>
             </div>
           </div>
           <Button color="primary" size="sm" >

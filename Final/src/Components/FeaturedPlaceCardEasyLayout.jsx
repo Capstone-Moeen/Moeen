@@ -34,7 +34,7 @@ function FeaturedPlaceCardEasyLayout({ placename, placeImage, rating }) {
               <p className="text-white font-bold text-2xl max-sm:text-xl">
                 {rating.toFixed(2)}
               </p>
-              <Rating value={rating.toFixed(2)} readOnly ></Rating>
+              <Rating value={rating.toFixed(2)} readOnly  ></Rating>
             </div>
           </div>
           <Button radius="full" color="primary">
