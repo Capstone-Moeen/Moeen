@@ -33,6 +33,7 @@ function PlaceInfoSideCard({
   placeData,
   userLocation,
   handelMobileColse,
+  renderMap,
 }) {
   const [selected, setSelected] = React.useState("details");
   //Rating Modal State Controller
@@ -63,15 +64,16 @@ function PlaceInfoSideCard({
     if (userLikes.includes(place.id)) {
       await updateDoc(doc(db, "users", currentUser.uid), {
         favorites: arrayRemove(place.id),
-      }).then(()=>{
-        setCount(count + 1)
+      }).then(() => {
+        renderMap();
+        setCount(count + 1);
       });
     } else {
       try {
         await updateDoc(doc(db, "users", currentUser.uid), {
           favorites: arrayUnion(place.id),
         }).then(() => {
-          console.log("added");
+          renderMap();
           toastSuccess("تمت العملية بنجاح");
           setCount(count + 1);
         });

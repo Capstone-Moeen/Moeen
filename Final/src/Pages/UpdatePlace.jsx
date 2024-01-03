@@ -19,9 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function UpdatePlace() {
 
-  if (!localStorage.getItem('isAdmin')) {
-    window.open('/', '_self')
-}
+
 
  
 const { id } = useParams();

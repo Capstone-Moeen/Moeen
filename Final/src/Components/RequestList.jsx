@@ -7,9 +7,7 @@ import {Input} from "@nextui-org/react";
 
 function RequestList() {
 
-    if (!localStorage.getItem('isAdmin')) {
-        window.open('/', '_self')
-    }
+ 
 
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])

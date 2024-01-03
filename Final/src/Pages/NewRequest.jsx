@@ -19,11 +19,10 @@ import defaultMarker from "../Assets/MapPins/DefultPin.svg";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import {useNavigate}  from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function NewRequest() {
-
   const navegate = useNavigate();
 
   const { isLoaded } = useLoadScript({
@@ -100,12 +99,12 @@ export default function NewRequest() {
           placeCity: userInput.placeCity,
           services: service,
           Images: imagesRes,
-          Status: 'waiting',
+          Status: "waiting",
           placeLocation: mapRef.getCenter().toJSON(),
         })
           .then(() => {
             setLoading(false);
-            navegate('/');            
+            navegate("/");
           })
           .catch((error) => {
             setLoading(false);
@@ -138,27 +137,29 @@ export default function NewRequest() {
     return imageRes;
   };
 
-// toast functions
-function toastSuccess() {
-  toast.success('تم الارسال بنجاح', {
-    position: "top-right",
-   autoClose: 4000,
-   hideProgressBar: false,
-   closeOnClick: true,
-   pauseOnHover: true,
-   draggable: true,
-   progress: undefined,
-   theme: "light"
+  // toast functions
+  function toastSuccess() {
+    toast.success("تم الارسال بنجاح", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
-}
+  }
 
   return (
     <>
-    {/* <ToastContainer></ToastContainer> */}
+      {/* <ToastContainer></ToastContainer> */}
 
       {loading && (
-        <div className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
-        items-center ">
+        <div
+          className="w-full h-[300vh] max-sm:h-screen bg-black opacity-35 z-20 absolute top-0 left-0 flex justify-center 
+        items-center "
+        >
           <CircularProgress
             className="z-50"
             color="primary"
@@ -292,7 +293,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl  text-black"
-                        name="parking"
+                        name="مواقف المقعدين"
                       >
                         <span className="mr-1"> مواقف المقعدين</span>
                       </Checkbox>
@@ -300,7 +301,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="ramps"
+                        name="المنحدرات"
                       >
                         <span className="mr-1">المنحدرات</span>
                       </Checkbox>
@@ -308,8 +309,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-
-                        name="tables"
+                        name="طاولات الطعام"
                       >
                         <span className="mr-1"> طاولات الطعام</span>
                       </Checkbox>
@@ -320,7 +320,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name=""
+                        name="دورات المياه"
                       >
                         <span className="mr-1"> دورات المياه</span>
                       </Checkbox>
@@ -328,7 +328,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="elevators"
+                        name="المصاعد"
                       >
                         <span className="mr-1"> المصاعد</span>
                       </Checkbox>
@@ -336,7 +336,7 @@ function toastSuccess() {
                         onChange={handelService}
                         defaultSelected={false}
                         className=" font-medium text-xl text-black"
-                        name="automaticGates"
+                        name="ابواب اوتوماتيكة"
                       >
                         <span className="mr-1"> ابواب اوتوماتيكة</span>
                       </Checkbox>
@@ -448,30 +448,25 @@ function toastSuccess() {
                 </div>
 
                 <div className=" flex justify-center gap-5 w-full max-sm:flex-col max-sm:px-10">
+                  <Button
+                    className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
+                    endContent={<SendIcon size={24} />}
+                    size="lg"
+                    variant="flat"
+                    onClick={handelSubmit}
+                  >
+                    ارسال
+                  </Button>
 
-                <Button
-                  className=" flex  justify-center items-center bg-[#005B41] text-white font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
-                  endContent={<SendIcon size={24} />}
-                  size="lg"
-                  variant="flat"
-                  onClick={handelSubmit}
-                >
-                  ارسال
-                </Button>
-
-                <Button
-                  size="lg"
-                  variant="flat"
-                  className=" flex  justify-center items-center text-[#005B41] bg-[#f2f3f5ff] font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
-                  onClick={() => navegate('/')}> 
-                  الرجوع
-                </Button>
-
-
+                  <Button
+                    size="lg"
+                    variant="flat"
+                    className=" flex  justify-center items-center text-[#005B41] bg-[#f2f3f5ff] font-bold text-xl w-[25%] mt-3 max-sm:text-base max-sm:w-full"
+                    onClick={() => navegate("/")}
+                  >
+                    الرجوع
+                  </Button>
                 </div>
-
-
-
               </div>
             </div>
           </div>
@@ -480,5 +475,3 @@ function toastSuccess() {
     </>
   );
 }
-
-
