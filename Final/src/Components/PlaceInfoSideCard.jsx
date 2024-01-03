@@ -25,6 +25,7 @@ import {
   updateDoc,
   collection,
   arrayRemove,
+  getDocs,
 } from "firebase/firestore";
 import toastSuccess from "../utils/Toast";
 import { db } from "../Config/firebase";
@@ -36,11 +37,12 @@ function PlaceInfoSideCard({
   renderMap,
 }) {
   const [selected, setSelected] = React.useState("details");
-  //Rating Modal State Controller
+  // Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [userLikes, setUserLikes] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [count, setCount] = useState(1);
+  const [comments, setComments] = useState([]);
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -48,7 +50,15 @@ function PlaceInfoSideCard({
 
   useEffect(() => {
     getUserLikes();
+    getComments()
   }, [count]);
+
+ const getComments = async()=>{
+   const querySnapshot = await getDocs(collection(db, "comments"));
+   const comments = querySnapshot.docs.map((doc)=>({...doc.data(),id:doc.id}))
+   const commetnsByPlace = comments.filter((comment)=>comment.placeId === placeData.id)
+   setComments(commetnsByPlace)
+ }
 
   const getUserLikes = async () => {
     try {
@@ -238,18 +248,11 @@ function PlaceInfoSideCard({
                 </div>
                 <Divider className="mt-5" />
                 <div className="flex flex-col justify-center items-center mt-5">
-                  <RatingRow
-                    name={"معن"}
-                    body={
-                      "المنتزه رائع وجميل مناسب جدا للعوائل ومجهز بكامل احتياجات ذوي الإعاقة مشكلته الوحيدة بعد دورات المياه عن المنتزه"
-                    }
-                  ></RatingRow>
-                  <RatingRow
-                    name={"أمواج"}
-                    body={
-                      "المنتزه جيد و مناسب لذوي الإعاقة و تتوفر به اهم الخدمات"
-                    }
-                  ></RatingRow>
+                 {
+                  comments.map((comment,index)=>{
+                    return <RatingRow key={index} author={comment.commentAuthor} rating={comment.rating} body={comment.comment}/>
+                  })
+                 }
                 </div>
               </Tab>
             </Tabs>
