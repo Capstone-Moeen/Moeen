@@ -401,7 +401,8 @@ const handelDeleteImage = (index) => {
                  <h1 className="font-medium text-xl text-black">إضافة صور للمكان</h1>
                  <div className={`images-container ${
                   images.length !== 0 ? "border" : ""
-                  } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center p-1 gap-1 justify-items-center relative`}>
+                  } border-[#005B41] w-full grid grid-cols-3 grid-rows-2 rounded-lg items-center p-1 gap-1 
+                  justify-items-center relative`}>
                  {images.map((image, index) => (
                  <div key={index} className="relative delete-button-container">
                    <img
@@ -428,7 +429,8 @@ const handelDeleteImage = (index) => {
                  />
                  <label
                    htmlFor="file"
-                   className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 max-sm:my-3 rounded p-2 ${
+                   className={`bg-[#005B41] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                   z-50 max-sm:my-3 rounded p-2 ${
                    images.length >= 6 ? "hidden" : ""
                    }`}
                   >

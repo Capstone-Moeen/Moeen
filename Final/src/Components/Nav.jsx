@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Input, Button } from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 import { CloseIcon } from "../Assets/Icons/CloseIcon";
@@ -21,7 +21,10 @@ import { signOut } from "firebase/auth";
 import { auth } from "../Config/firebase";
 import { CheckIcon } from "../Assets/Icons/CheckIcon";
 import { EmailAuthProvider, updateProfile, updateEmail, reauthenticateWithCredential } from "firebase/auth";
-// import { usePassword } from "../Context/PasswordContext";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc, getDoc, collection } from "firebase/firestore";
+import { storage,db } from "../Config/firebase";
+// import { usePassword } from "../Context/PasswordContext"; in future ill do it c:
 
 function Nav({ handelLayoutChange, easyMode }) {
 
@@ -31,7 +34,10 @@ function Nav({ handelLayoutChange, easyMode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const { currentUser } = useContext(AuthContext); // to get the user info c:
   const userMenuRef = React.useRef(); //for the menu
-  
+
+  // const [image, setImage] = useState();
+  const [userAvatar, setUserAvatar] = useState()
+
   // to close the menu every time the user clicks anywhere
   const [showUserMenu, setShowUserMenu] = React.useState(false);
   const [updateName, setUpdateName] = React.useState(false);
@@ -41,7 +47,7 @@ function Nav({ handelLayoutChange, easyMode }) {
   const local_userEmail = localStorage.getItem('userEmail')
 
   const [newName, setNewName] = React.useState(local_username)
-  const [newEmail, setNewEmail] = React.useState(local_userEmail)
+  // const [newEmail, setNewEmail] = React.useState(local_userEmail)
 
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
@@ -113,30 +119,59 @@ function Nav({ handelLayoutChange, easyMode }) {
     }
   };
 
-  // const handleEmailChange = async () => {
-  //   console.log(newEmail);
-  //   try {
 
-  //     const user = auth.currentUser;
-  //     const credential = EmailAuthProvider.credential(user.email, password);
-  //     await reauthenticateWithCredential(user, credential);
-      
-  //     await updateEmail(user, newEmail);
-      
-  //     setUpdateUserEmail(false);
+  const uploadAvatar = async (e) => {
+    const file = e.target.files[0];
+ 
+    if (file) {
+       const avatarURL = await handleAvatarUpload(file);
 
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+      //  await updateProfile(auth.currentUser, { photoURL: file });
+       await updateDoc(doc(db, "users", currentUser.uid), {
+          avatar: avatarURL,
+       });
+    }
+ };
+
+ const handleAvatarUpload = async (file) => {
+  const date = new Date();
+  const storageRef = ref(
+     storage,
+     `Avatars/${currentUser.uid}_${date.getTime()}`
+  );
+
+  try {
+     await uploadBytes(storageRef, file);
+     const avatarURL = await getDownloadURL(storageRef);
+     return avatarURL;
+  } catch (error) {
+     console.error(error.message);
+  }
+};
+
+// getting the avatar from the firebase
+useEffect(() => {
+  const getAvatar = async () => {
+    const docRef = doc(db, 'users', currentUser.uid);
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      const userData = docSnapshot.data();
+      const userAvatar = userData.avatar;
+
+      setUserAvatar(userAvatar);
+    }
+  };
+
+  getAvatar();
+}, [currentUser]);
 
   const changingName =(event)=>{
-    console.log('hi '+ event);
-
+    // console.log('hi '+ event);
     setNewName(event.target.value)
   }
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>
@@ -363,7 +398,7 @@ function Nav({ handelLayoutChange, easyMode }) {
               >
                 <img
                   className="w-12 h-12 rounded-full"
-                  src={userIcon}
+                  src={userAvatar || userIcon}
                   alt="user icon"
                 />
               </button>
@@ -384,11 +419,21 @@ function Nav({ handelLayoutChange, easyMode }) {
                         <div>
                           <div className="avatar relative">
                             <div className="w-24 rounded-full">
-                              <img src={userIcon} />
+                              <img src={userAvatar || userIcon} />
                               <div>
                                 <div className="absolute bg-[#005B41] rounded-full p-1 bottom-0.5">
-                                  {" "}
-                                  <AddIcon />{" "}
+                                <input
+                                    type="file"
+                                    id="file"
+                                    style={{ display: "none" }}
+                                    accept=".jpg, .jpeg, .png"
+                                    onChange={uploadAvatar}
+                                    />
+                                    <label
+                                    htmlFor="file"
+                                    >
+                                       {" "} <AddIcon /> {" "}
+                                    </label>
                                 </div>
                               </div>
                             </div>

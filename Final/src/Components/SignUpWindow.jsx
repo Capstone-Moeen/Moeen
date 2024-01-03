@@ -20,6 +20,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { usePassword } from "../Context/PasswordContext";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../Config/firebase";
+import userIcon from "../Assets/Icons/user.svg";
 
 function SignUpWindow({ isSignUpModel, openSignUpModel, openModal }) {
   const navigate = useNavigate();
@@ -122,10 +123,7 @@ function SignUpWindow({ isSignUpModel, openSignUpModel, openModal }) {
     setLoading(true);
 
     if (validateInputs()) {
-      createUserWithEmailAndPassword(
-        auth,
-        inputs.email.value,
-        inputs.password.value
+      createUserWithEmailAndPassword(auth, inputs.email.value, inputs.password.value
       ).then(async(res) => {
         updateProfile(res.user, {
           displayName: inputs.name.value,
