@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardHeader, Image, CardFooter, Button } from "@nextui-org/react";
 import { useState } from "react";
 import { Rating } from "@mui/material";
-function FeaturedPlaceCard({ placeImage, placeName }) {
+function FeaturedPlaceCard({ placeImage, placeName, rating }) {
   const [footerView, setFooterView] = useState(false);
 
   return (
@@ -29,8 +29,10 @@ function FeaturedPlaceCard({ placeImage, placeName }) {
         >
           <div className="flex flex-grow gap-2 items-center">
             <div className="flex flex-col items-start">
-              <h1 className="text-lg font-bold text-white">4.5</h1>
-              <Rating value={4} precision={0.5} readOnly size="small"></Rating>
+            <p className="text-white font-bold text-2xl max-sm:text-xl">
+                {rating.toFixed(2)}
+              </p>
+              <Rating value={rating.toFixed(2)} readOnly ></Rating>
             </div>
           </div>
           <Button color="primary" size="sm" >

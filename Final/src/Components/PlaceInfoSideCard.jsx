@@ -43,6 +43,7 @@ function PlaceInfoSideCard({
   const { currentUser } = useContext(AuthContext);
   const [count, setCount] = useState(1);
   const [comments, setComments] = useState([]);
+
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -213,8 +214,24 @@ function PlaceInfoSideCard({
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
-                      valueLabel="5 / 4.0"
-                      value={90}
+                      valueLabel={
+                        placeData.RatingMoeen
+                          ? `5 / ${placeData.RatingMoeen}`
+                          : "5 / 0.0"
+                      }
+                      value={
+                        Math.floor(placeData.RatingMoeen) === 0
+                          ? 0
+                          : Math.floor(placeData.RatingMoeen) === 1
+                          ? 20
+                          : Math.floor(placeData.RatingMoeen) === 2
+                          ? 40
+                          : Math.floor(placeData.RatingMoeen) == 3
+                          ? 60
+                          : Math.floor(placeData.RatingMoeen) == 4
+                          ? 80
+                          : 100
+                      }
                     />
                   </div>
                   <div className="flex flex-col justify-center items-center gap-3">
@@ -228,8 +245,24 @@ function PlaceInfoSideCard({
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
-                      valueLabel="5 / 4.5"
-                      value={90}
+                      valueLabel={
+                        placeData.avgRating
+                          ? `5 / ${placeData.avgRating.toFixed(1)}`
+                          : "5 / 0.0"
+                      }
+                      value={
+                        Math.floor(placeData.avgRating) === 0 || !placeData.avgRating
+                          ? 0
+                          : Math.floor(placeData.avgRating) === 1
+                          ? 20
+                          : Math.floor(placeData.avgRating) === 2
+                          ? 40
+                          : Math.floor(placeData.avgRating) == 3
+                          ? 60
+                          : Math.floor(placeData.avgRating) == 4
+                          ? 80
+                          : 100
+                      }
                     />
                   </div>
                 </div>
