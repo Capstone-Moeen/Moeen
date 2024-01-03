@@ -15,9 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function PlaceDetails() {
 
-  if (!localStorage.getItem('isAdmin')) {
-    window.open('/', '_self')
-}
+
 
     const {id}= useParams();
     const navigate = useNavigate(); // Using useNavigate hook to navigate

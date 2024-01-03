@@ -9,9 +9,7 @@ import RatingBarChart from '../Components/BarChart';
 
 function AdminHome() {
 
-    if (!localStorage.getItem('isAdmin')) {
-        window.open('/', '_self')
-    }
+   
     
   const [selected, setSelected] = React.useState("Dashboard");
 
