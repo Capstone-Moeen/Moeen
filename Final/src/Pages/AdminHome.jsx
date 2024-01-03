@@ -6,9 +6,12 @@ import PlacesList from '../Components/PlacesList';
 import { ToastContainer, toast } from 'react-toastify';
 import LineChart from '../Components/LineChart';
 import RatingBarChart from '../Components/BarChart';
-import { AuthContext } from "../Context/AuthContext";
 
 function AdminHome() {
+
+  if (!localStorage.getItem('isAdmin')) {
+    window.open('/', '_self')
+  }
     
   const [selected, setSelected] = React.useState("Dashboard");
 
@@ -32,15 +35,14 @@ function AdminHome() {
              className={`text-lg font-bold p-5
               ${ selected === "dashboard" ? "text-green-900" : "" } max-sm:text-sm`}
              >
-              dashboard :3
+              احصائيات الموقع
               <div className='flex flex-wrap'>
                 <div className='w-[50%] max-sm:w-[100%]'>
-                <LineChart />
+                  <LineChart />
                 </div>
 
                 <div className='w-[50%] max-sm:w-[100%]'>
                   <RatingBarChart />
-                {/* <LineChart /> */}
                 </div>
               </div>
               <hr />

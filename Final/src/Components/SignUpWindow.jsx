@@ -16,6 +16,7 @@ import { UserSignUpIcon } from "../Assets/Icons/UserSignUpIcon";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { usePassword } from "../Context/PasswordContext";
 
 
 function SignUpWindow({ isSignUpModel, openSignUpModel, openModal }) {
@@ -23,6 +24,7 @@ function SignUpWindow({ isSignUpModel, openSignUpModel, openModal }) {
   const navigate = useNavigate();
   const { onOpen, onClose } = useDisclosure();
   const [isOpen, setIsOpen] = React.useState(false);
+  const { updatePassword } = usePassword();
 
   const [inputs, setInputs] = React.useState({
     name: { value: '', errorMessage: '' },
@@ -117,6 +119,7 @@ const sign_up = () => {
             })
             .then((res)=>{
                 navigate('/');
+                updatePassword(inputs.password.value);
                 localStorage.setItem('userEmail', inputs.email.value);
                 localStorage.setItem('username', inputs.name.value);
                 localStorage.setItem('isLogged', true);

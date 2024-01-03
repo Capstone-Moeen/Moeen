@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Nav from "../Components/Nav";
 import MapComponent from "../Components/MapComponent";
 import EasyLayout from "../Components/EasyLayout";
-
 import { ToastContainer, toast } from "react-toastify";
 
 function Home() {
@@ -11,28 +10,6 @@ function Home() {
     setEasyMode(!easyMode);
   };
 
-  // const [easyMode, setEasyMode] = React.useState(localStorage.getItem('easy'));
-
-  // React.useEffect(() => {
-  //   setEasyMode(localStorage.getItem('easy'));
-  // }, [localStorage.getItem('easy')]);
-
-  // const [easyMode, setEasyMode] = React.useState(() => localStorage.getItem('easy'));
-
-  // const [easyMode, setEasyMode] = React.useState(localStorage.getItem('easy') === 'true');
-
-  // React.useEffect(() => {
-  //   const handleStorageChange = () => {
-  //     // Update the state when storage changes
-  //     setEasyMode(localStorage.getItem('easy') === 'true');
-  //   };
-
-  //   window.addEventListener('storage', handleStorageChange);
-
-  //   return () => {
-  //     window.removeEventListener('storage', handleStorageChange);
-  //   };
-  // }, []);
 
   return (
     <>

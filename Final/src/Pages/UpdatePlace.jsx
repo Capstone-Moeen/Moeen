@@ -21,7 +21,7 @@ function UpdatePlace() {
 
   if (!localStorage.getItem('isAdmin')) {
     window.open('/', '_self')
-}
+  }
 
  
 const { id } = useParams();

@@ -20,9 +20,9 @@ function Routing() {
     <>
     
     <Routes>
-        <R path="/Dashboard" element={currentUser!== null && admins.includes(currentUser.uid) ? <AdminHome /> : <Home />} />
-        <R path="/PlaceDetails/:id" element={currentUser!== null && admins.includes(currentUser.uid) ? <PlaceDetails /> : <Home />} />
-        <R path="/Dashboard/Update/:id" element={currentUser!== null && admins.includes(currentUser.uid) ? <UpdatePlace /> : <Home />} />
+        <R path="/Dashboard" element={<AdminHome />} />
+        <R path="/PlaceDetails/:id" element={<PlaceDetails />} />
+        <R path="/Dashboard/Update/:id" element={<UpdatePlace />} />
         <R path="/" element={<Home />} />
         <R path="/*" element={<Error />} />
         <R path="/NewRequest" element={<NewRequest />} />
