@@ -9,15 +9,28 @@ import {
 } from "@nextui-org/react";
 import { Rating } from "@mui/material";
 import { db } from "../Config/firebase";
-import { addDoc, collection } from "firebase/firestore";
-import toastSuccess from "../utils/Toast";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
 
-function RatingModal({ isModalOpen, handelOpenModal, placeId }) {
+function RatingModal({
+  isModalOpen,
+  handelOpenModal,
+  placeId,
+  handelCommentPost,
+  comments,
+}) {
   const [comment, setComment] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
   const { currentUser } = useContext(AuthContext);
+
   const handelInput = (e) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
@@ -35,18 +48,47 @@ function RatingModal({ isModalOpen, handelOpenModal, placeId }) {
         rating: comment.rating,
         commentAuthor: currentUser.uid,
         placeId: placeId,
-      }).then(() => {
-        setIsLoading(false);
-        handelOpenModal();
-        toastSuccess("تم الارسال بنجاح");
-        setComment({});
-        setError({});
-      });
+      })
+        .then(async () => {
+          await updateDoc(doc(db, "AcceptedPlaces", placeId), {
+            avgRating: calcAvg(),
+          }).then(() => {
+            toast.success("تم الارسال بنجاح");
+            setIsLoading(false);
+            setTimeout(() => {
+              handelOpenModal();
+            }, 1500);
+            setComment({});
+            setError({});
+            handelCommentPost();
+          });
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          toast.error("حدث خطأ");
+          console.log(error);
+        });
     }
   };
+ 
+
+  const calcAvg = () => {
+    if (comments.length === 0) {
+      return 0;
+    } else {
+      let sum = 0;
+      comments.forEach((comment) => {
+        sum += parseInt(comment.rating);
+      });
+      return sum / comments.length;
+    }
+   
+  };
+
   return (
     <>
-     
+      {isModalOpen ? <ToastContainer /> : null}
+
       <Modal isOpen={isModalOpen} placement="auto" hideCloseButton={`true`}>
         <ModalContent>
           {() => (

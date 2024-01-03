@@ -25,6 +25,7 @@ import {
   updateDoc,
   collection,
   arrayRemove,
+  getDocs,
 } from "firebase/firestore";
 import toastSuccess from "../utils/Toast";
 import { db } from "../Config/firebase";
@@ -36,11 +37,13 @@ function PlaceInfoSideCard({
   renderMap,
 }) {
   const [selected, setSelected] = React.useState("details");
-  //Rating Modal State Controller
+  // Rating Modal State Controller
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [userLikes, setUserLikes] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [count, setCount] = useState(1);
+  const [comments, setComments] = useState([]);
+
   // Rating Modal Handel
   const handelOpenModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -48,7 +51,18 @@ function PlaceInfoSideCard({
 
   useEffect(() => {
     getUserLikes();
+    getComments()
   }, [count]);
+
+ const getComments = async()=>{
+   const querySnapshot = await getDocs(collection(db, "comments"));
+   const comments = querySnapshot.docs.map((doc)=>({...doc.data(),id:doc.id}))
+   const commetnsByPlace = comments.filter((comment)=>comment.placeId === placeData.id)
+   setComments(commetnsByPlace)
+ }
+ const handelCommentPost = () => {
+  setCount(count + 1);
+};
 
   const getUserLikes = async () => {
     try {
@@ -203,8 +217,24 @@ function PlaceInfoSideCard({
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
-                      valueLabel="5 / 4.0"
-                      value={90}
+                      valueLabel={
+                        placeData.RatingMoeen
+                          ? `5 / ${placeData.RatingMoeen}`
+                          : "5 / 0.0"
+                      }
+                      value={
+                        Math.floor(placeData.RatingMoeen) === 0
+                          ? 0
+                          : Math.floor(placeData.RatingMoeen) === 1
+                          ? 20
+                          : Math.floor(placeData.RatingMoeen) === 2
+                          ? 40
+                          : Math.floor(placeData.RatingMoeen) == 3
+                          ? 60
+                          : Math.floor(placeData.RatingMoeen) == 4
+                          ? 80
+                          : 100
+                      }
                     />
                   </div>
                   <div className="flex flex-col justify-center items-center gap-3">
@@ -218,8 +248,24 @@ function PlaceInfoSideCard({
                       }}
                       strokeWidth={90}
                       showValueLabel={true}
-                      valueLabel="5 / 4.5"
-                      value={90}
+                      valueLabel={
+                        placeData.avgRating
+                          ? `5 / ${placeData.avgRating.toFixed(1)}`
+                          : "5 / 0.0"
+                      }
+                      value={
+                        Math.floor(placeData.avgRating) === 0 || !placeData.avgRating
+                          ? 0
+                          : Math.floor(placeData.avgRating) === 1
+                          ? 20
+                          : Math.floor(placeData.avgRating) === 2
+                          ? 40
+                          : Math.floor(placeData.avgRating) == 3
+                          ? 60
+                          : Math.floor(placeData.avgRating) == 4
+                          ? 80
+                          : 100
+                      }
                     />
                   </div>
                 </div>
@@ -238,18 +284,11 @@ function PlaceInfoSideCard({
                 </div>
                 <Divider className="mt-5" />
                 <div className="flex flex-col justify-center items-center mt-5">
-                  <RatingRow
-                    name={"معن"}
-                    body={
-                      "المنتزه رائع وجميل مناسب جدا للعوائل ومجهز بكامل احتياجات ذوي الإعاقة مشكلته الوحيدة بعد دورات المياه عن المنتزه"
-                    }
-                  ></RatingRow>
-                  <RatingRow
-                    name={"أمواج"}
-                    body={
-                      "المنتزه جيد و مناسب لذوي الإعاقة و تتوفر به اهم الخدمات"
-                    }
-                  ></RatingRow>
+                 {
+                  comments.map((comment,index)=>{
+                    return <RatingRow key={index} author={comment.commentAuthor} rating={comment.rating} body={comment.comment}/>
+                  })
+                 }
                 </div>
               </Tab>
             </Tabs>
@@ -260,6 +299,8 @@ function PlaceInfoSideCard({
         handelOpenModal={handelOpenModal}
         isModalOpen={isModalOpen}
         placeId={placeData.id}
+        comments={comments}
+        handelCommentPost={handelCommentPost}
       ></RatingModal>
     </>
   );
