@@ -10,11 +10,6 @@ import UpdatePlace from '../Pages/UpdatePlace'
 import { AuthContext } from "../Context/AuthContext";
 
 function Routing() {
-
-  const [isAdmin, setIsAdmin] = React.useState(false);
-  const admins = ["RdDQQRbPBIWUcmD10UICl6S7TTb2"];
-  const { currentUser } = React.useContext(AuthContext);
-  
   
   return (
     <>
@@ -26,7 +21,6 @@ function Routing() {
         <R path="/" element={<Home />} />
         <R path="/*" element={<Error />} />
         <R path="/NewRequest" element={<NewRequest />} />
-      
     </Routes>
     </>
   );
