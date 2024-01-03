@@ -35,7 +35,6 @@ function Nav({ handelLayoutChange, easyMode }) {
   const { currentUser } = useContext(AuthContext); // to get the user info c:
   const userMenuRef = React.useRef(); //for the menu
 
-  // const [image, setImage] = useState();
   const [userAvatar, setUserAvatar] = useState()
 
   // to close the menu every time the user clicks anywhere
@@ -47,7 +46,7 @@ function Nav({ handelLayoutChange, easyMode }) {
   const local_userEmail = localStorage.getItem('userEmail')
 
   const [newName, setNewName] = React.useState(local_username)
-  // const [newEmail, setNewEmail] = React.useState(local_userEmail)
+  // const [newEmail, setNewEmail] = React.useState(local_userEmail) for later
 
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
@@ -396,11 +395,11 @@ useEffect(() => {
                 id="user-menu-button"
                 onClick={userMenuClick}
               >
-                <img
-                  className="w-12 h-12 rounded-full"
-                  src={userAvatar || userIcon}
-                  alt="user icon"
-                />
+                <div className="w-16 h-16 rounded-full bg-center bg-cover 
+                max-sm:w-14 max-sm:h-14"
+                style={{backgroundImage: `url(${userAvatar || userIcon})`}}
+                >
+                </div>
               </button>
 
               {showUserMenu && (
