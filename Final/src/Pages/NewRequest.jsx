@@ -246,7 +246,7 @@ const handelDeleteImage = (index) => {
                     <SelectItem className="text-black" key="shopping">
                       تسوق
                     </SelectItem>
-                    <SelectItem className="text-black" key="فندق">
+                    <SelectItem className="text-black" key="hotel">
                       فندق
                     </SelectItem>
                     <SelectItem className="text-black" key="other">
