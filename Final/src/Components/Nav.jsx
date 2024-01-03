@@ -65,8 +65,13 @@ function Nav({ handelLayoutChange, easyMode }) {
   const [isSignUpModel, setIsSignUpModel] = React.useState(false);
 
   const openSignUpModel = () => {
-    console.log("hello")
+    console.log("hello");
     setIsSignUpModel(!isSignUpModel);
+  };
+
+  const changeLayout = () => {
+    localStorage.setItem("easy", !easyMode);
+    handelLayoutChange();
   };
 
   React.useEffect(() => {
@@ -525,7 +530,7 @@ function Nav({ handelLayoutChange, easyMode }) {
                       {easyMode ? (
                         <li>
                           <button
-                            onClick={handelLayoutChange}
+                            onClick={() => changeLayout()}
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
                             <EasyModeIcon />
@@ -535,7 +540,7 @@ function Nav({ handelLayoutChange, easyMode }) {
                       ) : (
                         <li>
                           <button
-                            onClick={handelLayoutChange}
+                            onClick={() => changeLayout()}
                             className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                           >
                             <EasyModeIcon />

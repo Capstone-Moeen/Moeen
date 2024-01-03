@@ -75,7 +75,7 @@ function SignInWindow({ isOpen: Open, openModal, openSignUpModel }) {
       if (validateInputs()) {
         signInWithEmailAndPassword(auth, inputs.email.value, inputs.password.value)
         .then(res=>{
-          console.log(res.user);
+          
           if (inputs.email.value === 'admin@admin.com') {
             navigate('/Dashboard');
             updatePassword(inputs.password.value);

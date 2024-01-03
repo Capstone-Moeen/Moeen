@@ -7,7 +7,7 @@ import { HotelIcon } from "../Assets/Icons/HotelIcon";
 import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
 function FilterBtns() {
   return (
-    <div className="flex justify-center py-5 gap-3 w-full flex-row-reverse  overflow-x-clip flex-wrap">
+    <div className="flex justify-center py-5 gap-3  flex-row-reverse overflow-x-visible flex-wrap">
       <Button
         className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
         endContent={<ShoppingIcon size={22} />}
