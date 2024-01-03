@@ -49,7 +49,7 @@ function Nav({ handelLayoutChange, easyMode }) {
   const admins = ["RdDQQRbPBIWUcmD10UICl6S7TTb2"];
   const sign_out = () => {
     signOut(auth);
-    // setIsLogged(false)
+    localStorage.clear()
     setShowUserMenu(false);
     navigate("/");
   };
