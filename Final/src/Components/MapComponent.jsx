@@ -38,6 +38,7 @@ function MapComponent() {
   const [userLikes, setUserLikes] = useState([]);
   const [likedPlaces, setLikedPlaces] = useState([]);
   const [featured, setFeatured] = useState([]);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     getUserLikes();
@@ -124,6 +125,12 @@ function MapComponent() {
     setLikedPlaces(likedPlaces);
     mapRef.setZoom(11);
   };
+
+ 
+
+
+
+
   // rendering the map
   const renderMap = () => {
     setCount(count + 1);

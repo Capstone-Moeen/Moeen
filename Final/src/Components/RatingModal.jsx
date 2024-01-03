@@ -73,11 +73,16 @@ function RatingModal({
  
 
   const calcAvg = () => {
-    let sum = 0;
-    comments.forEach((comment) => {
-      sum += parseInt(comment.rating);
-    });
-    return sum / comments.length;
+    if (!comments) {
+      return 0;
+    } else {
+      let sum = 0;
+      comments.forEach((comment) => {
+        sum += parseInt(comment.rating);
+      });
+      return sum / comments.length;
+    }
+   
   };
 
   return (

@@ -60,6 +60,9 @@ function PlaceInfoSideCard({
    const commetnsByPlace = comments.filter((comment)=>comment.placeId === placeData.id)
    setComments(commetnsByPlace)
  }
+ const handelCommentPost = () => {
+  setCount(count + 1);
+};
 
   const getUserLikes = async () => {
     try {
@@ -296,6 +299,8 @@ function PlaceInfoSideCard({
         handelOpenModal={handelOpenModal}
         isModalOpen={isModalOpen}
         placeId={placeData.id}
+        comments={comments}
+        handelCommentPost={handelCommentPost}
       ></RatingModal>
     </>
   );
