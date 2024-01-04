@@ -93,9 +93,9 @@ function PlacesList() {
                     {filteredData.length === 0 || filteredData.length === '' ? 
                     <div className='p-5'>لا يوجد نتائج</div>
                     :
-                    [...filteredData].reverse().map((item)=>(
+                    [...filteredData].reverse().map((item, index)=>(
                         
-                      <tbody class="bg-white">
+                      <tbody class="bg-white" key={index}>
                           <tr>
                               <td class="py-4 px-6 border-b border-gray-200 max-sm:text-[13px] text-black text-right">
                                   {item.placeName}</td>
@@ -131,7 +131,7 @@ function PlacesList() {
                 
           </div>
        </div>
-       <RatingMoeenPopUp isOpen={isModalOpen} openModal={openModal} />
+       <RatingMoeenPopUp isOpen={isModalOpen} openModal={openModal}  />
     </>
   )
 }

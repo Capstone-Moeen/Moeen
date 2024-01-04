@@ -8,30 +8,15 @@ import {
   Button,
 } from "@nextui-org/react";
 import { Rating } from "@mui/material";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {  doc,  updateDoc } from "firebase/firestore";
 import { db } from '../Config/firebase';
 
-function RatingMoeenPopUp({ isOpen, openModal, id }) {
+function RatingMoeenPopUp({ isOpen, openModal }) {
   const handelOpenModal = () => {
     openModal(!isOpen);
   };
 
   const [ratingMoeen, setRatingMoeen] = useState(null);
-
-  useEffect(() => {
-    const getRatingMoeen = async () => {
-      const docRef = doc(db, 'AcceptedPlaces', id);
-      const docSnap = await getDoc(docRef);
-  
-      if (docSnap.exists()) {
-        setRatingMoeen(docSnap.data());
-      } else {
-        console.log('No such document!');
-      }
-    };
-  
-    getRatingMoeen();
-  }, [id]);
 
   const handelUpdatePlaceRating = async () => {
     try {
@@ -60,12 +45,12 @@ function RatingMoeenPopUp({ isOpen, openModal, id }) {
                 تقييم معين
               </ModalHeader>
               <ModalBody>
-                {ratingMoeen && (
+               
                   <Rating
                     size="large"
-                    value={ratingMoeen.RatingMoeen} 
+                    value={4} 
                   />
-                )}
+               
               </ModalBody>
               <ModalFooter className="flex justify-center">
                 <Button
