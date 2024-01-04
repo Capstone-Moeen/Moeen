@@ -272,7 +272,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                         </Link>
                       </li>
 
-                      {/* <li>
+                    {/* <li>
                         <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                         <FavoriteIcon />
                         من نحن
@@ -284,6 +284,45 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                       rounded md:my-7 max-sm:my-7"
                       />
 
+                    {/* <li>
+                      <Link
+                        to="/"
+                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                      >
+                        <LanguageIcon />
+                        اللغة العربية
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/"
+                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                      >
+                        <BlindColorIcon />
+                        عمى الالوان
+                      </Link>
+                    </li> */}
+                    {easyMode ? (
+                      <li>
+                        <button
+                          onClick={handelLayoutChange}
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <EasyModeIcon />
+                          الوضع الافتراضي
+                        </button>
+                      </li>
+                    ) : (
+                      <li>
+                        <button
+                          onClick={handelLayoutChange}
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <EasyModeIcon />
+                          الوضع السهل
+                        </button>
+                      </li>
+                    )}
                       <li>
                         <Link
                           to="/"
@@ -552,7 +591,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                         rounded md:my-7 max-sm:my-7"
                       />
 
-                      <li>
+                      {/* <li>
                         <Link
                           to="/"
                           className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
@@ -569,7 +608,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                           <BlindColorIcon />
                           عمى الالوان
                         </Link>
-                      </li>
+                      </li> */}
                       {easyMode ? (
                         <li>
                           <button

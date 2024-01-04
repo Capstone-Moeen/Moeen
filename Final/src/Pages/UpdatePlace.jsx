@@ -53,8 +53,6 @@ useEffect(() => {
       if (docSnap.data().services) {
         setServices(docSnap.data().services);
       }
-    } else {
-      console.log('No such document!');
     }
   };
 
@@ -264,6 +262,7 @@ const handelUpdatePlaces = async (id) => {
                 <Checkbox
                   onChange={handleService}
                   defaultChecked={true}
+                  checked={checked}
                   className="font-medium text-xl text-black"
                   name={serviceName}
                 >
