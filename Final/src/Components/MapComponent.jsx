@@ -158,6 +158,8 @@ const searchPlaces = ()=>{
             <CircularProgress size="lg" color="success" label="Loading..." />
           </div>
         ) : (
+          <div style={{ height: "88vh" }}>
+
           <GoogleMap
             zoom={13}
             center={userPosition}
@@ -268,6 +270,8 @@ const searchPlaces = ()=>{
             )}
             <FeaturedPlaces isOpen={isOpen} featured={featured}></FeaturedPlaces>
           </GoogleMap>
+          </div>
+
         )}
       </div>
     </>

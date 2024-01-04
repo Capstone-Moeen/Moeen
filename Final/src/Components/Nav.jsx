@@ -28,7 +28,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
   // const { password } = usePassword();
   // console.log('pass ' + password);
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const { currentUser } = useContext(AuthContext); // to get the user info c:
   const userMenuRef = React.useRef(); //for the menu
   
@@ -44,6 +44,18 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
   const [newName, setNewName] = React.useState(local_username);
   // const [newEmail, setNewEmail] = React.useState(local_userEmail) for later
  const [searchInput , setSearchInput] = useState('');
+
+ const getUserInfo = () => {
+  const isLogged = localStorage.getItem('isLogged');
+  const isAdmin = localStorage.getItem('isAdmin');
+  const userEmail = localStorage.getItem('userEmail');
+  const username = localStorage.getItem('username');
+  const easy = localStorage.getItem('easy');
+  return { isLogged, isAdmin, userEmail, username, easy };
+};
+
+const { isLogged, isAdmin, userEmail, username, easy } = getUserInfo();
+
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
   };
@@ -81,11 +93,11 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
         setShowUserMenu(false);
       }
-      if (admins.includes(currentUser.uid)) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
+      // if (admins.includes(currentUser.uid)) {
+      //   setIsAdmin(true);
+      // } else {
+      //   setIsAdmin(false);
+      // }
     };
 
     document.body.addEventListener("click", outsideClick);
@@ -397,7 +409,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
             />
           </div>
 
-          {currentUser ? (
+          {isLogged ? (
             <div className="relative" ref={userMenuRef}>
               <button
                 type="button"
