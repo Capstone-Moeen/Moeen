@@ -178,7 +178,7 @@ const searchPlaces = ()=>{
             onClick={() => setIsOpen(false)}
           >
             <div className="flex justify-center py-3 gap-3  flex-row-reverse w-full">
-              <div className="flex flex-row-reverse gap-2  ">
+              <div className="flex flex-row-reverse gap-2 justify-center flex-wrap">
                 <Button
                   className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "
                   endContent={<ShoppingIcon size={22} />}
