@@ -341,27 +341,6 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                           عمى الالوان
                         </Link>
                       </li> */}
-                      {easyMode ? (
-                        <li>
-                          <button
-                            onClick={handelLayoutChange}
-                            className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                          >
-                            <EasyModeIcon />
-                            الوضع الافتراضي
-                          </button>
-                        </li>
-                      ) : (
-                        <li>
-                          <button
-                            onClick={handelLayoutChange}
-                            className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                          >
-                            <EasyModeIcon />
-                            الوضع السهل
-                          </button>
-                        </li>
-                      )}
 
                       <hr
                         className="w-48 h-1 mx-auto bg-gray-200 border-0 
