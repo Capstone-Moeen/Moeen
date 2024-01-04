@@ -10,7 +10,7 @@ import { ParkIcon } from "../Assets/Icons/ParkIcon";
 import { HotelIcon } from "../Assets/Icons/HotelIcon";
 import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
 import { AuthContext } from "../Context/AuthContext";
-export default function EasyLayout() {
+export default function EasyLayout({ search }) {
   const [places, setPlaces] = useState([]);
   const [userPosition, setUserPosition] = React.useState({});
   const [featured, setFeatured] = useState([]);
@@ -23,6 +23,21 @@ export default function EasyLayout() {
     getUserLocation();
     getUserLikes();
   }, []);
+
+  useEffect(() => {
+    searchPlaces();
+  }, [search]);
+
+  const searchPlaces = () => {
+    if (search !== "") {
+      const filteredPlaces = places.filter((place) =>
+        place.placeName.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredPlaces(filteredPlaces);
+    } else if (search === "") {
+      setFilteredPlaces(places);
+    }
+  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -84,23 +99,28 @@ export default function EasyLayout() {
 
   return (
     <>
-      <div className="w-full flex justify-center"></div>
-      <h1 className="text-center font-bold text-3xl px-5 mt-12">
-        الاعلى تقييما
-      </h1>
+      {search === "" && (
+        <>
+          <div className="w-full flex justify-center"></div>
+          <h1 className="text-center font-bold text-3xl px-5 mt-12">
+            الاعلى تقييما
+          </h1>
 
-      <div className="w-full flex justify-center gap-5 p-10 items-center mt-5 mb-5 flex-wrap max-sm:p-2">
-        {featured.map((place, index) => {
-          return (
-            <FeaturedPlaceCardEasyLayout
-              placeImage={place.Images[0]}
-              placename={place.placeName}
-              key={index}
-              rating={place.avgRating}
-            ></FeaturedPlaceCardEasyLayout>
-          );
-        })}
-      </div>
+          <div className="w-full flex justify-center gap-5 p-10 items-center mt-5 mb-5 flex-wrap max-sm:p-2">
+            {featured.map((place, index) => {
+              return (
+                <FeaturedPlaceCardEasyLayout
+                  placeImage={place.Images[0]}
+                  placename={place.placeName}
+                  key={index}
+                  rating={place.avgRating}
+                ></FeaturedPlaceCardEasyLayout>
+              );
+            })}
+          </div>
+        </>
+      )}
+
       <div className="flex justify-center py-5 gap-3  flex-row-reverse overflow-x-visible flex-wrap">
         <Button
           className="w-32 h-8  font-bold text-[#005B41] bg-[#FAFAFB] text-xl filterBtn "

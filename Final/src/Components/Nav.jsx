@@ -5,8 +5,6 @@ import { CloseIcon } from "../Assets/Icons/CloseIcon";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AddNewPlaceIcon } from "../Assets/Icons/AddNewPlaceIcon";
 import { HomeIcon } from "../Assets/Icons/HomeIcon";
-import { ProfileIcon } from "../Assets/Icons/ProfileIcon";
-import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
 import { LanguageIcon } from "../Assets/Icons/LanguageIcon";
 import { BlindColorIcon } from "../Assets/Icons/BlindColorIcon";
 import { EasyModeIcon } from "../Assets/Icons/EasyModeIcon";
@@ -20,41 +18,39 @@ import { AuthContext } from "../Context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../Config/firebase";
 import { CheckIcon } from "../Assets/Icons/CheckIcon";
-import { EmailAuthProvider, updateProfile, updateEmail, reauthenticateWithCredential } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, updateDoc, getDoc, collection } from "firebase/firestore";
-import { storage,db } from "../Config/firebase";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { storage, db } from "../Config/firebase";
 // import { usePassword } from "../Context/PasswordContext"; in future ill do it c:
 
-function Nav({ handelLayoutChange, easyMode }) {
-
+function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
   // const { password } = usePassword();
   // console.log('pass ' + password);
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const { currentUser } = useContext(AuthContext); // to get the user info c:
   const userMenuRef = React.useRef(); //for the menu
-
-  const [userAvatar, setUserAvatar] = useState()
+  
+  const [userAvatar, setUserAvatar] = useState();
 
   // to close the menu every time the user clicks anywhere
   const [showUserMenu, setShowUserMenu] = React.useState(false);
   const [updateName, setUpdateName] = React.useState(false);
-  const [updateUserEmail, setUpdateUserEmail] = React.useState(false);
 
-  const local_username = localStorage.getItem('username')
-  const local_userEmail = localStorage.getItem('userEmail')
+  const local_username = localStorage.getItem("username");
+  const local_userEmail = localStorage.getItem("userEmail");
 
-  const [newName, setNewName] = React.useState(local_username)
+  const [newName, setNewName] = React.useState(local_username);
   // const [newEmail, setNewEmail] = React.useState(local_userEmail) for later
-
+ const [searchInput , setSearchInput] = useState('');
   const userMenuClick = () => {
     setShowUserMenu(!showUserMenu);
   };
   const admins = ["RdDQQRbPBIWUcmD10UICl6S7TTb2"];
   const sign_out = () => {
     signOut(auth);
-    localStorage.clear()
+    localStorage.clear();
     setShowUserMenu(false);
     navigate("/");
   };
@@ -99,13 +95,13 @@ function Nav({ handelLayoutChange, easyMode }) {
   }, [showUserMenu]);
 
   const updateUsername = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     setUpdateName(!updateName);
-    console.log('e');
+    console.log("e");
   };
-  
+
   // const update_Email = (e) => {
-  //   e.stopPropagation(); 
+  //   e.stopPropagation();
   //   setUpdateUserEmail(!updateUserEmail);
   // };
 
@@ -118,57 +114,56 @@ function Nav({ handelLayoutChange, easyMode }) {
     }
   };
 
-
   const uploadAvatar = async (e) => {
     const file = e.target.files[0];
- 
+
     if (file) {
-       const avatarURL = await handleAvatarUpload(file);
+      const avatarURL = await handleAvatarUpload(file);
 
       //  await updateProfile(auth.currentUser, { photoURL: file });
-       await updateDoc(doc(db, "users", currentUser.uid), {
-          avatar: avatarURL,
-       });
-    }
- };
-
- const handleAvatarUpload = async (file) => {
-  const date = new Date();
-  const storageRef = ref(
-     storage,
-     `Avatars/${currentUser.uid}_${date.getTime()}`
-  );
-
-  try {
-     await uploadBytes(storageRef, file);
-     const avatarURL = await getDownloadURL(storageRef);
-     return avatarURL;
-  } catch (error) {
-     console.error(error.message);
-  }
-};
-
-// getting the avatar from the firebase
-useEffect(() => {
-  const getAvatar = async () => {
-    const docRef = doc(db, 'users', currentUser.uid);
-    const docSnapshot = await getDoc(docRef);
-
-    if (docSnapshot.exists()) {
-      const userData = docSnapshot.data();
-      const userAvatar = userData.avatar;
-
-      setUserAvatar(userAvatar);
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        avatar: avatarURL,
+      });
     }
   };
 
-  getAvatar();
-}, [currentUser]);
+  const handleAvatarUpload = async (file) => {
+    const date = new Date();
+    const storageRef = ref(
+      storage,
+      `Avatars/${currentUser.uid}_${date.getTime()}`
+    );
 
-  const changingName =(event)=>{
+    try {
+      await uploadBytes(storageRef, file);
+      const avatarURL = await getDownloadURL(storageRef);
+      return avatarURL;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // getting the avatar from the firebase
+  useEffect(() => {
+    const getAvatar = async () => {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const userAvatar = userData.avatar;
+
+        setUserAvatar(userAvatar);
+      }
+    };
+
+    getAvatar();
+  }, [currentUser]);
+
+  const changingName = (event) => {
     // console.log('hi '+ event);
-    setNewName(event.target.value)
-  }
+    setNewName(event.target.value);
+  };
 
   // console.log(currentUser);
 
@@ -184,184 +179,180 @@ useEffect(() => {
 
           {isAdmin ? (
             <div className="relative" ref={userMenuRef}>
-            <button
-              type="button"
-              className="flex text-sm rounded-full md:me-0 focus:ring-4"
-              id="user-menu-button"
-              onClick={userMenuClick}
-            >
-              <img
-                className="w-12 h-12 rounded-full"
-                src={userIcon}
-                alt="user icon"
-              />
-            </button>
-
-            {showUserMenu && (
-              <div
-                className="absolute left-1 top-20 text-right mt-2 w-80 max-sm:w-64 bg-white border 
-                rounded-lg shadow z-[1000] overflow-y-auto max-h-[80vh]"
+              <button
+                type="button"
+                className="flex text-sm rounded-full md:me-0 focus:ring-4"
+                id="user-menu-button"
+                onClick={userMenuClick}
               >
-                <div className="py-2">
-                  <div className="px-4 py-3">
-                    <span onClick={userMenuClick} className="">
-                      <CloseIcon />
-                    </span>
+                <img
+                  className="w-12 h-12 rounded-full"
+                  src={userIcon}
+                  alt="user icon"
+                />
+              </button>
 
-                    <div className="text-center flex flex-col">
-                      {/* avatar  */}
-                      <div>
-                        <div className="avatar relative">
-                          <div className="w-24 rounded-full">
-                            <img src={userIcon} />
-                            <div>
-                              {/* <div className="absolute bg-[#005B41] rounded-full p-1 bottom-0.5">
+              {showUserMenu && (
+                <div
+                  className="absolute left-1 top-20 text-right mt-2 w-80 max-sm:w-64 bg-white border 
+                rounded-lg shadow z-[1000] overflow-y-auto max-h-[80vh]"
+                >
+                  <div className="py-2">
+                    <div className="px-4 py-3">
+                      <span onClick={userMenuClick} className="">
+                        <CloseIcon />
+                      </span>
+
+                      <div className="text-center flex flex-col">
+                        {/* avatar  */}
+                        <div>
+                          <div className="avatar relative">
+                            <div className="w-24 rounded-full">
+                              <img src={userIcon} />
+                              <div>
+                                {/* <div className="absolute bg-[#005B41] rounded-full p-1 bottom-0.5">
                                 {" "}
                                 <AddIcon />{" "}
                               </div> */}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* username  */}
-                      <div
-                        className="flex justify-center items-center text-black 
+                        {/* username  */}
+                        <div
+                          className="flex justify-center items-center text-black 
                      font-bold gap-2"
-                      >
-                        <div>{currentUser.displayName}</div>
-                        <div>
-                          {/* <AddNewPlaceIcon size={16} /> */}
+                        >
+                          <div>{currentUser.displayName}</div>
+                          <div>{/* <AddNewPlaceIcon size={16} /> */}</div>
                         </div>
-                      </div>
 
-                      {/* user email  */}
-                      <div
-                        className="flex justify-center items-center text-gray-600 
+                        {/* user email  */}
+                        <div
+                          className="flex justify-center items-center text-gray-600 
                      font-bold gap-2 mb-6"
-                      >
-                        <div>{currentUser.email}</div>
-                        <div>
-                          {/* <AddNewPlaceIcon size={16} /> */}
+                        >
+                          <div>{currentUser.email}</div>
+                          <div>{/* <AddNewPlaceIcon size={16} /> */}</div>
                         </div>
                       </div>
-                    </div>
 
-                    <hr
-                      className="w-48 h-1 mx-auto bg-gray-200 border-0 
+                      <hr
+                        className="w-48 h-1 mx-auto bg-gray-200 border-0 
                       rounded md:my-1 max-sm:my-7"
-                    />
-                  </div>
-                  <ul className="py-2" aria-labelledby="user-menu-button">
-                    <li>
-                      <Link
-                        to="/Dashboard"
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <EasyModeIcon />
-                        لوحة المعلومات
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/"
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <HomeIcon />
-                        الرئيسية
-                      </Link>
-                    </li>
-                    <li className="flex w-full items-center">
-                      <Link
-                        to="/NewRequest"
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <AddNewPlaceIcon />
-                        اضافة مكان جديد
-                      </Link>
-                    </li>
+                      />
+                    </div>
+                    <ul className="py-2" aria-labelledby="user-menu-button">
+                      <li>
+                        <Link
+                          to="/Dashboard"
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <EasyModeIcon />
+                          لوحة المعلومات
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/"
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <HomeIcon />
+                          الرئيسية
+                        </Link>
+                      </li>
+                      <li className="flex w-full items-center">
+                        <Link
+                          to="/NewRequest"
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <AddNewPlaceIcon />
+                          اضافة مكان جديد
+                        </Link>
+                      </li>
 
-                    {/* <li>
+                      {/* <li>
                         <Link to="/" className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full">
                         <FavoriteIcon />
                         من نحن
                         </Link>
                       </li> */}
 
-                    <hr
-                      className="w-48 h-1 mx-auto bg-gray-200 border-0 
+                      <hr
+                        className="w-48 h-1 mx-auto bg-gray-200 border-0 
                       rounded md:my-7 max-sm:my-7"
-                    />
+                      />
 
-                    <li>
-                      <Link
-                        to="/"
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <LanguageIcon />
-                        اللغة العربية
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/"
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <BlindColorIcon />
-                        عمى الالوان
-                      </Link>
-                    </li>
-                    {easyMode ? (
                       <li>
-                        <button
-                          onClick={handelLayoutChange}
+                        <Link
+                          to="/"
                           className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                         >
-                          <EasyModeIcon />
-                          الوضع الافتراضي
-                        </button>
+                          <LanguageIcon />
+                          اللغة العربية
+                        </Link>
                       </li>
-                    ) : (
                       <li>
-                        <button
-                          onClick={handelLayoutChange}
+                        <Link
+                          to="/"
                           className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
                         >
-                          <EasyModeIcon />
-                          الوضع السهل
+                          <BlindColorIcon />
+                          عمى الالوان
+                        </Link>
+                      </li>
+                      {easyMode ? (
+                        <li>
+                          <button
+                            onClick={handelLayoutChange}
+                            className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                          >
+                            <EasyModeIcon />
+                            الوضع الافتراضي
+                          </button>
+                        </li>
+                      ) : (
+                        <li>
+                          <button
+                            onClick={handelLayoutChange}
+                            className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                          >
+                            <EasyModeIcon />
+                            الوضع السهل
+                          </button>
+                        </li>
+                      )}
+
+                      <hr
+                        className="w-48 h-1 mx-auto bg-gray-200 border-0 
+                      rounded md:my-7 max-sm:my-7"
+                      />
+
+                      <li>
+                        <button
+                          onClick={sign_out}
+                          className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
+                        >
+                          <SignOutIcon />
+                          تسجيل الخروج
                         </button>
                       </li>
-                    )}
-
-                    <hr
-                      className="w-48 h-1 mx-auto bg-gray-200 border-0 
-                      rounded md:my-7 max-sm:my-7"
-                    />
-
-                    <li>
-                      <button
-                        onClick={sign_out}
-                        className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
-                      >
-                        <SignOutIcon />
-                        تسجيل الخروج
-                      </button>
-                    </li>
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Button
-            size="lg"
-            onClick={openModal}
-            className="text-black font-bold bg-white lg:text-xl 
+              )}
+            </div>
+          ) : (
+            <Button
+              size="lg"
+              onClick={openModal}
+              className="text-black font-bold bg-white lg:text-xl 
         max-sm:text-sm md:text-base"
-          >
-            تسجيل دخول
-          </Button>
-        )}
+            >
+              تسجيل دخول
+            </Button>
+          )}
         </nav>
       ) : (
         <nav className="bg-[#005B41] h-[12vh] flex justify-between py-4 px-8 items-center">
@@ -371,7 +362,7 @@ useEffect(() => {
             </div>
           </Link>
 
-          <div className="lg:w-[35rem] md:w-[16rem] max-sm:w-[16rem]">
+          <div className="lg:w-[35rem] md:w-[16rem] max-sm:w-[16rem] flex ">
             <Input
               classNames={{
                 base: `sm:max-w-[10rem] h-12 max-sm:hidden`,
@@ -384,6 +375,7 @@ useEffect(() => {
               endContent={<SearchIcon size={22} />}
               type="search"
               fullWidth={true}
+              onChange={(e)=> searchKeyword(e.target.value)}
             />
           </div>
 
@@ -395,11 +387,11 @@ useEffect(() => {
                 id="user-menu-button"
                 onClick={userMenuClick}
               >
-                <div className="w-16 h-16 rounded-full bg-center bg-cover 
+                <div
+                  className="w-16 h-16 rounded-full bg-center bg-cover 
                 max-sm:w-14 max-sm:h-14"
-                style={{backgroundImage: `url(${userAvatar || userIcon})`}}
-                >
-                </div>
+                  style={{ backgroundImage: `url(${userAvatar || userIcon})` }}
+                ></div>
               </button>
 
               {showUserMenu && (
@@ -421,18 +413,17 @@ useEffect(() => {
                               <img src={userAvatar || userIcon} />
                               <div>
                                 <div className="absolute bg-[#005B41] rounded-full p-1 bottom-0.5">
-                                <input
+                                  <input
                                     type="file"
                                     id="file"
                                     style={{ display: "none" }}
                                     accept=".jpg, .jpeg, .png"
                                     onChange={uploadAvatar}
-                                    />
-                                    <label
-                                    htmlFor="file"
-                                    >
-                                       {" "} <AddIcon /> {" "}
-                                    </label>
+                                  />
+                                  <label htmlFor="file">
+                                    {" "}
+                                    <AddIcon />{" "}
+                                  </label>
                                 </div>
                               </div>
                             </div>
@@ -444,38 +435,46 @@ useEffect(() => {
                           className="flex justify-center items-center text-black 
                        font-bold gap-2"
                         >
-
-                        <div>
-                                  {updateName ? (
-                                    <div className="flex justify-center">
-                                      <Input
-                                        className={`text-black rounded-lg font-medium border-none
+                          <div>
+                            {updateName ? (
+                              <div className="flex justify-center">
+                                <Input
+                                  className={`text-black rounded-lg font-medium border-none
                                         placeholder-gray-400 text-sm text-right w-[100%] lg:w-[100%]
                                         mb-3 mt-3`}
-                                        color="black"
-                                        variant="bordered"
-                                        type="text"
-                                        label="اسم المستخدم"
-                                        value={newName}
-                                        // name='username'
-                                        onChange={(event)=>{changingName(event)}}
-                                        size='xs'
-                                      />
-                                      <div className="mt-3" onClick={handleNameChange}>
-                                        <CheckIcon size={45} />
-                                      </div>
-                                      {/* <Button color="success" onClick={handleNameChange}>حفظ</Button> */}
-                                    </div>
-                                  ) : (
-                                    <div className="flex justify-center items-center gap-1">
-                                      <div>{currentUser.displayName}</div>
-                                     <div onClick={(e) => { updateUsername(e) }}>
-                                     <AddNewPlaceIcon size={16} />
-                                      </div> 
-                                    </div>
-                                  )}
+                                  color="black"
+                                  variant="bordered"
+                                  type="text"
+                                  label="اسم المستخدم"
+                                  value={newName}
+                                  // name='username'
+                                  onChange={(event) => {
+                                    changingName(event);
+                                  }}
+                                  size="xs"
+                                />
+                                <div
+                                  className="mt-3"
+                                  onClick={handleNameChange}
+                                >
+                                  <CheckIcon size={45} />
+                                </div>
+                                {/* <Button color="success" onClick={handleNameChange}>حفظ</Button> */}
+                              </div>
+                            ) : (
+                              <div className="flex justify-center items-center gap-1">
+                                <div>{currentUser.displayName}</div>
+                                <div
+                                  onClick={(e) => {
+                                    updateUsername(e);
+                                  }}
+                                >
+                                  <AddNewPlaceIcon size={16} />
                                 </div>
                               </div>
+                            )}
+                          </div>
+                        </div>
 
                         {/* user email  */}
                         <div
@@ -501,19 +500,19 @@ useEffect(() => {
                                 <div className="ml-9" onClick={handleEmailChange}>
                                 <CheckIcon size={66} />
                                 </div> */}
-                                {/* <Button color="success" >حفظ</Button> */}
-                              {/* </div> */}
-                            {/* ) : ( */}
-                              <div className="flex justify-center items-center gap-1">
-                                <div>{currentUser.email}</div>
-                                {/* <div onClick={(e)=>{update_Email(e)}}>
+                          {/* <Button color="success" >حفظ</Button> */}
+                          {/* </div> */}
+                          {/* ) : ( */}
+                          <div className="flex justify-center items-center gap-1">
+                            <div>{currentUser.email}</div>
+                            {/* <div onClick={(e)=>{update_Email(e)}}>
                                 <AddNewPlaceIcon size={16} />
                                 </div> */}
-                              </div>
-                            {/* )} */}
+                          </div>
+                          {/* )} */}
 
-                         {/* </div>  */}
-                      </div>
+                          {/* </div>  */}
+                        </div>
                       </div>
 
                       <hr

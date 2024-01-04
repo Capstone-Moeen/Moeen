@@ -22,7 +22,7 @@ import { HotelIcon } from "../Assets/Icons/HotelIcon";
 import { FavoriteIcon } from "../Assets/Icons/FavoriteIcon";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../Context/AuthContext";
-function MapComponent() {
+function MapComponent({search}) {
   const { currentUser } = useContext(AuthContext);
   // Initializing the google maps with the api key
   const { isLoaded } = useLoadScript({
@@ -45,6 +45,10 @@ function MapComponent() {
     getUserLocation();
     getPlaces();
   }, [currentUser, count]);
+
+  useEffect(() => {
+    searchPlaces()
+  },[search])
 
   //Getting places Data
   const getPlaces = async () => {
@@ -127,7 +131,17 @@ function MapComponent() {
   };
 
  
-
+const searchPlaces = ()=>{
+  if (search !== "") {
+    const filteredPlaces = places.filter((place) =>
+      place.placeName.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredPlaces(filteredPlaces);
+    mapRef.setZoom(11);
+  } else if(search === "") {
+    setFilteredPlaces(places);
+  }
+}
 
 
 

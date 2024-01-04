@@ -8,7 +8,11 @@ function Home() {
   const [easyMode, setEasyMode] = useState(
     JSON.parse(localStorage.getItem("easy"))
   );
+  const [search, setSearch] = useState("");
 
+  const searchKeyword =(word) => {
+    setSearch(word)
+  }
 
   const handelLayoutChange = () => {
     setEasyMode(!easyMode);
@@ -21,20 +25,24 @@ function Home() {
           <Nav
             handelLayoutChange={handelLayoutChange}
             easyMode={easyMode}
+            searchKeyword={searchKeyword}
+           
           ></Nav>
-          <EasyLayout />
+          <EasyLayout search={search} />
         </>
       ) : (
         <div className="h-screen overflow-hidden">
           <Nav
             handelLayoutChange={handelLayoutChange}
             easyMode={easyMode}
+            searchKeyword={searchKeyword}
+
           ></Nav>
           <ToastContainer
             toastStyle={{ backgroundColor: "#FAFAFB" }}
           ></ToastContainer>
 
-          <MapComponent></MapComponent>
+          <MapComponent search={search}></MapComponent>
         </div>
       )}
     </>

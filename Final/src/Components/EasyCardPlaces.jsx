@@ -40,7 +40,7 @@ function EasyCardPlaces({ placeData, userLocation }) {
           </div>
           <div className="flex items-center gap-1 mt-1">
             <span className=" text-[#70757a]">{placeData.avgRating ? placeData.avgRating?.toFixed(2) : 0}</span>
-            <Rating size="small" readOnly value={placeData.avgRating?.toFixed(2)}></Rating>
+            <Rating size="small" readOnly value={placeData.avgRating?.toFixed(2) ? placeData.avgRating?.toFixed(2) : 0}></Rating>
           </div>
           <p className="text-right font-light">
             {placeData.placeType === "cafe"
