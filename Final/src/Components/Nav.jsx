@@ -323,7 +323,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                         </button>
                       </li>
                     )}
-                      <li>
+                      {/* <li>
                         <Link
                           to="/"
                           className="text-black px-4 py-2 hover:bg-gray-100 font-bold text-lg flex gap-5 w-full"
@@ -340,7 +340,7 @@ function Nav({ handelLayoutChange, easyMode, searchKeyword }) {
                           <BlindColorIcon />
                           عمى الالوان
                         </Link>
-                      </li>
+                      </li> */}
                       {easyMode ? (
                         <li>
                           <button
