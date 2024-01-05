@@ -116,9 +116,9 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 
 <h2>Team: (الفريق)</h2>
 <ul>
-  <li>Tasneem Alluhimi <a target='_blank' href='https://github.com/TasAlluhimi'>GitHub🔗</a></li>
-  <li>Maan Alraddadi <a target='_blank' href='https://github.com/MaanRaddadi'>GitHub🔗</a></li>
-  <li>Amwaj Aljohni <a target='_blank' href='https://github.com/Amwaj-M'>GitHub🔗</a></li>
+  <li>Tasneem Alluhimi <a target='_blank' href='https://github.com/TasAlluhimi'>GitHub🔗</a> <a target='_blank' href=''>LinkedIn🔗</a></li>
+  <li>Maan Alraddadi <a target='_blank' href='https://github.com/MaanRaddadi'>GitHub🔗</a> <a target='_blank' href=''>LinkedIn🔗</a></li>
+  <li>Amwaj Aljohni <a target='_blank' href='https://github.com/Amwaj-M'>GitHub🔗</a> <a target='_blank' href=''>LinkedIn🔗</a></li>
 </ul>
 
 
