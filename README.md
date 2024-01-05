@@ -139,6 +139,12 @@ Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76
     alt="User Main Menu - قائمة المستخدم الرئيسية">
 
 
+<h1>Most Popular PLaces List - قائمة الاماكن الاعلى تقييما</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787589934108672/most-popular-places.png?ex=65aa5902&is=6597e402&hm=8d298c37cc748b2aa1341b542e5ec416643e0799edcf82c80816ece703e8d342&" 
+    title='موجود بالصفحة الرئيسية'
+    alt="">
+
+
 <h1>User Favorite Places - الاماكن المفضلة للمستخدم</h1>
     <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787591746035742/user-fav-places.png?ex=65aa5902&is=6597e402&hm=644bb54e2ccdda17604bff4b9899d7d55cdd90e808d6148bb4d28bee5cee37e7&" 
     title='User Favorite Places - الاماكن المفضلة للمستخدم'
@@ -164,9 +170,67 @@ Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76
     title=''
     alt="">
 
-
-
 <h1>User Can Wirte a Comment and Rate any place - المستخدم يستطيع كتابه تعليق وتقييم أي مكان</h1>
     <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192793033163415632/image.png?ex=65aa5e14&is=6597e914&hm=83c6ab1f4081cd37b175f097d66f42e4e542daa4b1ef34bc96b5aa5103478580&" 
+    title=''
+    alt="">
+
+<h1>Easy Layout - الوضع السهل</h1>
+<h4>We created Easy Mode for users who may have difficulty handling the map or have hand disabilities.</h4>
+<h4>قمنا بانشاء الوضع السهل للمستخدمين الذين قد يعانون من صعوبه بالتعامل مع الخريطه او ذوي الاعاقه باليد</h4>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787477673558137/easy-layout.png?ex=65aa58e7&is=6597e3e7&hm=bb3ad8f6b928db9a478f48b65fa656cc2d7ecd69f8de6d7da87088503cc3ec00&" 
+    title='يمكن للمستخدم تغيير الوضع بدلا من استخدام الخريطه عن طريق القائمة الرئيسية ثم تغيير الوضع الى الوضع السهل'
+    alt="">
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787478097174579/easy-layout2.png?ex=65aa58e7&is=6597e3e7&hm=a8a676786e74b0d108c70171d2f48848268cdc09bc2d36377d06435890fa8166&" 
+    title='يمكن للمستخدم تغيير الوضع بدلا من استخدام الخريطه عن طريق القائمة الرئيسية ثم تغيير الوضع الى الوضع السهل'
+    alt="">
+
+<h1>User Can View Place Details in Easy Layout - المستخدم يستطيع عرض تفاصيل المكان بالوضع السهل</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787478508212314/easy-layout-place-details.png?ex=65aa58e7&is=6597e3e7&hm=26bd7545cae4aa9020b0245e8dba073f3b20b133193f8e3dbd6ed7226b111e11&" 
+    title='عن طريق الضغط على زر عرض'
+    alt="">
+
+<h1>Users Can Help Us By Adding New Places to The Map - يستطيع المستخدمون مساعدتنا عن طريق اضافه اماكن جديدة للخريطة</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787474783670343/add-new-place.png?ex=65aa58e6&is=6597e3e6&hm=42b3240f0c15f310c73a8698151772570ff985f4780f741660e00584bd19463f&" 
+    title='من القائمة الرئيسية يضغط المستخدم على اضافه مكان جديد'
+    alt="">
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787475475742771/add-new-place2.png?ex=65aa58e7&is=6597e3e7&hm=cb9815d7fe21ee2ced4e4f14d5f4899cf74e9f7704969fb631464dd6a46b89ca&" 
+    title='من القائمة الرئيسية يضغط المستخدم على اضافه مكان جديد'
+    alt="">
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787475727392800/add-new-place3.png?ex=65aa58e7&is=6597e3e7&hm=5ec4623f848823d0fb64410e8ef7df15c079f96bbcdc2493c1d1872ef0741f09&" 
+    title='من القائمة الرئيسية يضغط المستخدم على اضافه مكان جديد'
+    alt="">
+
+<hr/>
+
+<h1>Admin Dashoard - لوحة المعلومات ااخاصة بمدير النظام</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787476138430565/admin-home.png?ex=65aa58e7&is=6597e3e7&hm=dbe187c516dc92c626cf2db0bf6b278a03873d709c85aaa032ba74485423b26f&" 
+    title=''
+    alt="">
+
+<h1>Admin Main Menu - القائمة الرئيسية الخاصة بمدير النظام</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787476926963712/admin-main-menu.png?ex=65aa58e7&is=6597e3e7&hm=d1673ce397a5b1e8eca62095e724fc831bf79294c7d6fe236726dfe53152e93b&" 
+    title=''
+    alt="">
+
+<h1>Places List (In the Map) - قائمة الاماكن (الموجوده في الخريطة)</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787476629176330/admin-home2.png?ex=65aa58e7&is=6597e3e7&hm=9ec366af1cebae04715455fffb66f37f618375d2d161a44f3dc3c2487a6fe263&" 
+    title=''
+    alt="">
+
+<h1>Admin Rating for places - تقييم مدير النظام للاماكن</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192828060869865492/image.png?ex=65aa7eb3&is=659809b3&hm=0d14c203d5d33a5b96b62341c7d7c06de305842168c9931bebc216c50a480d68&" 
+    title=''
+    alt="">
+
+<h1>New Places Request for the Admin - قائمة الاماكن الجديدة لمدير النظام</h1>
+<h4>For new places so Admin can check if it is fits or not</h4>
+<h4>الاماكن الجديدة ليستطيع مدير النظام النظر في ما اذا كانت اماكن مناسبة ام لا</h4>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787477279281244/admin-new-requsts.png?ex=65aa58e7&is=6597e3e7&hm=056219791015407601cc39429f02e50327f63ab84145ccc52a773ce2c158f5a4&" 
+    title=''
+    alt="">
+<hr/>
+<h1>Error Page - صفحة الخطأ</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787589300752424/error-page.png?ex=65aa5902&is=6597e402&hm=196116875ed58503aa82054d484193817939f437f14510d5a1513f1d91b0f389&" 
     title=''
     alt="">
