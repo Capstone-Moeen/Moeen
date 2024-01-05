@@ -124,3 +124,9 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 
 <h2>Our design: (تصميمنا)</h2>
 Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76B/final?type=design&node-id=0%3A1&mode=design&t=Zvs4aYdX2GAj8khr-1'>Click me🔗</a>
+
+
+<hr/>
+
+<h1>User Home Page - صفحة المستخدم الرئيسية</h1>
+    <img src="../Final/Final/src/Assets/imgs/user-home-page.png" alt="">
