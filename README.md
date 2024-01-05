@@ -129,4 +129,44 @@ Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76
 <hr/>
 
 <h1>User Home Page - صفحة المستخدم الرئيسية</h1>
-    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787592081592370/user-home-page.png?ex=65aa5902&is=6597e402&hm=ccef0449758ee4675dbbf9a272c5c6987209fae965dca19aae51dc2c9fb68837&" alt="">
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787592081592370/user-home-page.png?ex=65aa5902&is=6597e402&hm=ccef0449758ee4675dbbf9a272c5c6987209fae965dca19aae51dc2c9fb68837&" 
+    title='User Home Page - صفحة المستخدم الرئيسية"'
+    alt="User Home Page - صفحة المستخدم الرئيسية">
+
+<h1>User Main Menu - قائمة المستخدم الرئيسية</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787592391954512/users-main-menu.png?ex=65aa5902&is=6597e402&hm=a18d7e47bf69a255cb7872113a7a7292a633248c696a05eca6dcd8aecded2a02&" 
+    title='User Main Menu - قائمة المستخدم الرئيسية'
+    alt="User Main Menu - قائمة المستخدم الرئيسية">
+
+
+<h1>User Favorite Places - الاماكن المفضلة للمستخدم</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787591746035742/user-fav-places.png?ex=65aa5902&is=6597e402&hm=644bb54e2ccdda17604bff4b9899d7d55cdd90e808d6148bb4d28bee5cee37e7&" 
+    title='User Favorite Places - الاماكن المفضلة للمستخدم'
+    alt="User Favorite Places - الاماكن المفضلة للمستخدم">
+
+
+<h1>Search Functionality - خاصية البحث</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787591079153784/search-functionality.png?ex=65aa5902&is=6597e402&hm=8de7861be588f3db66b51fe3a0a5fd853af60c12221b20aac4fa752fad183088&" 
+    title='Search Functionality - خاصية البحث'
+    alt="Search Functionality - خاصية البحث">
+
+<h1>User Can View Place Details - المستخدم يستطيع عرض تفاصيل المكان</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787650789245009/viewing-place-detials.png?ex=65aa5910&is=6597e410&hm=a405768fa74fe6c88e3a6941536e2e9f7ed9ae9d2f2f6853bd203b0dfc27bc67&" 
+    title='عن طريق الضغط على دبوس المكان'
+    alt="User Can View Place Details - المستخدم يستطيع عرض تفاصيل المكان">
+
+<h1>User Can View Place Rating Details and Comments - المستخدم يستطيع عرض تفاصيل تقييم المكان والتعليقات</h1>
+  <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787590265442314/raiting-place-details.png?ex=65aa5902&is=6597e402&hm=74d3216a4e193a2a166e4d65068f7ca478726d4c6f85e715b3c1a585a1097836&" 
+    title='عن طريق الضغط على كتابه تعليق'
+    alt="User Can View Place Rating Details and Comments - المستخدم يستطيع عرض تفاصيل تقييم المكان والتعليقات"/>
+
+  <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787590605185024/raiting-place-details2.png?ex=65aa5902&is=6597e402&hm=2b5b12c85e0dde623fdf03f1ba6231692edd3a7208c450a53a67bc590d2c9b47&" 
+    title=''
+    alt="">
+
+
+
+<h1>User Can Wirte a Comment and Rate any place - المستخدم يستطيع كتابه تعليق وتقييم أي مكان</h1>
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192793033163415632/image.png?ex=65aa5e14&is=6597e914&hm=83c6ab1f4081cd37b175f097d66f42e4e542daa4b1ef34bc96b5aa5103478580&" 
+    title=''
+    alt="">
