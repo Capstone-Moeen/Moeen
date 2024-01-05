@@ -129,4 +129,4 @@ Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76
 <hr/>
 
 <h1>User Home Page - صفحة المستخدم الرئيسية</h1>
-    <img src="../Final/Final/src/Assets/imgs/user-home-page.png" alt="">
+    <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787592081592370/user-home-page.png?ex=65aa5902&is=6597e402&hm=ccef0449758ee4675dbbf9a272c5c6987209fae965dca19aae51dc2c9fb68837&" alt="">
