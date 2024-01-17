@@ -1,10 +1,8 @@
-<div style='display: flex'>
  <h1>MOEEN ✨♿️</h1>
     <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1197206406269517855/logo-img.png?ex=65ba6c5a&is=65a7f75a&hm=926ebf57b3e5d0fe7aefecafb66e2d5649dc09e1966ecbf97961472f41eb11ca&" 
     title='MOEEN'
      width ='100px'
     alt="">
-</div>
 
 <h2>Project Description:</h2>
 Our website is an innovative online platform designed to assist individuals with special needs navigate public spaces. The platform aims to provide detailed information about accessible places to people with disabilities, addressing issues like parking facilities, ramps for wheelchair access, overall accessibility features, etc.
@@ -56,6 +54,11 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 <hr/>
 
 <h1>معين ✨♿️</h1>
+<img src="https://cdn.discordapp.com/attachments/1188506906172608582/1197206406269517855/logo-img.png?ex=65ba6c5a&is=65a7f75a&hm=926ebf57b3e5d0fe7aefecafb66e2d5649dc09e1966ecbf97961472f41eb11ca&" 
+    title='MOEEN'
+     width ='100px'
+    alt="">
+    
 <h2>وصف المشروع:</h2>
 
 
