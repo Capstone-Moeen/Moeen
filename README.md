@@ -111,6 +111,9 @@ Our website emerged as a solution, offering a comprehensive guide to disability-
 محمد، شخص مقعد من ذوي الاحتياجات الخاصة، كان يخطط للذهاب لأحد الأماكن العامة الموجودة في مدينة الرياض، وعند وصوله تفاجأ بعدم وجود مواقف مخصصة لذوي الاحتياجات الخاصة، فقرر الوقوف في المواقف العادية وتفاجأ بعدها بعدم وجود المنحدر المخصص للكرسي المتحرك، فشعر بالحزن حيث ان هذه ليست المرة الاولى التي يتكرر فيها هذا الموقف.
 
 موقع معين ساعد محمد بالعثور على حل لهذه المشكلة، الذي يهدف لتوفير معلومات مفصلة حول الأماكن المهيئة لذوي الاحتياجات الخاصة.
+<img src="https://cdn.discordapp.com/attachments/1188506906172608582/1188716362038771832/Untitled-2023-12-20-1842.png?ex=65b738e1&is=65a4c3e1&hm=230f6a806d0567765854b856067081432ffd7b8c57694c6a654f67c2f840f7ac&" 
+    title=''
+    alt=''>
 
 <hr/>
 
@@ -229,6 +232,18 @@ Figma: <a target='_blank' href='https://www.figma.com/file/TP2qqTpXkcjVp0W04zd76
     <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787477279281244/admin-new-requsts.png?ex=65aa58e7&is=6597e3e7&hm=056219791015407601cc39429f02e50327f63ab84145ccc52a773ce2c158f5a4&" 
     title=''
     alt="">
+<hr/>
+
+<h1>Sign In and Sign Up - تسجيل دخول وتسجيل جديد</h1>
+
+<img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787589653078127/log-in.png?ex=65b39382&is=65a11e82&hm=9d220a7d5cc684c0fbdfc3da4ddac90eb7ce2c5f043d8985bede4f1144a53948&" 
+    title=''
+    alt="">
+
+<img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787591469207622/sign-up.png?ex=65b39382&is=65a11e82&hm=f492b4a53091b4e9376829603554393674812e2ea43ecf9be32d3bdd19089e4e&" 
+    title=''
+    alt="">
+
 <hr/>
 <h1>Error Page - صفحة الخطأ</h1>
     <img src="https://cdn.discordapp.com/attachments/1188506906172608582/1192787589300752424/error-page.png?ex=65aa5902&is=6597e402&hm=196116875ed58503aa82054d484193817939f437f14510d5a1513f1d91b0f389&" 
